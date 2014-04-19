@@ -11,19 +11,19 @@ def nuevo_contenido(request):
         formulario= TipoContenidoForm(request.POST)
         if formulario.is_valid():
             formulario.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/contenidos/')
     else:
         formulario= TipoContenidoForm(request.POST)
     return render_to_response('HtmlPermisos/nuevocontenido.html',{'formulario':formulario}, context_instance=RequestContext(request))
 
 
 def editar_contenido(request, id_contenido):
-     contenido =User.objects.get(pk=id_contenido)
+     contenido =ContentType.objects.get(pk=id_contenido)
      if request.method=='POST':
         formulario =TipoContenidoForm(request.POST,instance=contenido)
         if formulario.is_valid():
             formulario.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/contenidos/')
      else:
         formulario = TipoContenidoForm(instance=contenido)
      return render_to_response('HtmlPermisos/editarcontenido.html',{'formulario':formulario}, context_instance=RequestContext(request))
@@ -62,4 +62,3 @@ def contenidos(request):
     return render_to_response('HtmlPermisos/contenidos.html',{'contenidos':contenidos_list,}, RequestContext(request, {
         'lines': users
     }))
-

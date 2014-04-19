@@ -44,8 +44,11 @@ urlpatterns = patterns('',
 
     #TIPO DE CONTENIDO
     url(r'^contenido/nuevo$', 'demo_app.AdminPermisos.views.nuevo_contenido'),
-    url(r'^contenido/editar', 'demo_app.AdminPermisos.views.editar_contenido'),
+    url(r'^contenido/editar/(?P<id_contenido>\d+)/$','demo_app.AdminPermisos.views.editar_contenido'),
     url(r'^contenidos/$', 'demo_app.AdminPermisos.views.contenidos'),
+
+
+
 
 
     #PROYECTO

@@ -131,7 +131,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'bootstrap_toolkit',
     'demo_project.demo_app',
-    'django_wysiwyg',
+    #'django_wysiwyg',
     #'bookmarks',
 )
 
@@ -173,15 +173,15 @@ LOGGING = {
 #BOOTSTRAP_JS_URL        = BOOTSTRAP_JS_BASE_URL + 'bootstrap.js'
 
 # Auto configure resources for editor flavors:
-if 'tinymce' in DJANGO_WYSIWYG_FLAVOR:
-    print("NOTE: Adding 'tinymce' to INSTALLED_APPS")
-    INSTALLED_APPS += (
-        'tinymce',
-    )
-elif 'ckeditor' in DJANGO_WYSIWYG_FLAVOR:
-    print("NOTE: Adding 'ckeditor' to INSTALLED_APPS")
-    INSTALLED_APPS += (
-        'ckeditor',
-    )
-    CKEDITOR_UPLOAD_PATH = MEDIA_ROOT
-
+# if 'tinymce' in DJANGO_WYSIWYG_FLAVOR:
+#     print("NOTE: Adding 'tinymce' to INSTALLED_APPS")
+#     INSTALLED_APPS += (
+#         'tinymce',
+#     )
+# elif 'ckeditor' in DJANGO_WYSIWYG_FLAVOR:
+#     print("NOTE: Adding 'ckeditor' to INSTALLED_APPS")
+#     INSTALLED_APPS += (
+#         'ckeditor',
+#     )
+#     CKEDITOR_UPLOAD_PATH = MEDIA_ROOT
+#
