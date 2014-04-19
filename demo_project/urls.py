@@ -46,6 +46,10 @@ urlpatterns = patterns('',
     url(r'^contenido/nuevo$', 'demo_app.AdminPermisos.views.nuevo_contenido'),
     url(r'^contenido/editar/(?P<id_contenido>\d+)/$','demo_app.AdminPermisos.views.editar_contenido'),
     url(r'^contenidos/$', 'demo_app.AdminPermisos.views.contenidos'),
+    url(r'^permisos/$', 'demo_app.AdminPermisos.views.permisos'),
+    url(r'^permiso/editar/(?P<id_permiso>\d+)/$','demo_app.AdminPermisos.views.editar_permiso'),
+    url(r'^permiso/nuevo$', 'demo_app.AdminPermisos.views.nuevo_permiso'),
+
 
 
 
