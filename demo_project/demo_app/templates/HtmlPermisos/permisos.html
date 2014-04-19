@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+
+{% block extra_head %}
+ <center>
+        <h1>Lista de Permisos</h1>
+    </center>
+{% endblock %}
+{% block content %}
+   <table>
+   <td style="width: 70%;margin-right: 0px; margin-left: 100%; ">
+        {{ lines|pagination }}
+   </td>
+
+
+
+   <td>
+<form id='formulario' method='post' action=''>{% csrf_token %}
+		     <table>
+                 <td><input type="text" placeholder="Nombre del Modelo" width="200px"></td>
+                 <td style="width: 20px"></td>
+		           <td><input class="btn btn-info btn-lrg" type='submit' value='Buscar'/></td>
+            </table>
+           </form>
+   </td></table>
+
+
+
+ <table class="table table-bordered table-condensed" >
+    <tr>
+        <th class="navbar-inner">Content Type</th>
+        <th class="navbar-inner">Nombre</th>
+        <th class="navbar-inner">Codigo</th>
+        <th class="navbar-inner">Accion</th>
+    </tr>
+    {% for dato in permisos %}
+    <tr>
+	    <td><em>{{dato.content_type}}</em></td>
+        <td >{{dato.name|capfirst}}</td>
+        <td>{{ dato.codename }}</td>
+        <td> <a href="{% url 'demo_app.AdminPermisos.views.editar_permiso' dato.id %}">Editar</a></td>
+
+
+	</tr>
+	{% endfor %}
+ </table>
+
+
+<br><br><br>
+
+
+
+{% endblock %}
