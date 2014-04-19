@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+
+{% block extra_head %}
+ <center>
+        <h1>Lista de Usuarios</h1>
+    </center>
+{% endblock %}
+{% block content %}
+
+    {{ lines|pagination }}
+
+
+
+ <table class="table table-bordered table-condensed" >
+    <tr>
+        <th class="navbar-inner">Username</th>
+        <th class="navbar-inner">Email</th>
+        <th class="navbar-inner">Nombre</th>
+        <th class="navbar-inner">Apellido</th>
+        <th class="navbar-inner">Activo</th>
+        <th class="navbar-inner">Accion</th>
+    </tr>
+    {% for dato in usuarios %}
+    <tr>
+	    <td >{{dato.username|capfirst}}</td>
+        <td><em>{{dato.email}}</em></td>
+        <td>{{ dato.first_name }}</td>
+        <td>{{ dato.last_name }}</td>
+        <td>{{ dato.is_active }}</td>
+        <td>
+            {% if dato.is_active %}
+                <a href="{% url 'demo_app.AdminUsuarios.views.desactivar_usuario' dato.id %}">Desactivar</a>
+            {% else %}
+                <a href="{% url 'demo_app.AdminUsuarios.views.activar_usuario' dato.id %}">Activar</a>
+            {% endif %}
+              - <a href="{% url 'demo_app.AdminUsuarios.views.editar_usuario' dato.id %}">Editar</a>
+        </td>
+
+	</tr>
+	{% endfor %}
+ </table>
+
+
+<br><br><br>
+
+
+
+{% endblock %}

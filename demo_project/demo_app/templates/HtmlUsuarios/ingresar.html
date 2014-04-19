@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Ingresa al sistema{% endblock %}
+<br><br>
+{% block extra_head %}
+	<br><br>
+    <center>
+    <h1>Ingresar</h1>
+    </center>
+{% endblock %}
+{% block content %}
+
+    <br>
+    <div class="container">
+    <center>
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+
+		<table>{{formulario}}</table>
+         <p>{{ msg }}</p>
+			<input class="btn btn-info" type='submit' value='Ingresar'/>
+	</form>
+    </center>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br>
+{% endblock %}
