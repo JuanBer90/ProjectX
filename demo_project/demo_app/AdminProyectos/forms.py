@@ -12,7 +12,7 @@ class ProyectoForm(forms.ModelForm):
     leader=forms.ModelChoiceField(queryset=User.objects.all())
     fecha_creacion=forms.DateTimeField()
     complejidad=forms.IntegerField(label="Complejidad")
-    nro_fases=forms.IntegerField(label="Numero de fases")
+    nro_fases=forms.IntegerField(min_value=1,label="Numero de fases")
     estado=forms.BooleanField(label="Estado")
     coste_total=forms.IntegerField(label="Coste Total")
 
