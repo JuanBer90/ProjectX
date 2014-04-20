@@ -55,6 +55,7 @@ urlpatterns = patterns('',
      url(r'^proyecto/nuevo$','demo_app.AdminProyectos.views.nuevo_proyecto'),
      url(r'^proyectos/$', 'demo_app.AdminProyectos.views.proyectos'),
      url(r'^proyecto/editar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.editar_proyecto'),
+     url(r'^proyecto/eliminar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.eliminar_proyecto'),
 )
 
 

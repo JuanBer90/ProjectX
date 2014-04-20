@@ -55,7 +55,8 @@
      <td>{{ dato.complejidad }}</td>
     <td>{{ dato.nro_fases }}</td>
     <td>{{ dato.coste_total }}</td>
-        <td> <a href="{% url 'demo_app.AdminProyectos.views.editar_proyecto' dato.id_proyecto %}">Editar</a></td>
+        <td> <a href="{% url 'demo_app.AdminProyectos.views.editar_proyecto' dato.id_proyecto %}">Editar</a>
+        -<a href="{% url 'demo_app.AdminProyectos.views.eliminar_proyecto' dato.id_proyecto %}">Eliminar</a></td>
 	</tr>
 	{% endfor %}
  </table>
