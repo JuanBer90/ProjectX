@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+
+{% block extra_head %}
+ <center>
+        <h1>Proyectos</h1>
+    </center>
+{% endblock %}
+{% block content %}
+   <table>
+   <td style="width: 70%;margin-right: 0px; margin-left: 100%; ">
+        {{ lines|pagination }}
+   </td>
+
+
+
+{#   <td>#}
+{#<form id='formulario' method='post' action=''>{% csrf_token %}#}
+{#		     <table>#}
+{#                 <td><input type="text" placeholder="Nombre del Modelo" width="200px"></td>#}
+{#                 <td style="width: 20px"></td>#}
+{#		           <td><input class="btn btn-info btn-lrg" type='submit' id="buscar" value='Buscar'/></td>#}
+{#            </table>#}
+{#           </form>#}
+{#   </td>#}
+{#   #}
+   </table>
+
+
+
+ <table class="table table-bordered table-condensed" >
+    <tr>
+        <th class="navbar-inner">Nombre</th>
+        <th class="navbar-inner">Leader</th>
+        <th class="navbar-inner">Estado</th>
+        <th class="navbar-inner">Fecha de Creacion</th>
+        <th class="navbar-inner">Complejidad</th>
+        <th class="navbar-inner">Nro Fases</th>
+        <th class="navbar-inner">Coste Total</th>
+        <th class="navbar-inner">Accion</th>
+    </tr>
+    {% for dato in proyectos %}
+    <tr>
+	    <td><em>{{dato.nombre}}</em></td>
+        <td >{{dato.leader}}</td>
+        <td>
+            {% if dato.estado  %}
+                Iniciado
+            {% else %}
+                Finalizado
+            {% endif%}
+        </td>
+        <td>{{ dato.fecha_creacion }}</td>
+     <td>{{ dato.complejidad }}</td>
+    <td>{{ dato.nro_fases }}</td>
+    <td>{{ dato.coste_total }}</td>
+        <td> <a href="{% url 'demo_app.AdminProyectos.views.editar_proyecto' dato.id_proyecto %}">Editar</a></td>
+	</tr>
+	{% endfor %}
+ </table>
+
+
+<br><br><br>
+
+
+
+{% endblock %}
