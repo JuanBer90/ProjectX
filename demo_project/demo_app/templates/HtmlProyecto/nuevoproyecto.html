@@ -9,6 +9,11 @@
     <center><h1>Nuevo Proyecto</h1></center>
     <br><br>
     <center>
+      Leader
+         <select>
+            <option value="volvo">{{ user.username }}</option>
+        </select>
+
 	<form id='formulario' method='post' action=''>{% csrf_token %}
 		<table>{{formulario}}</table>
 
