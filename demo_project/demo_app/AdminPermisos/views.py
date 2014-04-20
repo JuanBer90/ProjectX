@@ -90,8 +90,11 @@ def editar_permiso(request, id_permiso):
 
 
 def permisos(request):
+
+
     nro_lineas=10
     lines = []
+
     page = request.GET.get('page')
     permisos_total = Permission.objects.count()
     for i in range(permisos_total):
