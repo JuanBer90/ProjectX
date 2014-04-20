@@ -37,5 +37,3 @@ class PermisoForm(forms.ModelForm):
         if commit:
            permiso.save()
         return permiso
-
-
