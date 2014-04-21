@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
 from demo_project.demo_app.AdminPermisos.forms import TipoContenidoForm, PermisoForm
-
+from demo_project.demo_app.models import Proyecto
 
 
 def nuevo_contenido(request):
@@ -88,13 +88,22 @@ def editar_permiso(request, id_permiso):
         formulario = PermisoForm(instance=permiso)
      return render_to_response('HtmlPermisos/editarpermiso.html',{'formulario':formulario}, context_instance=RequestContext(request))
 
-
 def permisos(request):
     nro_lineas=10
     lines = []
     page = request.GET.get('page')
-    permisos_total = Permission.objects.count()
-    for i in range(permisos_total):
+    if request.method=='POST':
+        buscar=request.POST["buscar"]
+    else:
+        buscar = ''
+
+    if buscar == '':
+        proyectos_total = Permission.objects.count()
+    else:
+        permisos_list = Permission.objects.filter(name=buscar)
+        proyectos_total = permisos_list.count()
+
+    for i in range(proyectos_total):
         lines.append(u'Line %s' % (i + 1))
     paginator = Paginator(lines, nro_lineas)
     try:
@@ -102,25 +111,25 @@ def permisos(request):
     except:
         page=1
 
-    if int(page)*nro_lineas>permisos_total or int(page)>0:
+    if int(page)*nro_lineas>proyectos_total or int(page)>0:
         try:
-            users = paginator.page(page)
+            items = paginator.page(page)
             fin=int(page)*nro_lineas
             ini =fin-nro_lineas
         except PageNotAnInteger or EmptyPage:
             fin=nro_lineas
             ini=0
-            users = paginator.page(1)
+            items = paginator.page(1)
     else:
         fin=nro_lineas
         ini=0
-        users = paginator.page(1)
+        items = paginator.page(1)
+    if buscar == '':
+        proyectos_list = Permission.objects.order_by('name').all()[ini:fin]
+    else:
+        proyectos_list = Permission.objects.filter(name=buscar)[ini:fin]
 
-
-    permisos_list = Permission.objects.order_by('content_type').all()[ini:fin]
-
-    return render_to_response('HtmlPermisos/permisos.html',{'permisos':permisos_list}, RequestContext(request, {
-        'lines': users
+    return render_to_response('HtmlPermisos/permisos.html',{'permisos':proyectos_list}, RequestContext(request, {
+        'lines': items
     }))
-
 
