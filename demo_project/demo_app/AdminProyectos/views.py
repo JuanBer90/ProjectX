@@ -79,7 +79,6 @@ def proyectos(request):
     }))
 
 def eliminar_proyecto(request, id_proyecto):
-
     proyecto= Proyecto.objects.get(pk=id_proyecto)
     if request.method=='POST':
         delete= request.POST['delete']
@@ -90,6 +89,4 @@ def eliminar_proyecto(request, id_proyecto):
 
     return render_to_response('HtmlProyecto/eliminarproyecto.html',{'proyecto':proyecto},
                               context_instance=RequestContext(request))
-
-
 

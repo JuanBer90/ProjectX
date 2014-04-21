@@ -54,7 +54,14 @@ urlpatterns = patterns('',
     #PROYECTO
      url(r'^proyecto/nuevo$','demo_app.AdminProyectos.views.nuevo_proyecto'),
      url(r'^proyectos/$', 'demo_app.AdminProyectos.views.proyectos'),
+     #url(r'^proyectos/buscar/$', 'demo_app.AdminProyectos.views.buscar_proyectos'),
      url(r'^proyecto/editar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.editar_proyecto'),
+     url(r'^proyecto/eliminar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.eliminar_proyecto'),
+
+     #ROLES
+     url(r'^roles/$', 'demo_app.AdminRoles.views.roles'),
+     url(r'^rol/nuevo$','demo_app.AdminRoles.views.nuevo_rol'),
+     url(r'^rol/editar/(?P<idRol>\d+)/$','demo_app.AdminRoles.views.editar_rol'),
 )
 
 
