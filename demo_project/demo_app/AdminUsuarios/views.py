@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
 from demo_project.demo_app.AdminUsuarios.forms import RegistrationForm, EditUserForm
+from demo_project.demo_app.models import Rol, RolUser
 
 
 def nuevo_usuario(request):
@@ -120,8 +121,11 @@ def usuarios(request):
 
 
     usuarios_list = User.objects.order_by('username').all()[ini:fin]
-
-    return render_to_response('HtmlUsuarios/usuarios.html',{'usuarios':usuarios_list,}, RequestContext(request, {
+    roles=RolUser.objects.filter()
+    for r in roles:
+        print r.rol.descripcion
+        print r.user.username
+    return render_to_response('HtmlUsuarios/usuarios.html',{'usuarios':usuarios_list, 'roles':roles}, RequestContext(request, {
         'lines': users
     }))
 

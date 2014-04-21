@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block title %}Asignar Permiso al Rol{% endblock %}
+{% block extra_head %}
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Asignar Permiso al Rol</h1></center>
+    <br><br>
+    <center>
+    <h1>{{ hola }}</h1>
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+{#		<table>{{formulario}}</table>#}
+  <select name="rol_select">
+        {% for dato in rol_permiso %}
+{#            <option value="{{ dato.id_rol }}"> {{ dato.nombre }} </option>#}
+	    {% endfor %}
+</select>
+
+    <select name='user_select'>
+        {% for dato in users %}
+            <option value="{{ dato.id }}"> {{ dato.username }} </option>
+	    {% endfor %}
+</select>
+
+		<input class="btn btn-info" type='submit' value='Asignar'/>
+
+	</form>
+    </center>
+{% endblock %}

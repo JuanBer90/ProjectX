@@ -5,7 +5,7 @@ from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
 from demo_project.demo_app.AdminPermisos.forms import TipoContenidoForm, PermisoForm
 from demo_project.demo_app.AdminRoles.forms import RolUserForm, RolPermisoForm
-from demo_project.demo_app.models import Rol
+from demo_project.demo_app.models import Rol, RolUser
 from demo_project.demo_app.models import RolPermiso
 
 
@@ -450,17 +450,29 @@ def ver_rol(request,idRol):
 
     
 def nuevo_rol_user(request):
+    rol_permiso=Rol.objects.filter()
+    users=User.objects.filter()
+
     if request.method=='POST':
-        formulario= RolUserForm(request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            return HttpResponseRedirect('/roles/')
-    else:
-        formulario= RolUserForm(request.POST)
-    return render_to_response('HtmlRoles/nuevoroluser.html',{'formulario':formulario}, context_instance=RequestContext(request))
+        id_rol=request.POST.get('rol_select',-1)
+        id_user=request.POST.get('user_select',-1)
+        if id_rol == -1 or id_user == -1:
+            return render_to_response('HtmlRoles/nuevoroluser.html',{'users':users,'rol_permiso':rol_permiso}, context_instance=RequestContext(request))
+
+        rol=Rol.objects.get(pk=id_rol)
+        user=User.objects.get(pk=id_user)
+        rol_user=RolUser()
+        rol_user.rol=rol
+        rol_user.user=user
+        rol_user.save()
+
+        return HttpResponseRedirect('/roles/')
+
+    return render_to_response('HtmlRoles/nuevoroluser.html',{'users':users,'rol_permiso':rol_permiso}, context_instance=RequestContext(request))
 
 
 def nuevo_rol_permiso(request):
+
     if request.method=='POST':
         formulario= RolPermisoForm(request.POST)
         if formulario.is_valid():
