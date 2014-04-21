@@ -129,12 +129,54 @@ def nuevo_rol(request):
 
     return render_to_response('HtmlRoles/nuevorol.html',{}, context_instance=RequestContext(request))
 
+# def roles(request):
+#     nro_lineas=10
+#     lines = []
+#     page = request.GET.get('page')
+#     roles_total = Rol.objects.count()
+#     for i in range(roles_total):
+#         lines.append(u'Line %s' % (i + 1))
+#     paginator = Paginator(lines, nro_lineas)
+#     try:
+#         page=int(page)
+#     except:
+#         page=1
+#
+#     if int(page)*nro_lineas>roles_total or int(page)>0:
+#         try:
+#             users = paginator.page(page)
+#             fin=int(page)*nro_lineas
+#             ini =fin-nro_lineas
+#         except PageNotAnInteger or EmptyPage:
+#             fin=nro_lineas
+#             ini=0
+#             users = paginator.page(1)
+#     else:
+#         fin=nro_lineas
+#         ini=0
+#         users = paginator.page(1)
+#     roles_list = Rol.objects.order_by('nombre').all()[ini:fin]
+#
+#     return render_to_response('HtmlRoles/roles.html',{'roles':roles_list,}, RequestContext(request, {
+#         'lines': users
+#     }))
+
 def roles(request):
     nro_lineas=10
     lines = []
     page = request.GET.get('page')
-    roles_total = Rol.objects.count()
-    for i in range(roles_total):
+    if request.method=='POST':
+        buscar=request.POST["buscar"]
+    else:
+        buscar = ''
+
+    if buscar == '':
+        proyectos_total = Rol.objects.count()
+    else:
+        permisos_list = Rol.objects.filter(nombre=buscar)
+        proyectos_total = permisos_list.count()
+
+    for i in range(proyectos_total):
         lines.append(u'Line %s' % (i + 1))
     paginator = Paginator(lines, nro_lineas)
     try:
@@ -142,26 +184,27 @@ def roles(request):
     except:
         page=1
 
-    if int(page)*nro_lineas>roles_total or int(page)>0:
+    if int(page)*nro_lineas>proyectos_total or int(page)>0:
         try:
-            users = paginator.page(page)
+            items = paginator.page(page)
             fin=int(page)*nro_lineas
             ini =fin-nro_lineas
         except PageNotAnInteger or EmptyPage:
             fin=nro_lineas
             ini=0
-            users = paginator.page(1)
+            items = paginator.page(1)
     else:
         fin=nro_lineas
         ini=0
-        users = paginator.page(1)
-    roles_list = Rol.objects.order_by('nombre').all()[ini:fin]
+        items = paginator.page(1)
+    if buscar == '':
+        proyectos_list = Rol.objects.order_by('nombre').all()[ini:fin]
+    else:
+        proyectos_list = Rol.objects.filter(nombre=buscar)[ini:fin]
 
-    return render_to_response('HtmlRoles/roles.html',{'roles':roles_list,}, RequestContext(request, {
-        'lines': users
+    return render_to_response('HtmlRoles/roles.html',{'roles':proyectos_list}, RequestContext(request, {
+        'lines': items
     }))
-
-
 
 def editar_rol(request,idRol):
 
