@@ -4,11 +4,15 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
 from demo_project.demo_app.AdminPermisos.forms import TipoContenidoForm, PermisoForm
+from demo_project.demo_app.AdminRoles.forms import RolUserForm, RolPermisoForm
 from demo_project.demo_app.models import Rol
 from demo_project.demo_app.models import RolPermiso
 
 
 def nuevo_rol(request):
+    """
+        Crea el Rol con sus posibles permisos
+    """
     if request.method=='POST':
 
         rol_name=request.POST.get('rol_name','')
@@ -168,6 +172,9 @@ def nuevo_rol(request):
 #     }))
 
 def roles(request):
+    """
+    Buscador de Roles
+    """
     nro_lineas=10
     lines = []
     page = request.GET.get('page')
@@ -213,7 +220,9 @@ def roles(request):
     }))
 
 def editar_rol(request,idRol):
-
+    """
+    Edita los atributos de Roles y el Conjunto de Permisos asignados
+    """
     rol=Rol.objects.get(id_rol=idRol)
     permisos_rol=RolPermiso.objects.filter(rol=rol)
     codenames=[]
@@ -409,6 +418,9 @@ def editar_rol(request,idRol):
 
 
 def eliminar_rol(request, idRol):
+    """
+    Elimina Rol
+    """
     rol= Rol.objects.get(pk=idRol)
     if request.method=='POST':
         delete= request.POST['delete']
@@ -423,3 +435,37 @@ def eliminar_rol(request, idRol):
     return render_to_response('HtmlRoles/eliminarrol.html',{'rol':rol},
                               context_instance=RequestContext(request))
 
+
+
+
+def ver_rol(request,idRol):
+
+    rol=Rol.objects.get(id_rol=idRol)
+    permisos_rol=RolPermiso.objects.filter(rol=rol)
+    codenames=[]
+    for p in permisos_rol:
+        codenames.append(p.permiso.codename)
+
+    return render_to_response('HtmlRoles/verrol.html',{'rol':rol,'codenames':codenames}, context_instance=RequestContext(request))
+
+    
+def nuevo_rol_user(request):
+    if request.method=='POST':
+        formulario= RolUserForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return HttpResponseRedirect('/roles/')
+    else:
+        formulario= RolUserForm(request.POST)
+    return render_to_response('HtmlRoles/nuevoroluser.html',{'formulario':formulario}, context_instance=RequestContext(request))
+
+
+def nuevo_rol_permiso(request):
+    if request.method=='POST':
+        formulario= RolPermisoForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return HttpResponseRedirect('/roles/')
+    else:
+        formulario= RolPermisoForm(request.POST)
+    return render_to_response('HtmlRoles/nuevoroluser.html',{'formulario':formulario}, context_instance=RequestContext(request))

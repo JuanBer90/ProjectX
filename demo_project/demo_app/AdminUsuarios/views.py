@@ -12,6 +12,10 @@ from demo_project.demo_app.AdminUsuarios.forms import RegistrationForm, EditUser
 
 
 def nuevo_usuario(request):
+    """
+    Crea un nuevo Usuario con sus atributos proveidos por el
+    usuario y el Sistema autogenera los demas atributos
+    """
     if request.method=='POST':
         formulario= RegistrationForm(request.POST)
         if formulario.is_valid():
@@ -34,6 +38,9 @@ def editar_usuario(request, id_user):
      return render_to_response('HtmlUsuarios/editarusuario.html',{'formulario':formulario}, context_instance=RequestContext(request))
 
 def activar_usuario(request, id_user):
+    """
+    Vuelve activar a un Usuario que anteriomente fue desactivado
+    """
     usuario=User.objects.get(pk=id_user)
     usuario.is_active=True
     usuario.save()
@@ -41,6 +48,9 @@ def activar_usuario(request, id_user):
 
 
 def ingresar(request):
+    """
+    Login al Sistema
+    """
     if not request.user.is_anonymous():
         return HttpResponseRedirect('/privado')
     msg=''
@@ -77,6 +87,9 @@ def cerrar(request):
 
 
 def usuarios(request):
+    """
+    Lista de a 10 a los usuarios por pagina
+    """
     nro_lineas=10
     lines = []
 
@@ -113,14 +126,11 @@ def usuarios(request):
     }))
 
 def desactivar_usuario(request,id_user):
+    """
+    Desactiva al usuario de la lista
+    """
     usuario=User.objects.get(pk=id_user)
     usuario.is_active=False
-    usuario.save()
-    return HttpResponseRedirect('/usuarios')
-
-def activar_usuario(request, id_user):
-    usuario=User.objects.get(pk=id_user)
-    usuario.is_active=True
     usuario.save()
     return HttpResponseRedirect('/usuarios')
 

@@ -3,6 +3,9 @@ from django.contrib.auth.models import User, Permission
 
 
 class Proyecto(models.Model):
+    """
+    Modelo de Proyecto con su respectivo atributos
+    """
 
     class Meta:
         db_table='proyectos'
@@ -33,5 +36,14 @@ class RolPermiso(models.Model):
     id_rol_permiso=models.AutoField(primary_key=True)
     rol=models.ForeignKey(Rol,unique=False)
     permiso=models.ForeignKey(Permission)
+
+class RolUser(models.Model):
+    class Meta:
+        db_table='rol_user'
+    id_rol_user=models.AutoField(primary_key=True)
+    rol=models.OneToOneField(Rol,unique=True)
+    user=models.ForeignKey(User,unique=True)
+
+
 
 

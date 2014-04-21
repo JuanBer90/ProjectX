@@ -11,6 +11,10 @@ class Testing(TestCase):
         self.user=User.objects.create_user("Marcelo", "marcelo@gmail.com")
 
     def test_url(self):
+        """
+        test url ingresar
+        """
+
         resp=self.client.get('/ingresar/')
         self.assertEqual(resp.status_code, 200)
 
