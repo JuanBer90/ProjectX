@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
 from demo_project.demo_app.AdminPermisos.forms import TipoContenidoForm, PermisoForm
-
+from demo_project.demo_app.models import Proyecto
 
 
 def nuevo_contenido(request):
@@ -94,6 +94,7 @@ def permisos(request):
     lines = []
     page = request.GET.get('page')
     permisos_total = Permission.objects.count()
+
     for i in range(permisos_total):
         lines.append(u'Line %s' % (i + 1))
     paginator = Paginator(lines, nro_lineas)
@@ -117,9 +118,22 @@ def permisos(request):
         users = paginator.page(1)
 
 
-    permisos_list = Permission.objects.order_by('content_type').all()[ini:fin]
+    #permisos_list = Permission.objects.order_by('content_type').all()[ini:fin]
 
-    return render_to_response('HtmlPermisos/permisos.html',{'permisos':permisos_list}, RequestContext(request, {
+    if request.method=='POST':
+       buscar=request.POST["buscar"]
+
+       if buscar:
+            permisos_list = Permission.objects.filter(name=buscar)
+            p = permisos_list.count()
+
+    else:
+       permisos_list = Permission.objects.order_by('content_type').all()[ini:fin]
+       #permisos_list = Permission.objects.filter(name='Can add site')
+       #p =  Permission.objects.count(name='Can add site')
+       p =  permisos_list.count()
+
+    return render_to_response('HtmlPermisos/permisos.html',{'permisos':permisos_list, 'p':p}, RequestContext(request, {
         'lines': users
     }))
 
