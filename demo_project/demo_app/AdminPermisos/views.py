@@ -83,7 +83,7 @@ def editar_permiso(request, id_permiso):
         formulario = PermisoForm(request.POST,instance=permiso)
         if formulario.is_valid():
             formulario.save()
-            return HttpResponseRedirect('/contenidos/')
+            return HttpResponseRedirect('/permisos/')
      else:
         formulario = PermisoForm(instance=permiso)
      return render_to_response('HtmlPermisos/editarpermiso.html',{'formulario':formulario}, context_instance=RequestContext(request))

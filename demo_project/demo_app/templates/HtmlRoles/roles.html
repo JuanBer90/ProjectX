@@ -4,7 +4,7 @@
 
 {% block extra_head %}
  <center>
-        <h1>Proyectos</h1>
+        <h1>Roles</h1>
     </center>
 {% endblock %}
 {% block content %}
@@ -32,30 +32,14 @@
  <table class="table table-bordered table-condensed" >
     <tr>
         <th class="navbar-inner">Nombre</th>
-        <th class="navbar-inner">Leader</th>
-        <th class="navbar-inner">Estado</th>
-        <th class="navbar-inner">Fecha de Creacion</th>
-        <th class="navbar-inner">Complejidad</th>
-        <th class="navbar-inner">Nro Fases</th>
-        <th class="navbar-inner">Coste Total</th>
+        <th class="navbar-inner">Descripcion</th>
         <th class="navbar-inner">Accion</th>
     </tr>
-    {% for dato in proyectos %}
+    {% for dato in roles %}
     <tr>
 	    <td><em>{{dato.nombre}}</em></td>
-        <td >{{dato.leader}}</td>
-        <td>
-            {% if dato.estado  %}
-                Iniciado
-            {% else %}
-                Finalizado
-            {% endif%}
-        </td>
-        <td>{{ dato.fecha_creacion }}</td>
-     <td>{{ dato.complejidad }}</td>
-    <td>{{ dato.nro_fases }}</td>
-    <td>{{ dato.coste_total }}</td>
-        <td> <a href="{% url 'demo_app.AdminProyectos.views.editar_proyecto' dato.id_proyecto %}">Editar</a></td>
+        <td>{{ dato.descripcion }}</td>
+        <td> <a href="{% url 'demo_app.AdminRoles.views.editar_rol' dato.id_rol %}">Editar</a></td>
 	</tr>
 	{% endfor %}
  </table>

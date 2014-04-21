@@ -13,18 +13,18 @@
         {{ lines|pagination }}
    </td>
 
-
-
+{##}
+{##}
 {#   <td>#}
 {#<form id='formulario' method='post' action=''>{% csrf_token %}#}
 {#		     <table>#}
 {#                 <td><input type="text" placeholder="Nombre del Modelo" width="200px"></td>#}
 {#                 <td style="width: 20px"></td>#}
-{#		           <td><input class="btn btn-info btn-lrg" type='submit' id="buscar" value='Buscar'/></td>#}
+{#		           <td><input class="btn btn-info btn-lrg" type='submit' name="buscar" value='Buscar'/></td>#}
 {#            </table>#}
 {#           </form>#}
 {#   </td>#}
-{#   #}
+
    </table>
 
 
@@ -55,7 +55,8 @@
      <td>{{ dato.complejidad }}</td>
     <td>{{ dato.nro_fases }}</td>
     <td>{{ dato.coste_total }}</td>
-        <td> <a href="{% url 'demo_app.AdminProyectos.views.editar_proyecto' dato.id_proyecto %}">Editar</a></td>
+        <td> <a href="{% url 'demo_app.AdminProyectos.views.editar_proyecto' dato.id_proyecto %}">Editar</a>
+        -<a href="{% url 'demo_app.AdminProyectos.views.eliminar_proyecto' dato.id_proyecto %}">Eliminar</a></td>
 	</tr>
 	{% endfor %}
  </table>
