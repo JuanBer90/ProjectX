@@ -78,4 +78,18 @@ def proyectos(request):
         'lines': items
     }))
 
+def eliminar_proyecto(request, id_proyecto):
+
+    proyecto= Proyecto.objects.get(pk=id_proyecto)
+    if request.method=='POST':
+        delete= request.POST['delete']
+        if delete == 'si':
+            proyecto.delete()
+
+        return HttpResponseRedirect('/proyectos/')
+
+    return render_to_response('HtmlProyecto/eliminarproyecto.html',{'proyecto':proyecto},
+                              context_instance=RequestContext(request))
+
+
 
