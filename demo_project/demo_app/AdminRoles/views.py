@@ -380,3 +380,15 @@ def eliminar_rol(request, idRol):
     return render_to_response('HtmlRoles/eliminarrol.html',{'rol':rol},
                               context_instance=RequestContext(request))
 
+
+
+
+def ver_rol(request,idRol):
+
+    rol=Rol.objects.get(id_rol=idRol)
+    permisos_rol=RolPermiso.objects.filter(rol=rol)
+    codenames=[]
+    for p in permisos_rol:
+        codenames.append(p.permiso.codename)
+
+    return render_to_response('HtmlRoles/verrol.html',{'rol':rol,'codenames':codenames}, context_instance=RequestContext(request))
