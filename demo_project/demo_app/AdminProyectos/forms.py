@@ -9,6 +9,10 @@ from django.db import models
 
 
 class ProyectoForm(forms.ModelForm):
+    """
+    Atributos que el usuario deber completar para la creacion
+    de un nuevo proyecto
+    """
 
     #leader=forms.CharField(widget=TextInput(attrs={'readonly':'readonly'}),required=False)
     nombre=forms.CharField(widget=TextInput,max_length=30, label="Nombre del Proyecto")

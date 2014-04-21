@@ -9,6 +9,9 @@ from demo_project.demo_app.models import Proyecto
 
 
 def nuevo_proyecto(request):
+    """
+    Crea un nuevo proyecto
+    """
     user=request.user
     if request.method=='POST':
         formulario= ProyectoForm(request.POST)
