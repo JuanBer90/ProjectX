@@ -63,8 +63,6 @@ urlpatterns = patterns('',
      url(r'^rol/nuevo$','demo_app.AdminRoles.views.nuevo_rol'),
      url(r'^rol/editar/(?P<idRol>\d+)/$','demo_app.AdminRoles.views.editar_rol'),
      url(r'^rol/eliminar/(?P<idRol>\d+)/$','demo_app.AdminRoles.views.eliminar_rol'),
-     url(r'^rol/ver/(?P<idRol>\d+)/$','demo_app.AdminRoles.views.ver_rol'),
-
 )
 
 

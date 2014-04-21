@@ -3,6 +3,9 @@ from django.contrib.auth.models import User, Permission
 
 
 class Proyecto(models.Model):
+    """
+    Modelo de Proyecto con su respectivo atributos
+    """
 
     class Meta:
         db_table='proyectos'

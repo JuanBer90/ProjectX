@@ -9,6 +9,9 @@ from demo_project.demo_app.models import RolPermiso
 
 
 def nuevo_rol(request):
+    """
+        Crea el Rol con sus posibles permisos
+    """
     if request.method=='POST':
 
         rol_name=request.POST.get('rol_name','')
@@ -168,6 +171,9 @@ def nuevo_rol(request):
 #     }))
 
 def roles(request):
+    """
+    Buscador de Roles
+    """
     nro_lineas=10
     lines = []
     page = request.GET.get('page')
@@ -213,7 +219,9 @@ def roles(request):
     }))
 
 def editar_rol(request,idRol):
-
+    """
+    Edita los atributos de Roles y el Conjunto de Permisos asignados
+    """
     rol=Rol.objects.get(id_rol=idRol)
     permisos_rol=RolPermiso.objects.filter(rol=rol)
     codenames=[]
@@ -409,6 +417,9 @@ def editar_rol(request,idRol):
 
 
 def eliminar_rol(request, idRol):
+    """
+    Elimina Rol
+    """
     rol= Rol.objects.get(pk=idRol)
     if request.method=='POST':
         delete= request.POST['delete']
