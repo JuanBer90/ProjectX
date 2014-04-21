@@ -202,96 +202,153 @@ def editar_rol(request,idRol):
         elif not add_proyecto and a:
             permiso=Permission.objects.get(codename='add_proyecto')
             rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
-            rol_permiso.permiso=permiso
-            rol_permiso.rol=rol
-            rol_permiso.save()
+            rol_permiso.delete()
 
 
-
-
-        if edit_proyecto:
+        a='edit_proyecto' in codenames
+        if edit_proyecto and not a :
             permiso=Permission.objects.get(codename='edit_proyecto')
             rol_permiso=RolPermiso()
             rol_permiso.permiso=permiso
             rol_permiso.rol=rol
             rol_permiso.save()
+        elif not edit_proyecto and a:
+            permiso=Permission.objects.get(codename='edit_proyecto')
+            rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
+            rol_permiso.delete()
 
-        if delete_proyecto:
+        a='delete_proyecto' in codenames
+        if delete_proyecto and not a :
             permiso=Permission.objects.get(codename='delete_proyecto')
             rol_permiso=RolPermiso()
             rol_permiso.permiso=permiso
             rol_permiso.rol=rol
             rol_permiso.save()
+        elif not delete_proyecto and a:
+            permiso=Permission.objects.get(codename='delete_proyecto')
+            rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
+            rol_permiso.delete()
 
-        if add_fase:
+        a='add_fase' in codenames
+        if add_fase and not a :
             permiso=Permission.objects.get(codename='add_fase')
             rol_permiso=RolPermiso()
             rol_permiso.permiso=permiso
             rol_permiso.rol=rol
             rol_permiso.save()
+        elif not add_fase and a:
+            permiso=Permission.objects.get(codename='add_fase')
+            rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
+            rol_permiso.delete()
 
-        if edit_fase:
+        a='edit_fase' in codenames
+        if edit_fase and not a :
             permiso=Permission.objects.get(codename='edit_fase')
             rol_permiso=RolPermiso()
             rol_permiso.permiso=permiso
             rol_permiso.rol=rol
             rol_permiso.save()
+        elif not edit_fase and a:
+            permiso=Permission.objects.get(codename='edit_fase')
+            rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
+            rol_permiso.delete()
 
-        if delete_fase:
+        a='delete_fase' in codenames
+        if delete_fase and not a :
             permiso=Permission.objects.get(codename='delete_fase')
             rol_permiso=RolPermiso()
             rol_permiso.permiso=permiso
             rol_permiso.rol=rol
             rol_permiso.save()
+        elif not delete_fase and a:
+            permiso=Permission.objects.get(codename='delete_fase')
+            rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
+            rol_permiso.delete()
 
-        if add_item:
+        a='add_item' in codenames
+        if add_item and not a :
             permiso=Permission.objects.get(codename='add_item')
             rol_permiso=RolPermiso()
             rol_permiso.permiso=permiso
             rol_permiso.rol=rol
             rol_permiso.save()
+        elif not add_item and a:
+            permiso=Permission.objects.get(codename='add_item')
+            rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
+            rol_permiso.delete()
 
-        if edit_item:
+        a='edit_item' in codenames
+        if edit_item and not a :
             permiso=Permission.objects.get(codename='edit_item')
             rol_permiso=RolPermiso()
             rol_permiso.permiso=permiso
             rol_permiso.rol=rol
             rol_permiso.save()
+        elif not edit_item and a:
+            permiso=Permission.objects.get(codename='edit_item')
+            rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
+            rol_permiso.delete()
 
-        if delete_item:
+        a='delete_item' in codenames
+        if delete_item and not a :
             permiso=Permission.objects.get(codename='delete_item')
             rol_permiso=RolPermiso()
             rol_permiso.permiso=permiso
             rol_permiso.rol=rol
             rol_permiso.save()
+        elif not delete_item and a:
+            permiso=Permission.objects.get(codename='delete_item')
+            rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
+            rol_permiso.delete()
 
-        if revive_item:
+        a='revive_item' in codenames
+        if revive_item and not a :
             permiso=Permission.objects.get(codename='revive_item')
             rol_permiso=RolPermiso()
             rol_permiso.permiso=permiso
             rol_permiso.rol=rol
             rol_permiso.save()
+        elif not revive_item and a:
+            permiso=Permission.objects.get(codename='revive_item')
+            rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
+            rol_permiso.delete()
 
-        if add_rol:
+        a='add_rol' in codenames
+        if add_rol and not a :
             permiso=Permission.objects.get(codename='add_rol')
             rol_permiso=RolPermiso()
             rol_permiso.permiso=permiso
             rol_permiso.rol=rol
             rol_permiso.save()
+        elif not add_rol and a:
+            permiso=Permission.objects.get(codename='add_rol')
+            rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
+            rol_permiso.delete()
 
-        if edit_rol:
+        a='edit_rol' in codenames
+        if edit_rol and not a :
             permiso=Permission.objects.get(codename='edit_rol')
             rol_permiso=RolPermiso()
             rol_permiso.permiso=permiso
             rol_permiso.rol=rol
             rol_permiso.save()
+        elif not edit_rol and a:
+            permiso=Permission.objects.get(codename='edit_rol')
+            rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
+            rol_permiso.delete()
 
-        if delete_rol:
+        a='delete_rol' in codenames
+        if delete_rol and not a :
             permiso=Permission.objects.get(codename='delete_rol')
             rol_permiso=RolPermiso()
             rol_permiso.permiso=permiso
             rol_permiso.rol=rol
             rol_permiso.save()
+        elif not delete_rol and a:
+            permiso=Permission.objects.get(codename='edit_rol')
+            rol_permiso=RolPermiso.objects.get(rol=rol,permiso=permiso)
+            rol_permiso.delete()
+
         return HttpResponseRedirect('/roles/')
 
 
