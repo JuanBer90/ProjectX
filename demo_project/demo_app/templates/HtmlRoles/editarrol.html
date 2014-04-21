@@ -19,6 +19,15 @@
 </script>
 {% endblock %}
 {% block content %}
+ {% if rol_ya %}
+<center>
+<div style="width: 300px"    class="alert alert-warning alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <strong>Alerta!</strong> Ya existe un rol con ese nombre!
+</div>
+</center>
+    {% endif %}
+
     <br>
     <center><h1>Editar Rol</h1></center>
     <br><br>

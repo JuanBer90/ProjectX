@@ -13,6 +13,12 @@ def nuevo_rol(request):
 
         rol_name=request.POST.get('rol_name','')
         rol_descripcion=request.POST.get('rol_description','')
+
+        aux_total = Rol.objects.filter(nombre=rol_name)
+        existe = aux_total.count()
+        if existe > 0 :
+            return render_to_response('HtmlRoles/nuevorol.html',{'rol_ya':True}, context_instance=RequestContext(request))
+
         rol=Rol()
         rol.descripcion=rol_descripcion
         rol.nombre=rol_name
@@ -124,7 +130,7 @@ def nuevo_rol(request):
             rol_permiso.rol=rol_saved
             rol_permiso.save()
 
-#         return HttpResponseRedirect('/roles/')
+        return HttpResponseRedirect('/roles/')
 
 
     return render_to_response('HtmlRoles/nuevorol.html',{}, context_instance=RequestContext(request))
@@ -173,6 +179,10 @@ def editar_rol(request,idRol):
 
     if request.method=='POST':
         rol_name=request.POST.get('rol_name','')
+        aux_total = Rol.objects.filter(nombre=rol_name)
+        existe = aux_total.count()
+        if existe > 1 :
+            return render_to_response('HtmlRoles/editarrol.html',{'rol':rol,'codenames':codenames,'rol_ya':True}, context_instance=RequestContext(request))
         rol_descripcion=request.POST.get('rol_description','')
         rol.descripcion=rol_descripcion
         rol.nombre=rol_name
@@ -353,3 +363,20 @@ def editar_rol(request,idRol):
 
 
     return render_to_response('HtmlRoles/editarrol.html',{'rol':rol,'codenames':codenames}, context_instance=RequestContext(request))
+
+
+def eliminar_rol(request, idRol):
+    rol= Rol.objects.get(pk=idRol)
+    if request.method=='POST':
+        delete= request.POST['delete']
+        if delete == 'si':
+             permisos_rol=RolPermiso.objects.filter(rol=rol)
+             for p in permisos_rol:
+                p.delete()
+             rol.delete()
+
+        return HttpResponseRedirect('/roles/')
+
+    return render_to_response('HtmlRoles/eliminarrol.html',{'rol':rol},
+                              context_instance=RequestContext(request))
+
