@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
 from demo_project.demo_app.AdminPermisos.forms import TipoContenidoForm, PermisoForm
+from demo_project.demo_app.AdminRoles.forms import RolUserForm, RolPermisoForm
 from demo_project.demo_app.models import Rol
 from demo_project.demo_app.models import RolPermiso
 
@@ -435,3 +436,25 @@ def ver_rol(request,idRol):
         codenames.append(p.permiso.codename)
 
     return render_to_response('HtmlRoles/verrol.html',{'rol':rol,'codenames':codenames}, context_instance=RequestContext(request))
+
+    
+def nuevo_rol_user(request):
+    if request.method=='POST':
+        formulario= RolUserForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return HttpResponseRedirect('/roles/')
+    else:
+        formulario= RolUserForm(request.POST)
+    return render_to_response('HtmlRoles/nuevoroluser.html',{'formulario':formulario}, context_instance=RequestContext(request))
+
+
+def nuevo_rol_permiso(request):
+    if request.method=='POST':
+        formulario= RolPermisoForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return HttpResponseRedirect('/roles/')
+    else:
+        formulario= RolPermisoForm(request.POST)
+    return render_to_response('HtmlRoles/nuevoroluser.html',{'formulario':formulario}, context_instance=RequestContext(request))

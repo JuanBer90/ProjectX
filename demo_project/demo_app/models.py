@@ -34,4 +34,13 @@ class RolPermiso(models.Model):
     rol=models.ForeignKey(Rol,unique=False)
     permiso=models.ForeignKey(Permission)
 
+class RolUser(models.Model):
+    class Meta:
+        db_table='rol_user'
+    id_rol_user=models.AutoField(primary_key=True)
+    rol=models.OneToOneField(Rol,unique=True)
+    user=models.ForeignKey(User,unique=True)
+
+
+
 
