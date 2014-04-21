@@ -11,7 +11,8 @@ from demo_project import settings
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'demo_project.views.home', name='home'),
+    #url(r'^$', 'demo_project.views.home', name='home'),
+    url(r'^$', 'demo_project.demo_app.AdminUsuarios.views.ingresar', name='home'),
     # url(r'^demo_project/', include('demo_project.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -20,7 +21,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^admin$', include(admin.admin.site.urls)),
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name="home"),
+    #url(r'^$', TemplateView.as_view(template_name='index.html'), name="home"),
+    #url(r'^$', TemplateView.as_view(template_name='index.html'), name="home"),
     url(r'^contact$', TemplateView.as_view(template_name='contact.html'), name="contact"),
     url(r'^form$', 'demo_app.views.demo_form'),
     url(r'^form_template$', 'demo_app.views.demo_form_with_template'),
@@ -32,6 +34,7 @@ urlpatterns = patterns('',
     url(r'^buttons$', TemplateView.as_view(template_name='buttons.html'), name="buttons"),
 
     #USUARIOS
+
     url(r'^ingresar/$','demo_app.AdminUsuarios.views.ingresar'),
     url(r'^privado/$','demo_app.AdminUsuarios.views.privado'),
     url(r'^cerrar/$', 'demo_app.AdminUsuarios.views.cerrar'),
@@ -54,7 +57,6 @@ urlpatterns = patterns('',
     #PROYECTO
      url(r'^proyecto/nuevo$','demo_app.AdminProyectos.views.nuevo_proyecto'),
      url(r'^proyectos/$', 'demo_app.AdminProyectos.views.proyectos'),
-     #url(r'^proyectos/buscar/$', 'demo_app.AdminProyectos.views.buscar_proyectos'),
      url(r'^proyecto/editar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.editar_proyecto'),
      url(r'^proyecto/eliminar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.eliminar_proyecto'),
 
