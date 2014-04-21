@@ -55,6 +55,11 @@ urlpatterns = patterns('',
      url(r'^proyecto/nuevo$','demo_app.AdminProyectos.views.nuevo_proyecto'),
      url(r'^proyectos/$', 'demo_app.AdminProyectos.views.proyectos'),
      url(r'^proyecto/editar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.editar_proyecto'),
+
+
+     #ROLES
+     url(r'^rol/nuevo$','demo_app.AdminRoles.views.nuevo_rol'),
+     url(r'^roles/$', 'demo_app.AdminRoles.views.roles'),
 )
 
 
