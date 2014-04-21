@@ -452,13 +452,17 @@ def ver_rol(request,idRol):
 def nuevo_rol_user(request):
     rol_permiso=Rol.objects.filter()
     users=User.objects.filter()
+    msg=''
 
     if request.method=='POST':
         id_rol=request.POST.get('rol_select',-1)
         id_user=request.POST.get('user_select',-1)
         if id_rol == -1 or id_user == -1:
             return render_to_response('HtmlRoles/nuevoroluser.html',{'users':users,'rol_permiso':rol_permiso}, context_instance=RequestContext(request))
-
+        aux=RolUser.objects.count()
+        if aux > 0:
+            msg='Este Usuario ya posee un Rol'
+            return render_to_response('HtmlRoles/nuevoroluser.html',{'users':users,'rol_permiso':rol_permiso, 'msg':msg}, context_instance=RequestContext(request))
         rol=Rol.objects.get(pk=id_rol)
         user=User.objects.get(pk=id_user)
         rol_user=RolUser()
@@ -468,7 +472,7 @@ def nuevo_rol_user(request):
 
         return HttpResponseRedirect('/roles/')
 
-    return render_to_response('HtmlRoles/nuevoroluser.html',{'users':users,'rol_permiso':rol_permiso}, context_instance=RequestContext(request))
+    return render_to_response('HtmlRoles/nuevoroluser.html',{'users':users,'rol_permiso':rol_permiso, 'msg':msg}, context_instance=RequestContext(request))
 
 
 def nuevo_rol_permiso(request):

@@ -125,7 +125,7 @@ def permisos(request):
         ini=0
         items = paginator.page(1)
     if buscar == '':
-        proyectos_list = Permission.objects.order_by('name').all()[ini:fin]
+        proyectos_list = Permission.objects.order_by('content_type').all()[ini:fin]
     else:
         proyectos_list = Permission.objects.filter(name=buscar)[ini:fin]
 

@@ -5,6 +5,12 @@
 
 {% endblock %}
 {% block content %}
+    {% if msg != '' %}
+    <div style="width: 300px"    class="alert alert-warning alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <strong>Alerta!</strong> {{ msg }}!
+</div>
+    {% endif %}
     <br>
     <center><h1>Asignar Rol a un Usuario</h1></center>
     <br><br>
