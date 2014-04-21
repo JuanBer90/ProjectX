@@ -88,14 +88,22 @@ def editar_permiso(request, id_permiso):
         formulario = PermisoForm(instance=permiso)
      return render_to_response('HtmlPermisos/editarpermiso.html',{'formulario':formulario}, context_instance=RequestContext(request))
 
-
 def permisos(request):
     nro_lineas=10
     lines = []
     page = request.GET.get('page')
-    permisos_total = Permission.objects.count()
+    if request.method=='POST':
+        buscar=request.POST["buscar"]
+    else:
+        buscar = ''
 
-    for i in range(permisos_total):
+    if buscar == '':
+        proyectos_total = Permission.objects.count()
+    else:
+        permisos_list = Permission.objects.filter(name=buscar)
+        proyectos_total = permisos_list.count()
+
+    for i in range(proyectos_total):
         lines.append(u'Line %s' % (i + 1))
     paginator = Paginator(lines, nro_lineas)
     try:
@@ -103,38 +111,25 @@ def permisos(request):
     except:
         page=1
 
-    if int(page)*nro_lineas>permisos_total or int(page)>0:
+    if int(page)*nro_lineas>proyectos_total or int(page)>0:
         try:
-            users = paginator.page(page)
+            items = paginator.page(page)
             fin=int(page)*nro_lineas
             ini =fin-nro_lineas
         except PageNotAnInteger or EmptyPage:
             fin=nro_lineas
             ini=0
-            users = paginator.page(1)
+            items = paginator.page(1)
     else:
         fin=nro_lineas
         ini=0
-        users = paginator.page(1)
-
-
-    #permisos_list = Permission.objects.order_by('content_type').all()[ini:fin]
-
-    if request.method=='POST':
-       buscar=request.POST["buscar"]
-
-       if buscar:
-            permisos_list = Permission.objects.filter(name=buscar)
-            p = permisos_list.count()
-
+        items = paginator.page(1)
+    if buscar == '':
+        proyectos_list = Permission.objects.order_by('name').all()[ini:fin]
     else:
-       permisos_list = Permission.objects.order_by('content_type').all()[ini:fin]
-       #permisos_list = Permission.objects.filter(name='Can add site')
-       #p =  Permission.objects.count(name='Can add site')
-       p =  permisos_list.count()
+        proyectos_list = Permission.objects.filter(name=buscar)[ini:fin]
 
-    return render_to_response('HtmlPermisos/permisos.html',{'permisos':permisos_list, 'p':p}, RequestContext(request, {
-        'lines': users
+    return render_to_response('HtmlPermisos/permisos.html',{'permisos':proyectos_list}, RequestContext(request, {
+        'lines': items
     }))
-
 
