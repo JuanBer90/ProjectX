@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
-
+from django.contrib.auth.models import User, Permission
 
 
 class Proyecto(models.Model):
@@ -19,7 +18,7 @@ class Proyecto(models.Model):
     descripcion = models.CharField(max_length=300)
 
 
-from django.db import models
+
 class Rol(models.Model):
     class Meta:
         db_table='roles'
@@ -27,4 +26,12 @@ class Rol(models.Model):
     id_rol=models.AutoField(primary_key=True)
     nombre=models.CharField(max_length=30, unique=True)
     descripcion=models.CharField(max_length=300)
+
+class RolPermiso(models.Model):
+    class Meta:
+        db_table='rol_permisos'
+    id_rol_permiso=models.AutoField(primary_key=True)
+    rol=models.ForeignKey(Rol,unique=False)
+    permiso=models.ForeignKey(Permission)
+
 
