@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>demo_project.demo_app.models</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="demo_project.demo_app-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;demo_project ::
+        <a href="demo_project.demo_app-module.html">Package&nbsp;demo_app</a> ::
+        Module&nbsp;models
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="demo_project.demo_app.models-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="demo_project.demo_app.models-module.html">Module demo_project.demo_app.models</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">db</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module demo_project.demo_app.AdminPermisos.models=demo_project.demo_app.AdminPermisos.models-module.html,Module demo_project.demo_app.AdminProyectos.models=demo_project.demo_app.AdminProyectos.models-module.html,Module demo_project.demo_app.AdminRoles.models=demo_project.demo_app.AdminRoles.models-module.html,Module demo_project.demo_app.AdminUsuarios.models=demo_project.demo_app.AdminUsuarios.models-module.html,Module demo_project.demo_app.models=demo_project.demo_app.models-module.html"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-0', 'models', 'link-0');">models</a></tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">contrib</tt><tt class="py-op">.</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-1', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt class="py-name">User</tt><tt class="py-op">,</tt> <tt class="py-name">Permission</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"> </tt>
+<a name="Proyecto"></a><div id="Proyecto-def"><a name="L5"></a><tt class="py-lineno"> 5</tt> <a class="py-toggle" href="#" id="Proyecto-toggle" onclick="return toggle('Proyecto');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="demo_project.demo_app.models.Proyecto-class.html">Proyecto</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Proyecto-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="Proyecto-expanded"><a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-docstring">    Modelo de Proyecto con su respectivo atributos</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"> </tt>
+<a name="Proyecto.Meta"></a><div id="Proyecto.Meta-def"><a name="L10"></a><tt class="py-lineno">10</tt> <a class="py-toggle" href="#" id="Proyecto.Meta-toggle" onclick="return toggle('Proyecto.Meta');">-</a><tt class="py-line">    <tt class="py-keyword">class</tt> <a class="py-def-name" href="demo_project.demo_app.models.Proyecto.Meta-class.html">Meta</a><tt class="py-op">:</tt> </tt>
+</div><div id="Proyecto.Meta-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Proyecto.Meta-expanded"><a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line">        <tt id="link-2" class="py-name" targets="Variable demo_project.demo_app.models.Proyecto.Meta.db_table=demo_project.demo_app.models.Proyecto.Meta-class.html#db_table,Variable demo_project.demo_app.models.Rol.Meta.db_table=demo_project.demo_app.models.Rol.Meta-class.html#db_table,Variable demo_project.demo_app.models.RolPermiso.Meta.db_table=demo_project.demo_app.models.RolPermiso.Meta-class.html#db_table,Variable demo_project.demo_app.models.RolUser.Meta.db_table=demo_project.demo_app.models.RolUser.Meta-class.html#db_table"><a title="demo_project.demo_app.models.Proyecto.Meta.db_table
+demo_project.demo_app.models.Rol.Meta.db_table
+demo_project.demo_app.models.RolPermiso.Meta.db_table
+demo_project.demo_app.models.RolUser.Meta.db_table" class="py-name" href="#" onclick="return doclink('link-2', 'db_table', 'link-2');">db_table</a></tt><tt class="py-op">=</tt><tt class="py-string">'proyectos'</tt> </tt>
+</div><a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line">    <tt id="link-3" class="py-name" targets="Variable demo_project.demo_app.models.Proyecto.id_proyecto=demo_project.demo_app.models.Proyecto-class.html#id_proyecto"><a title="demo_project.demo_app.models.Proyecto.id_proyecto" class="py-name" href="#" onclick="return doclink('link-3', 'id_proyecto', 'link-3');">id_proyecto</a></tt><tt class="py-op">=</tt><tt id="link-4" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-4', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">AutoField</tt><tt class="py-op">(</tt><tt class="py-name">primary_key</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">    <tt id="link-5" class="py-name" targets="Variable demo_project.demo_app.AdminProyectos.forms.ProyectoForm.nombre=demo_project.demo_app.AdminProyectos.forms.ProyectoForm-class.html#nombre,Variable demo_project.demo_app.models.Proyecto.nombre=demo_project.demo_app.models.Proyecto-class.html#nombre,Variable demo_project.demo_app.models.Rol.nombre=demo_project.demo_app.models.Rol-class.html#nombre"><a title="demo_project.demo_app.AdminProyectos.forms.ProyectoForm.nombre
+demo_project.demo_app.models.Proyecto.nombre
+demo_project.demo_app.models.Rol.nombre" class="py-name" href="#" onclick="return doclink('link-5', 'nombre', 'link-5');">nombre</a></tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-6', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">30</tt><tt class="py-op">,</tt> <tt class="py-name">unique</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">    <tt id="link-7" class="py-name" targets="Variable demo_project.demo_app.models.Proyecto.leader=demo_project.demo_app.models.Proyecto-class.html#leader"><a title="demo_project.demo_app.models.Proyecto.leader" class="py-name" href="#" onclick="return doclink('link-7', 'leader', 'link-7');">leader</a></tt><tt class="py-op">=</tt><tt id="link-8" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-8', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt class="py-name">User</tt><tt class="py-op">,</tt><tt class="py-name">unique</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line">    <tt id="link-9" class="py-name" targets="Variable demo_project.demo_app.models.Proyecto.fecha_creacion=demo_project.demo_app.models.Proyecto-class.html#fecha_creacion"><a title="demo_project.demo_app.models.Proyecto.fecha_creacion" class="py-name" href="#" onclick="return doclink('link-9', 'fecha_creacion', 'link-9');">fecha_creacion</a></tt><tt class="py-op">=</tt> <tt id="link-10" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-10', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateTimeField</tt><tt class="py-op">(</tt><tt class="py-name">auto_now</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">    <tt id="link-11" class="py-name" targets="Variable demo_project.demo_app.AdminProyectos.forms.ProyectoForm.complejidad=demo_project.demo_app.AdminProyectos.forms.ProyectoForm-class.html#complejidad,Variable demo_project.demo_app.models.Proyecto.complejidad=demo_project.demo_app.models.Proyecto-class.html#complejidad"><a title="demo_project.demo_app.AdminProyectos.forms.ProyectoForm.complejidad
+demo_project.demo_app.models.Proyecto.complejidad" class="py-name" href="#" onclick="return doclink('link-11', 'complejidad', 'link-11');">complejidad</a></tt><tt class="py-op">=</tt><tt id="link-12" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-12', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">IntegerField</tt><tt class="py-op">(</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line">    <tt id="link-13" class="py-name" targets="Variable demo_project.demo_app.models.Proyecto.estado=demo_project.demo_app.models.Proyecto-class.html#estado"><a title="demo_project.demo_app.models.Proyecto.estado" class="py-name" href="#" onclick="return doclink('link-13', 'estado', 'link-13');">estado</a></tt><tt class="py-op">=</tt><tt id="link-14" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-14', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">BooleanField</tt><tt class="py-op">(</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line">    <tt id="link-15" class="py-name" targets="Variable demo_project.demo_app.AdminProyectos.forms.ProyectoForm.nro_fases=demo_project.demo_app.AdminProyectos.forms.ProyectoForm-class.html#nro_fases,Variable demo_project.demo_app.models.Proyecto.nro_fases=demo_project.demo_app.models.Proyecto-class.html#nro_fases"><a title="demo_project.demo_app.AdminProyectos.forms.ProyectoForm.nro_fases
+demo_project.demo_app.models.Proyecto.nro_fases" class="py-name" href="#" onclick="return doclink('link-15', 'nro_fases', 'link-15');">nro_fases</a></tt><tt class="py-op">=</tt><tt id="link-16" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-16', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">IntegerField</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line">    <tt id="link-17" class="py-name" targets="Variable demo_project.demo_app.models.Proyecto.coste_total=demo_project.demo_app.models.Proyecto-class.html#coste_total"><a title="demo_project.demo_app.models.Proyecto.coste_total" class="py-name" href="#" onclick="return doclink('link-17', 'coste_total', 'link-17');">coste_total</a></tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-18', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">IntegerField</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">    <tt id="link-19" class="py-name" targets="Variable demo_project.demo_app.AdminProyectos.forms.ProyectoForm.descripcion=demo_project.demo_app.AdminProyectos.forms.ProyectoForm-class.html#descripcion,Variable demo_project.demo_app.models.Proyecto.descripcion=demo_project.demo_app.models.Proyecto-class.html#descripcion,Variable demo_project.demo_app.models.Rol.descripcion=demo_project.demo_app.models.Rol-class.html#descripcion"><a title="demo_project.demo_app.AdminProyectos.forms.ProyectoForm.descripcion
+demo_project.demo_app.models.Proyecto.descripcion
+demo_project.demo_app.models.Rol.descripcion" class="py-name" href="#" onclick="return doclink('link-19', 'descripcion', 'link-19');">descripcion</a></tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-20', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">300</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"> </tt>
+<a name="Rol"></a><div id="Rol-def"><a name="L25"></a><tt class="py-lineno">25</tt> <a class="py-toggle" href="#" id="Rol-toggle" onclick="return toggle('Rol');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="demo_project.demo_app.models.Rol-class.html">Rol</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Rol-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="Rol-expanded"><a name="Rol.Meta"></a><div id="Rol.Meta-def"><a name="L26"></a><tt class="py-lineno">26</tt> <a class="py-toggle" href="#" id="Rol.Meta-toggle" onclick="return toggle('Rol.Meta');">-</a><tt class="py-line">    <tt class="py-keyword">class</tt> <a class="py-def-name" href="demo_project.demo_app.models.Rol.Meta-class.html">Meta</a><tt class="py-op">:</tt> </tt>
+</div><div id="Rol.Meta-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Rol.Meta-expanded"><a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">        <tt id="link-21" class="py-name"><a title="demo_project.demo_app.models.Proyecto.Meta.db_table
+demo_project.demo_app.models.Rol.Meta.db_table
+demo_project.demo_app.models.RolPermiso.Meta.db_table
+demo_project.demo_app.models.RolUser.Meta.db_table" class="py-name" href="#" onclick="return doclink('link-21', 'db_table', 'link-2');">db_table</a></tt><tt class="py-op">=</tt><tt class="py-string">'roles'</tt> </tt>
+</div><a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt id="link-22" class="py-name" targets="Variable demo_project.demo_app.models.Rol.id_rol=demo_project.demo_app.models.Rol-class.html#id_rol"><a title="demo_project.demo_app.models.Rol.id_rol" class="py-name" href="#" onclick="return doclink('link-22', 'id_rol', 'link-22');">id_rol</a></tt><tt class="py-op">=</tt><tt id="link-23" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-23', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">AutoField</tt><tt class="py-op">(</tt><tt class="py-name">primary_key</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt id="link-24" class="py-name"><a title="demo_project.demo_app.AdminProyectos.forms.ProyectoForm.nombre
+demo_project.demo_app.models.Proyecto.nombre
+demo_project.demo_app.models.Rol.nombre" class="py-name" href="#" onclick="return doclink('link-24', 'nombre', 'link-5');">nombre</a></tt><tt class="py-op">=</tt><tt id="link-25" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-25', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">30</tt><tt class="py-op">,</tt> <tt class="py-name">unique</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">    <tt id="link-26" class="py-name"><a title="demo_project.demo_app.AdminProyectos.forms.ProyectoForm.descripcion
+demo_project.demo_app.models.Proyecto.descripcion
+demo_project.demo_app.models.Rol.descripcion" class="py-name" href="#" onclick="return doclink('link-26', 'descripcion', 'link-19');">descripcion</a></tt><tt class="py-op">=</tt><tt id="link-27" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-27', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">300</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"> </tt>
+<a name="RolPermiso"></a><div id="RolPermiso-def"><a name="L33"></a><tt class="py-lineno">33</tt> <a class="py-toggle" href="#" id="RolPermiso-toggle" onclick="return toggle('RolPermiso');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="demo_project.demo_app.models.RolPermiso-class.html">RolPermiso</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RolPermiso-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="RolPermiso-expanded"><a name="RolPermiso.Meta"></a><div id="RolPermiso.Meta-def"><a name="L34"></a><tt class="py-lineno">34</tt> <a class="py-toggle" href="#" id="RolPermiso.Meta-toggle" onclick="return toggle('RolPermiso.Meta');">-</a><tt class="py-line">    <tt class="py-keyword">class</tt> <a class="py-def-name" href="demo_project.demo_app.models.RolPermiso.Meta-class.html">Meta</a><tt class="py-op">:</tt> </tt>
+</div><div id="RolPermiso.Meta-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="RolPermiso.Meta-expanded"><a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">        <tt id="link-28" class="py-name"><a title="demo_project.demo_app.models.Proyecto.Meta.db_table
+demo_project.demo_app.models.Rol.Meta.db_table
+demo_project.demo_app.models.RolPermiso.Meta.db_table
+demo_project.demo_app.models.RolUser.Meta.db_table" class="py-name" href="#" onclick="return doclink('link-28', 'db_table', 'link-2');">db_table</a></tt><tt class="py-op">=</tt><tt class="py-string">'rol_permisos'</tt> </tt>
+</div><a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt id="link-29" class="py-name" targets="Variable demo_project.demo_app.models.RolPermiso.id_rol_permiso=demo_project.demo_app.models.RolPermiso-class.html#id_rol_permiso"><a title="demo_project.demo_app.models.RolPermiso.id_rol_permiso" class="py-name" href="#" onclick="return doclink('link-29', 'id_rol_permiso', 'link-29');">id_rol_permiso</a></tt><tt class="py-op">=</tt><tt id="link-30" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-30', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">AutoField</tt><tt class="py-op">(</tt><tt class="py-name">primary_key</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">    <tt id="link-31" class="py-name" targets="Variable demo_project.demo_app.AdminRoles.forms.RolPermisoForm.rol=demo_project.demo_app.AdminRoles.forms.RolPermisoForm-class.html#rol,Variable demo_project.demo_app.AdminRoles.forms.RolUserForm.rol=demo_project.demo_app.AdminRoles.forms.RolUserForm-class.html#rol,Variable demo_project.demo_app.models.RolPermiso.rol=demo_project.demo_app.models.RolPermiso-class.html#rol,Variable demo_project.demo_app.models.RolUser.rol=demo_project.demo_app.models.RolUser-class.html#rol"><a title="demo_project.demo_app.AdminRoles.forms.RolPermisoForm.rol
+demo_project.demo_app.AdminRoles.forms.RolUserForm.rol
+demo_project.demo_app.models.RolPermiso.rol
+demo_project.demo_app.models.RolUser.rol" class="py-name" href="#" onclick="return doclink('link-31', 'rol', 'link-31');">rol</a></tt><tt class="py-op">=</tt><tt id="link-32" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-32', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt id="link-33" class="py-name" targets="Class demo_project.demo_app.models.Rol=demo_project.demo_app.models.Rol-class.html"><a title="demo_project.demo_app.models.Rol" class="py-name" href="#" onclick="return doclink('link-33', 'Rol', 'link-33');">Rol</a></tt><tt class="py-op">,</tt><tt class="py-name">unique</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">    <tt id="link-34" class="py-name" targets="Variable demo_project.demo_app.AdminRoles.forms.RolPermisoForm.permiso=demo_project.demo_app.AdminRoles.forms.RolPermisoForm-class.html#permiso,Variable demo_project.demo_app.models.RolPermiso.permiso=demo_project.demo_app.models.RolPermiso-class.html#permiso"><a title="demo_project.demo_app.AdminRoles.forms.RolPermisoForm.permiso
+demo_project.demo_app.models.RolPermiso.permiso" class="py-name" href="#" onclick="return doclink('link-34', 'permiso', 'link-34');">permiso</a></tt><tt class="py-op">=</tt><tt id="link-35" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-35', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt class="py-name">Permission</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"> </tt>
+<a name="RolUser"></a><div id="RolUser-def"><a name="L40"></a><tt class="py-lineno">40</tt> <a class="py-toggle" href="#" id="RolUser-toggle" onclick="return toggle('RolUser');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="demo_project.demo_app.models.RolUser-class.html">RolUser</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RolUser-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="RolUser-expanded"><a name="RolUser.Meta"></a><div id="RolUser.Meta-def"><a name="L41"></a><tt class="py-lineno">41</tt> <a class="py-toggle" href="#" id="RolUser.Meta-toggle" onclick="return toggle('RolUser.Meta');">-</a><tt class="py-line">    <tt class="py-keyword">class</tt> <a class="py-def-name" href="demo_project.demo_app.models.RolUser.Meta-class.html">Meta</a><tt class="py-op">:</tt> </tt>
+</div><div id="RolUser.Meta-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="RolUser.Meta-expanded"><a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt id="link-36" class="py-name"><a title="demo_project.demo_app.models.Proyecto.Meta.db_table
+demo_project.demo_app.models.Rol.Meta.db_table
+demo_project.demo_app.models.RolPermiso.Meta.db_table
+demo_project.demo_app.models.RolUser.Meta.db_table" class="py-name" href="#" onclick="return doclink('link-36', 'db_table', 'link-2');">db_table</a></tt><tt class="py-op">=</tt><tt class="py-string">'rol_user'</tt> </tt>
+</div><a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">    <tt id="link-37" class="py-name" targets="Variable demo_project.demo_app.models.RolUser.id_rol_user=demo_project.demo_app.models.RolUser-class.html#id_rol_user"><a title="demo_project.demo_app.models.RolUser.id_rol_user" class="py-name" href="#" onclick="return doclink('link-37', 'id_rol_user', 'link-37');">id_rol_user</a></tt><tt class="py-op">=</tt><tt id="link-38" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-38', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">AutoField</tt><tt class="py-op">(</tt><tt class="py-name">primary_key</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">    <tt id="link-39" class="py-name"><a title="demo_project.demo_app.AdminRoles.forms.RolPermisoForm.rol
+demo_project.demo_app.AdminRoles.forms.RolUserForm.rol
+demo_project.demo_app.models.RolPermiso.rol
+demo_project.demo_app.models.RolUser.rol" class="py-name" href="#" onclick="return doclink('link-39', 'rol', 'link-31');">rol</a></tt><tt class="py-op">=</tt><tt id="link-40" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-40', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">OneToOneField</tt><tt class="py-op">(</tt><tt id="link-41" class="py-name"><a title="demo_project.demo_app.models.Rol" class="py-name" href="#" onclick="return doclink('link-41', 'Rol', 'link-33');">Rol</a></tt><tt class="py-op">,</tt><tt class="py-name">unique</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">    <tt id="link-42" class="py-name" targets="Variable demo_project.demo_app.AdminRoles.forms.RolUserForm.user=demo_project.demo_app.AdminRoles.forms.RolUserForm-class.html#user,Variable demo_project.demo_app.models.RolUser.user=demo_project.demo_app.models.RolUser-class.html#user"><a title="demo_project.demo_app.AdminRoles.forms.RolUserForm.user
+demo_project.demo_app.models.RolUser.user" class="py-name" href="#" onclick="return doclink('link-42', 'user', 'link-42');">user</a></tt><tt class="py-op">=</tt><tt id="link-43" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-43', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt class="py-name">User</tt><tt class="py-op">,</tt><tt class="py-name">unique</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="demo_project.demo_app-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Mon Apr 21 13:50:05 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -459,18 +459,20 @@ def nuevo_rol_user(request):
         id_user=request.POST.get('user_select',-1)
         if id_rol == -1 or id_user == -1:
             return render_to_response('HtmlRoles/nuevoroluser.html',{'users':users,'rol_permiso':rol_permiso}, context_instance=RequestContext(request))
-        aux=RolUser.objects.count()
+        user=User.objects.get(pk=id_user)
+        aux_roles=RolUser.objects.filter(user_id=id_user)
+        aux=aux_roles.count()
         if aux > 0:
             msg='Este Usuario ya posee un Rol'
             return render_to_response('HtmlRoles/nuevoroluser.html',{'users':users,'rol_permiso':rol_permiso, 'msg':msg}, context_instance=RequestContext(request))
         rol=Rol.objects.get(pk=id_rol)
-        user=User.objects.get(pk=id_user)
+        #user=User.objects.get(pk=id_user)
         rol_user=RolUser()
         rol_user.rol=rol
         rol_user.user=user
         rol_user.save()
 
-        return HttpResponseRedirect('/roles/')
+        return HttpResponseRedirect('/usuarios/')
 
     return render_to_response('HtmlRoles/nuevoroluser.html',{'users':users,'rol_permiso':rol_permiso, 'msg':msg}, context_instance=RequestContext(request))
 
