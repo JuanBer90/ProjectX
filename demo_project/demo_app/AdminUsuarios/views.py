@@ -17,6 +17,11 @@ def nuevo_usuario(request):
     Crea un nuevo Usuario con sus atributos proveidos por el
     usuario y el Sistema autogenera los demas atributos
     """
+    user=request.user
+    print 'SUPER USUARIO? :'+str(user.is_superuser)+'\n Username: '+user.username
+    if not user.is_superuser:
+          return HttpResponseRedirect('/sinpermiso/')
+
     if request.method=='POST':
         formulario= RegistrationForm(request.POST)
         if formulario.is_valid():
@@ -28,6 +33,9 @@ def nuevo_usuario(request):
 
 
 def editar_usuario(request, id_user):
+     user=request.user
+     if not user.is_superuser:
+          return HttpResponseRedirect('/sinpermiso/')
      usuario=User.objects.get(pk=id_user)
      if request.method=='POST':
         formulario =EditUserForm(request.POST,instance=usuario)
@@ -42,6 +50,9 @@ def activar_usuario(request, id_user):
     """
     Vuelve activar a un Usuario que anteriomente fue desactivado
     """
+    user=request.user
+    if not user.is_superuser:
+          return HttpResponseRedirect('/sinpermiso/')
     usuario=User.objects.get(pk=id_user)
     usuario.is_active=True
     usuario.save()
@@ -70,7 +81,6 @@ def ingresar(request):
             else:
                msg='Username y/o password Incorrecto/s'
                return render_to_response('HtmlUsuarios/ingresar.html',{'formulario':formulario ,'msg':msg}, context_instance=RequestContext(request))
-                #return render_to_response('HtmlUsuarios/nousuario.html', context_instance=RequestContext(request))
     else:
         formulario = AuthenticationForm()
     return render_to_response('HtmlUsuarios/ingresar.html',{'formulario':formulario}, context_instance=RequestContext(request))
@@ -91,6 +101,9 @@ def usuarios(request):
     """
     Lista de a 10 a los usuarios por pagina
     """
+    user=request.user
+    if not user.is_superuser:
+          return HttpResponseRedirect('/sinpermiso/')
     nro_lineas=10
     lines = []
 
@@ -121,10 +134,10 @@ def usuarios(request):
 
 
     usuarios_list = User.objects.order_by('username').all()[ini:fin]
-    roles=RolUser.objects.filter()
-    for r in roles:
-        print r.rol.descripcion
-        print r.user.username
+    roles=RolUser.objects.all()
+    # for r in roles:
+    #     print r.rol.descripcion
+    #     print r.user.username
     return render_to_response('HtmlUsuarios/usuarios.html',{'usuarios':usuarios_list, 'roles':roles}, RequestContext(request, {
         'lines': users
     }))
@@ -133,6 +146,7 @@ def desactivar_usuario(request,id_user):
     """
     Desactiva al usuario de la lista
     """
+
     usuario=User.objects.get(pk=id_user)
     usuario.is_active=False
     usuario.save()

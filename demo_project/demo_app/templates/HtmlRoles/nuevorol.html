@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap_toolkit %}
-{% block titulo %}Nuevo Rol{% endblock %}
+{% block titulo %}{{ modo }} Rol{% endblock %}
 {% block extra_head %}
 <script type="text/javascript">
     function marcar(source)
@@ -27,7 +27,7 @@
 </div>
 </center>
     {% endif %}
-    <center><h1>Nuevo Rol</h1></center>
+    <center><h1>{{ modo }} Rol</h1></center>
     <br>
     <center>
 
@@ -38,11 +38,11 @@
         <table>
             <tr>
                 <th>Nombre: </th>
-                <td><input type="text" required="" name="rol_name" width="100px"></td>
+                <td><input type="text" required=""  value="{{ rol.nombre }}" name="rol_name" width="100px"></td>
             </tr>
             <tr>
                 <th>Descripcion: </th>
-                <td><input type="text" required=""  name="rol_description" width="100px"></td>
+                <td><input type="text" required="" value="{{ rol.descripcion }}"  name="rol_description" width="100px"></td>
             </tr>
         </table>
 
@@ -64,75 +64,131 @@
 
         <table class="table-bordered ">
             <tr>
-                <td style="width: 200px; height: 100px" rowspan="4" class="navbar-inner"><center><b>PROYECTO</b></center>
+                <td style="width: 200px; height: 100px" rowspan="5" class="navbar-inner"><center><b>PROYECTO</b></center>
                     </b><p>El usuario tendra permiso sobre este proyecto</p>    </td>
                 <tr>
                     <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Crear Proyecto</p></td>
-                    <td style="width: 50px"><center><input type="checkbox" name="add_proyecto"></center></td>
+                    <td style="width: 50px"><center><input type="checkbox" {% if permiso.add_project  %} checked {% endif %}  name="add_proyecto"></center></td>
                 </tr>
                 <tr>
                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Modificar Proyecto</p></td>
-                    <td style="width: 50px"><center><input type="checkbox" name="edit_proyecto"> </center></td>
+                    <td style="width: 50px"><center><input type="checkbox" {% if permiso.edit_project  %} checked {% endif %} name="edit_proyecto"> </center></td>
                 </tr>
                 <tr>
                     <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Eliminar Proyecto</p></td>
-                   <td style="width: 50px"><center><input type="checkbox" name="delete_proyecto"></center></td>
+                   <td style="width: 50px"><center><input type="checkbox" {% if permiso.delete_project  %} checked {% endif %} name="delete_proyecto"></center></td>
+                </tr>
+                <tr>
+                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Consultar Proyecto</p></td>
+                   <td style="width: 50px"><center><input type="checkbox" {% if permiso.consultar_project  %} checked {% endif %} name="consultar_proyecto"></center></td>
                 </tr>
             </tr>
             <tr>
-              <td style="width: 200px; height: 100px" rowspan="4" class="navbar-inner"><center><b>FASES</b></center>
-                    </b><p>El usuario tendra permiso sobre esta Fase</p>    </td>
+              <td style="width: 200px; height: 100px" rowspan="2" class="navbar-inner"><center><b>FASES</b></center>
+                    </b><p>El usuario Podra ver Fases</p>    </td>
                 <tr>
-                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Crear Fases</p></td>
-                    <td style="width: 50px"><center><input type="checkbox" name="add_fase"></center></td>
-                </tr>
-                <tr>
-                   <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Modificar Fases</p></td>
-                    <td style="width: 50px"><center><input type="checkbox" name="edit_fase"></center></td>
-                </tr>
-                <tr>
-                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Eliminar Fases</p></td>
-                   <td style="width: 50px"><center><input type="checkbox" name="delete_fase"></center></td>
+                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Ver Fases</p></td>
+                    <td style="width: 50px"><center><input {% if permiso.ver_fase %} checked {% endif %} type="checkbox" name="ver_fase"></center></td>
                 </tr>
               </tr>
+
              <tr>
-             <td style="width: 200px; height: 100px" rowspan="5" class="navbar-inner"><center><b>ITEMS</b></center>
+
+             <td style="width: 200px; height: 100px" rowspan="7" class="navbar-inner"><center><b>ITEMS</b></center>
                     </b><p>El usuario tendra permiso sobre items de este proyecto</p>    </td>
                 <tr>
                     <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Crear Items</p></td>
-                    <td style="width: 50px"><center><input type="checkbox" name="add_item"></center></td>
+                    <td style="width: 50px"><center><input {% if permiso.add_item  %} checked {% endif %} type="checkbox" name="add_item"></center></td>
                 </tr>
                 <tr>
                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Modificar Items</p></td>
-                    <td style="width: 50px"><center><input type="checkbox" name="edit_item"></center></td>
+                    <td style="width: 50px"><center><input type="checkbox" {% if permiso.edit_item  %} checked {% endif %} name="edit_item"></center></td>
                 </tr>
                 <tr>
                     <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Eliminar Items</p></td>
-                   <td style="width: 50px"><center><input type="checkbox" name="delete_item"></center></td>
+                   <td style="width: 50px"><center><input type="checkbox" {% if permiso.delete_item  %} checked {% endif %} name="delete_item"></center></td>
                 </tr>
                 <tr>
                     <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Revivir Items</p></td>
-                   <td style="width: 50px"><center><input type="checkbox" name="revive_item"></center></td>
+                   <td style="width: 50px"><center><input type="checkbox" {% if permiso.revive_item  %} checked {% endif %} name="revive_item"></center></td>
+                </tr>
+                <tr>
+                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Consultar Items</p></td>
+                   <td style="width: 50px"><center><input type="checkbox" {% if permiso.consultar_item  %} checked {% endif %} name="consultar_item"></center></td>
+                </tr>
+                <tr>
+                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Relacionar Items</p></td>
+                   <td style="width: 50px"><center><input type="checkbox" {% if permiso.relacionar_item  %} checked {% endif %} name="relacionar_item"></center></td>
+                </tr>
+              </tr>
+              <tr>
+              <td style="width: 200px; height: 100px" rowspan="4" class="navbar-inner"><center><b>TIPO DE ITEMS</b></center>
+                    </b><p>El usuario Podra Administrar Tipos de Items</p>    </td>
+                <tr>
+                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Crear Tipo de Item</p></td>
+                    <td style="width: 50px"><center><input type="checkbox" {% if permiso.add_tipo_item  %} checked {% endif %} name="add_tipo_item"></center></td>
+                </tr>
+                 <tr>
+                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Modificar Tipo de Item</p></td>
+                    <td style="width: 50px"><center><input type="checkbox" {% if permiso.edit_tipo_item  %} checked {% endif %} name="edit_tipo_item"></center></td>
+                </tr>
+                 <tr>
+                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Eliminar Tipo de Item</p></td>
+                    <td style="width: 50px"><center><input type="checkbox" {% if permiso.delete_tipo_item  %} checked {% endif %} name="delete_tipo_item"></center></td>
                 </tr>
 
+
               </tr>
-        <td style="width: 200px; height: 100px" rowspan="5" class="navbar-inner"><center><b>ROLES</b></center>
+
+        <td style="width: 200px; height: 100px" rowspan="7" class="navbar-inner"><center><b>ROLES</b></center>
                     </b><p>El usuario podra administrar roles mediante estos permisos</p>    </td>
                 <tr>
                     <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Crear Roles</p></td>
-                    <td style="width: 50px"><center><input type="checkbox" name="add_rol"></center></td>
+                    <td style="width: 50px"><center><input type="checkbox" {% if permiso.add_rol  %} checked {% endif %} name="add_rol"></center></td>
                 </tr>
                 <tr>
                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Modificar Roles</p></td>
-                    <td style="width: 50px"><center><input type="checkbox" name="edit_rol"></center></td>
+                    <td style="width: 50px"><center><input type="checkbox" {% if permiso.edit_rol  %} checked {% endif %} name="edit_rol"></center></td>
                 </tr>
                 <tr>
                     <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Eliminar Roles</p></td>
-                   <td style="width: 50px"><center><input type="checkbox" name="delete_rol"></center></td>
+                   <td style="width: 50px"><center><input type="checkbox" {% if permiso.delete_rol  %} checked {% endif %} name="delete_rol"></center></td>
+                </tr>
+                <tr>
+                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Consultar Roles</p></td>
+                   <td style="width: 50px"><center><input type="checkbox" {% if permiso.consultar_rol  %} checked {% endif %} name="consultar_rol"></center></td>
+                </tr>
+                <tr>
+                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Asignar Roles</p></td>
+                   <td style="width: 50px"><center><input type="checkbox" {% if permiso.asignar_rol  %} checked {% endif %} name="asignar_rol"></center></td>
+                </tr>
+                <tr>
+                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Desasignar Roles</p></td>
+                   <td style="width: 50px"><center><input type="checkbox" {% if permiso.desasignar_rol  %} checked {% endif %} name="desasignar_rol"></center></td>
                 </tr>
 
 
               </tr>
+                <td style="width: 200px; height: 100px" rowspan="5" class="navbar-inner"><center><b>Usuarios</b></center>
+                    </b><p>El usuario tendra permiso para Administrar Usuarios</p>    </td>
+                <tr>
+                    <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Crear Usuarios</p></td>
+                    <td style="width: 50px"><center><input type="checkbox" {% if permiso.add_user  %} checked {% endif %} name="add_user"></center></td>
+                </tr>
+                <tr>
+                   <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Modificar Usuarios</p></td>
+                    <td style="width: 50px"><center><input type="checkbox" {% if permiso.edit_user  %} checked {% endif %} name="edit_user"></center></td>
+                </tr>
+                <tr>
+                   <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Desactivar Usuarios</p></td>
+                    <td style="width: 50px"><center><input type="checkbox" {% if permiso.delete_user  %} checked {% endif %} name="delete_user"></center></td>
+                </tr>
+             <tr>
+                   <td style="width: 200px; border: 3px"><p style=" margin-left: 30px;">Consultar Usuarios</p></td>
+                    <td style="width: 50px"><center><input type="checkbox" {% if permiso.consultar_user  %} checked {% endif %} name="consultar_user"></center></td>
+                </tr>
+            </tr>
+
 
 
         </table>

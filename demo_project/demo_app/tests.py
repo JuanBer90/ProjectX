@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class Testing(TestCase):
 
     def setUp(self):
-        self.user=User.objects.create_user("Marcelo", "marcelo@gmail.com")
+        self.user=User.objects.create_user("juanber", "juanber@juanber.com")
 
     def test_url(self):
         """
@@ -22,7 +22,7 @@ class Testing(TestCase):
         """
         Testing de comparacion de usuario
         """
-        user1 = User.objects.get(username="Marcelo")
+        user1 = User.objects.get(username="juanber")
         self.assertEquals(self.user.email, user1.email)
 
     def tearDown(self):

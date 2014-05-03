@@ -33,8 +33,8 @@
 {#    for r in roles:#}
 {#        print r.rol.descripcion#}
 {#        print r.user.username#}
-
-        <td> {% for r in roles %}
+{##}
+          <td> {% for r in roles %}
               {% if r.user.id == dato.id %}
                   <a href="{% url 'demo_app.AdminRoles.views.ver_rol' r.rol.id_rol %}" target="_blank">{{ r.rol.nombre }}</a>
                {% endif %}

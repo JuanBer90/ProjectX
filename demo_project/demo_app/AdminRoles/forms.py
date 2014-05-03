@@ -22,37 +22,37 @@ from django.forms.widgets import TextInput,Textarea
 #         if commit:
 #            rol.save()
 #         return rol
-from demo_project.demo_app.models import Rol, RolUser, RolPermiso
+from demo_project.demo_app.models import Rol
 from django.db import models
 
 
-
-class RolUserForm(forms.ModelForm):
-
-    # rol=forms.ModelChoiceField(queryset=Rol.objects.all())
-    # user=forms.ModelChoiceField(queryset=User.objects.all())
-    rol = models.OneToOneField(Rol)
-    user = models.OneToOneField(User)
-
-    class Meta:
-        model = RolUser
-        fields = ['rol','user']
-
-    def save(self, commit=True):
-        rol_user = super(RolUserForm, self).save(commit=False)
-        if commit:
-           rol_user.save()
-        return rol_user
-
-class RolPermisoForm(forms.ModelForm):
-    rol = forms.ModelChoiceField(queryset=Rol.objects.all().order_by('nombre'))
-    permiso = forms.ModelChoiceField(queryset=Permission.objects.all())
-    class Meta:
-        model = RolPermiso
-
-    def save(self, commit=True):
-        rol_user = super(RolPermisoForm, self).save(commit=False)
-        if commit:
-           rol_user.save()
-        return rol_user
-
+#
+# class RolUserForm(forms.ModelForm):
+#
+#     # rol=forms.ModelChoiceField(queryset=Rol.objects.all())
+#     # user=forms.ModelChoiceField(queryset=User.objects.all())
+#     rol = models.OneToOneField(Rol)
+#     user = models.OneToOneField(User)
+#
+#     class Meta:
+#         model = RolUser
+#         fields = ['rol','user']
+#
+#     def save(self, commit=True):
+#         rol_user = super(RolUserForm, self).save(commit=False)
+#         if commit:
+#            rol_user.save()
+#         return rol_user
+#
+# class RolPermisoForm(forms.ModelForm):
+#     rol = forms.ModelChoiceField(queryset=Rol.objects.all().order_by('nombre'))
+#     permiso = forms.ModelChoiceField(queryset=Permission.objects.all())
+#     class Meta:
+#         model = RolPermiso
+#
+#     def save(self, commit=True):
+#         rol_user = super(RolPermisoForm, self).save(commit=False)
+#         if commit:
+#            rol_user.save()
+#         return rol_user
+#

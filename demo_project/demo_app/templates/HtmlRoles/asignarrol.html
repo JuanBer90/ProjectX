@@ -23,7 +23,7 @@
     <td>
      <label>Escoja un Rol</label>
   <select name="rol_select" required="">
-        {% for dato in rol_permiso %}
+        {% for dato in rol %}
             <option value="{{ dato.id_rol }}"> {{ dato.nombre }} </option>
 	    {% endfor %}
 </select>
