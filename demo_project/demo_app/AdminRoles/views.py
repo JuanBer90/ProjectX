@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from demo_project.demo_app.models import Rol, Permisos, RolUser
 
 
-def nuevo_rol(request, id=0):
+def nuevo_rol(request, id_proyecto,id=0):
     """
         Crea el Rol con sus posibles permisos
     """
@@ -74,25 +74,25 @@ def nuevo_rol(request, id=0):
         rol.permisos=permiso
         rol.nombre = rol_name
         rol.save()
-        return HttpResponseRedirect('/roles')
+        return HttpResponseRedirect('/roles/'+str(id_proyecto))
 
     return render_to_response('HtmlRoles/nuevorol.html',{'rol':rol,'permiso':permiso,'modo':modo}, context_instance=RequestContext(request))
 
 
-def roles(request):
+def roles(request, id_proyecto):
     """
     Buscador de Roles
     """
-    user=request.user
-    user_rol=RolUser.objects.filter(user_id=user.id)
-
-    if user_rol.count() == 0 and not user.is_staff:
-          return HttpResponseRedirect('/sinpermiso/')
-
-    for u in user_rol:
-        if not u.rol.permisos.consultar_rol:
-          return HttpResponseRedirect('/sinpermiso/')
-
+    # user=request.user
+    # user_rol=RolUser.objects.filter(user_id=user.id)
+    #
+    # if user_rol.count() == 0 and not user.is_staff:
+    #       return HttpResponseRedirect('/sinpermiso/')
+    #
+    # for u in user_rol:
+    #     if not u.rol.permisos.consultar_rol:
+    #       return HttpResponseRedirect('/sinpermiso/')
+    #
 
     nro_lineas=10
     lines = []
@@ -134,40 +134,53 @@ def roles(request):
     else:
         proyectos_list = Rol.objects.filter(nombre=buscar)[ini:fin]
 
-    return render_to_response('HtmlRoles/roles.html',{'roles':proyectos_list}, RequestContext(request, {
+    return render_to_response('HtmlRoles/roles.html',{'roles':proyectos_list,'id_proyecto':id_proyecto}, RequestContext(request, {
         'lines': items
     }))
 
-def ver_rol(request,idRol):
+def ver_rol(request,idRol,id_proyecto):
     rol=Rol.objects.get(id_rol=idRol)
     permiso=Permisos.objects.get(rol=rol.permisos_id)
     if request.method=='POST':
-             return HttpResponseRedirect('/roles/')
+             return HttpResponseRedirect('/roles/'+str(id_proyecto))
 
     return render_to_response('HtmlRoles/verrol.html',{'rol':rol,'permiso':permiso,'modo':''}, context_instance=RequestContext(request))
 
-def nuevo_rol_user(request):
+def nuevo_rol_user(request,id_proyecto):
     user=request.user
     user_rol=RolUser.objects.filter(user_id=user.id)
 
     if user_rol.count() == 0 and not user.is_staff:
           return HttpResponseRedirect('/sinpermiso/')
 
+<<<<<<< Updated upstream
     #if not user_rol.rol.permisos.asignar_rol:
     #      return HttpResponseRedirect('/sinpermiso/')
+=======
+    # if not user_rol.rol.permisos.asignar_rol:
+    #       return HttpResponseRedirect('/sinpermiso/')
+>>>>>>> Stashed changes
 
     roles=Rol.objects.filter()
     users=User.objects.filter()
     msg=''
     if request.method=='POST':
+       asignar=request.POST.get('button','Volver')
+       if asignar == 'Volver':
+           return HttpResponseRedirect('/proyecto/colaboradores/'+str(id_proyecto)+'/')
        id_rol=request.POST.get('rol_select',0)
        id_user=request.POST.get('user_select',0)
        if(id_rol > 0 and id_user > 0 ):
+            aux=RolUser.objects.filter(proyecto_id=id_proyecto,user_id=id_user).count()
+            if aux >0:
+                msg='Este usuario ya posee un rol en este proyecto, desasignar rol primero'
+                return render_to_response('HtmlRoles/asignarrol.html',{'users':users,'rol':roles, 'msg':msg}, context_instance=RequestContext(request))
             rol_user= RolUser()
             rol_user.rol_id = id_rol
             rol_user.user_id = id_user
+            rol_user.proyecto_id=id_proyecto
             rol_user.save()
-            return HttpResponseRedirect('/usuarios/')
+            return HttpResponseRedirect('/proyecto/colaboradores/'+str(id_proyecto)+'/')
        else:
             msg='Error..'
 
@@ -193,3 +206,13 @@ def nuevo_leader(request):
                 usuario.save()
      users=User.objects.all()
      return render_to_response('HtmlRoles/crearleader.html',{'users':users, 'msg':msg},context_instance=RequestContext(request))
+
+def desasignar_rol(request,id_rol_user):
+     rol_user=RolUser.objects.get(pk=id_rol_user)
+     if request.method=='POST':
+         delete=request.POST.get('delete','no')
+         id_proyecto=rol_user.proyecto_id
+         if delete == 'si':
+             rol_user.delete()
+         return HttpResponseRedirect('/proyecto/colaboradores/'+str(id_proyecto))
+     return render_to_response('HtmlRoles/desasignar.html',{'r':rol_user},context_instance=RequestContext(request))

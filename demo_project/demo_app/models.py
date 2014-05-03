@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, Permission
 
-
+import constantes
 class Proyecto(models.Model):
     """
     Modelo de Proyecto con su respectivo atributos
@@ -72,3 +72,15 @@ class TipoItem(models.Model):
     id_tipo_item = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=30, unique=True)
     descripcion = models.CharField(max_length=100)
+
+class Fase(models.Model):
+    class Meta:
+        db_table='fase'
+    id_fase= models.AutoField(primary_key=True)
+    proyecto=models.ForeignKey(Proyecto)
+    nombre = models.CharField(max_length=30, unique=False, null=True)
+    descripcion = models.CharField(max_length=100,null=True)
+    numero=models.IntegerField(null=True)
+    estado=models.CharField(max_length=30,default=constantes.EstadosFase.FASE_NI)
+    fecha_creacion= models.DateTimeField(auto_now=True,null=True)
+

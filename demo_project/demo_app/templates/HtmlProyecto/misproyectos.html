@@ -5,15 +5,24 @@
 
 {% endblock %}
 {% block content %}
+
+
     <br>
     <center><h1>Mis Proyectos</h1></center>
     <br><br>
     <center>
-     <ul class="dropdown-menu">
-                        <li><a href="{% url 'demo_app.AdminRoles.views.nuevo_rol' %}">Agregar Rol</a></li>
-                        <li><a href="{% url 'demo_app.AdminRoles.views.roles' %}">Listar Roles</a></li>
-                        <li><a href="{% url 'demo_app.AdminRoles.views.nuevo_rol_user' %}">Asignar Rol</a></li>
 
-                    </ul>
+        <table class="">
+        {% for dato in proyectos %}
+                    <tr>
+                      <td>
+                         <a href="{% url 'demo_app.AdminProyectos.views.mi_proyecto' dato.id_proyecto %}">{{ dato.nombre }}</a>
+                        <hr>
+                      </td>
+
+                    </tr>
+
+        {% endfor %}
+    </table>
         </center>
 {% endblock %}

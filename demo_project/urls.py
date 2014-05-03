@@ -52,17 +52,30 @@ urlpatterns = patterns('',
      url(r'^proyecto/editar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.editar_proyecto'),
      url(r'^proyecto/eliminar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.eliminar_proyecto'),
 
+     url(r'^proyecto/misproyectos/$','demo_app.AdminProyectos.views.mis_proyectos'),
+     url(r'^proyecto/miproyecto/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.mi_proyecto'),
+     url(r'^proyecto/colaboradores/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.colaboradores'),
+
 
 
      #ROLES
-     url(r'^roles/$', 'demo_app.AdminRoles.views.roles'),
-     url(r'^rol/nuevo/$','demo_app.AdminRoles.views.nuevo_rol'),
-     url(r'^rol/editar/(?P<id>\d+)/$','demo_app.AdminRoles.views.nuevo_rol'),
+     url(r'^roles/(?P<id_proyecto>\d+)$', 'demo_app.AdminRoles.views.roles'),
+     url(r'^rol/nuevo/(?P<id_proyecto>\d+)/$','demo_app.AdminRoles.views.nuevo_rol'),
+     url(r'^rol/editar/(?P<id>\d+)/(?P<id_proyecto>\d+)/$','demo_app.AdminRoles.views.nuevo_rol'),
      # url(r'^rol/eliminar/(?P<idRol>\d+)/$','demo_app.AdminRoles.views.eliminar_rol'),
-     url(r'^rol/ver/(?P<idRol>\d+)/$','demo_app.AdminRoles.views.ver_rol'),
-     url(r'^rol/asignar','demo_app.AdminRoles.views.nuevo_rol_user'),
+     url(r'^rol/ver/(?P<idRol>\d+)/(?P<id_proyecto>\d+)/$','demo_app.AdminRoles.views.ver_rol'),
+     url(r'^rol/asignar/(?P<id_proyecto>\d+)/$','demo_app.AdminRoles.views.nuevo_rol_user'),
+     url(r'^rol/desasignar/(?P<id_rol_user>\d+)/$','demo_app.AdminRoles.views.desasignar_rol'),
      url(r'^sinpermiso/$','demo_app.AdminRoles.views.sinpermiso'),
      url(r'^leader/$','demo_app.AdminRoles.views.nuevo_leader'),
+
+     #FASES
+     url(r'^proyecto/fases/(?P<id_proyecto>\d+)$', 'demo_app.AdminFases.views.fases_proyecto'),
+     url(r'^fases/crear/(?P<id_fase>\d+)/(?P<id_proyecto>\d+)$', 'demo_app.AdminFases.views.fase'),
+     url(r'^fases/edit/(?P<id_fase>\d+)/(?P<id_proyecto>\d+)$', 'demo_app.AdminFases.views.fase'),
+     url(r'^fases/import/(?P<id_fase>\d+)/$', 'demo_app.AdminFases.views.importar'),
+     url(r'^fases/import/(?P<id_fase>\d+)/(?P<id_import>\d+)$', 'demo_app.AdminFases.views.procesar_import'),
+
 
 
      #TIPO ITEM

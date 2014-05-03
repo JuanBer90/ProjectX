@@ -6,10 +6,13 @@
 {% endblock %}
 {% block content %}
 
+<ul class="nav nav-tabs">
+  <li class="active"><a href="{% url 'demo_app.AdminProyectos.views.mi_proyecto' id_proyecto %}">Mi Proyecto</a></li>
+ <li><a href="{% url 'demo_app.AdminFases.views.fases_proyecto' id_proyecto %}">Fases</a></li>
+  <li ><a href="{% url 'demo_app.AdminProyectos.views.colaboradores' id_proyecto %}" >Colaboradores</a></li>
+   <li><a href="{% url 'demo_app.AdminRoles.views.roles' id_proyecto %}">Roles</a></li>
+</ul>
 
-    <br>
-    <center><h1>Editar Proyecto</h1></center>
-    <br><br>
     <center>
       Leader
          <select>

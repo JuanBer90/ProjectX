@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
 from demo_project.demo_app.AdminProyectos.forms import ProyectoForm
-from demo_project.demo_app.models import Proyecto, RolUser, Rol
+from demo_project.demo_app.models import Proyecto, RolUser, Rol, Fase
 
 
 def nuevo_proyecto(request):
@@ -24,6 +24,12 @@ def nuevo_proyecto(request):
             proyecto.coste_total=0
             proyecto.fecha_creacion = today()
             proyecto.save()
+            for i in range(0,proyecto.nro_fases):
+                fase=Fase()
+                fase.numero=i+1
+                fase.proyecto = proyecto
+                fase.save()
+
 
             rol_user=RolUser()
             rol = Rol.objects.get(nombre='Leader')
@@ -57,7 +63,7 @@ def editar_proyecto(request, id_proyecto):
             return HttpResponseRedirect('/proyectos')
     else:
         formulario= ProyectoForm(instance=proyecto)
-    return render_to_response('HtmlProyecto/editarproyecto.html',{'formulario':formulario,'user':proyecto.leader},
+    return render_to_response('HtmlProyecto/editarproyecto.html',{'formulario':formulario,'id_proyecto':id_proyecto,'user':proyecto.leader},
                               context_instance=RequestContext(request))
 
 
@@ -120,3 +126,36 @@ def eliminar_proyecto(request, id_proyecto):
 
     return render_to_response('HtmlProyecto/eliminarproyecto.html',{'proyecto':proyecto},
                               context_instance=RequestContext(request))
+def mis_proyectos(request):
+    query= "select p.* from proyectos p right join rol_user r on r.proyecto_id = p.id_proyecto where r.user_id ="+str(request.user.id)
+    proyectos_list= Proyecto.objects.raw(query)
+    return render_to_response('HtmlProyecto/misproyectos.html',{'proyectos':proyectos_list})
+
+
+
+def mi_proyecto(request, id_proyecto):
+
+    proyecto= Proyecto.objects.get(pk=id_proyecto)
+    user=request.user
+    get_roles=RolUser.objects.filter(user=user,proyecto=proyecto)
+    if get_roles.count() == 0:
+        return HttpResponseRedirect('/sinpermiso')
+    for r in get_roles:
+        if not r.rol.permisos.edit_project:
+            return HttpResponseRedirect('/sinpermiso')
+
+    if request.method=='POST':
+        formulario= ProyectoForm(request.POST,instance=proyecto)
+        if formulario.is_valid():
+            proyecto= formulario.save()
+            proyecto.save()
+            return HttpResponseRedirect('/proyectos')
+    else:
+        formulario= ProyectoForm(instance=proyecto)
+    return render_to_response('HtmlProyecto/miproyecto.html',{'formulario':formulario,'id_proyecto':id_proyecto,'user':proyecto.leader},
+                              context_instance=RequestContext(request))
+
+def colaboradores(request, id_proyecto):
+    rol_user=RolUser.objects.filter(proyecto_id=id_proyecto).exclude(user_id=request.user.id)
+    roles=RolUser.objects.all()
+    return render_to_response('HtmlProyecto/colaboradores.html',{'roles_user':rol_user,'id_proyecto':id_proyecto, 'roles':roles})
