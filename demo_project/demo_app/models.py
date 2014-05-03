@@ -20,29 +20,47 @@ class Proyecto(models.Model):
     coste_total = models.IntegerField()
     descripcion = models.CharField(max_length=300)
 
-
+class Permisos(models.Model):
+    class Meta:
+        db_table='permisos'
+    id_permiso=models.AutoField(primary_key=True)
+    add_project=models.BooleanField(default=False)
+    edit_project=models.BooleanField(default=False)
+    delete_project=models.BooleanField(default=False)
+    consultar_project=models.BooleanField(default=False)
+    ver_fase=models.BooleanField(default=False)
+    add_item=models.BooleanField(default=False)
+    edit_item=models.BooleanField(default=False)
+    delete_item=models.BooleanField(default=False)
+    revive_item=models.BooleanField(default=False)
+    relacionar_item=models.BooleanField(default=False)
+    consultar_item=models.BooleanField(default=False)
+    add_tipo_item=models.BooleanField(default=False)
+    edit_tipo_item=models.BooleanField(default=False)
+    delete_tipo_item=models.BooleanField(default=False)
+    add_user=models.BooleanField(default=False)
+    edit_user=models.BooleanField(default=False)
+    delete_user=models.BooleanField(default=False)
+    consultar_user=models.BooleanField(default=False)
+    add_rol=models.BooleanField(default=False)
+    edit_rol=models.BooleanField(default=False)
+    delete_rol=models.BooleanField(default=False)
+    asignar_rol=models.BooleanField(default=False)
+    desasignar_rol=models.BooleanField(default=False)
+    consultar_rol=models.BooleanField(default=False)
 
 class Rol(models.Model):
     class Meta:
-        db_table='roles'
+        db_table = 'roles'
     id_rol=models.AutoField(primary_key=True)
-    nombre=models.CharField(max_length=30, unique=True)
-    descripcion=models.CharField(max_length=300)
-
-class RolPermiso(models.Model):
-    class Meta:
-        db_table='rol_permisos'
-    id_rol_permiso=models.AutoField(primary_key=True)
-    rol=models.ForeignKey(Rol,unique=False)
-    permiso=models.ForeignKey(Permission)
+    nombre=models.CharField(max_length=30)
+    descripcion=models.CharField(max_length=200)
+    permisos=models.ForeignKey(Permisos, unique=False)
 
 class RolUser(models.Model):
     class Meta:
-        db_table='rol_user'
-    id_rol_user=models.AutoField(primary_key=True)
-    rol = models.ForeignKey(Rol)
-    user = models.ForeignKey(User)
-    #id_rol_user=models.AutoField(primary_key=True)
-    #rol=models.OneToOneField(Rol,unique=True)
-    #user=models.ForeignKey(User,unique=True)
-
+        db_table = 'rol_user'
+    id_rol_permiso=models.AutoField(primary_key=True)
+    rol=models.ForeignKey(Rol)
+    user=models.ForeignKey(User)
+    proyecto=models.ForeignKey(Proyecto)

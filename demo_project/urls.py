@@ -45,14 +45,6 @@ urlpatterns = patterns('',
     url(r'^usuario/editar/(?P<id_user>\d+)/$','demo_app.AdminUsuarios.views.editar_usuario'),
     url(r'^demo01/$','demo_app.views.demo'),
 
-    #TIPO DE CONTENIDO
-    url(r'^contenido/nuevo$', 'demo_app.AdminPermisos.views.nuevo_contenido'),
-    url(r'^contenido/editar/(?P<id_contenido>\d+)/$','demo_app.AdminPermisos.views.editar_contenido'),
-    url(r'^contenidos/$', 'demo_app.AdminPermisos.views.contenidos'),
-    url(r'^permisos/$', 'demo_app.AdminPermisos.views.permisos'),
-    url(r'^permiso/editar/(?P<id_permiso>\d+)/$','demo_app.AdminPermisos.views.editar_permiso'),
-    url(r'^permiso/nuevo$', 'demo_app.AdminPermisos.views.nuevo_permiso'),
-
 
     #PROYECTO
      url(r'^proyecto/nuevo$','demo_app.AdminProyectos.views.nuevo_proyecto'),
@@ -60,14 +52,21 @@ urlpatterns = patterns('',
      url(r'^proyecto/editar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.editar_proyecto'),
      url(r'^proyecto/eliminar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.eliminar_proyecto'),
 
+
+
      #ROLES
      url(r'^roles/$', 'demo_app.AdminRoles.views.roles'),
-     url(r'^rol/nuevo$','demo_app.AdminRoles.views.nuevo_rol'),
-     url(r'^rol/editar/(?P<idRol>\d+)/$','demo_app.AdminRoles.views.editar_rol'),
-     url(r'^rol/eliminar/(?P<idRol>\d+)/$','demo_app.AdminRoles.views.eliminar_rol'),
+     url(r'^rol/nuevo/$','demo_app.AdminRoles.views.nuevo_rol'),
+     url(r'^rol/editar/(?P<id>\d+)/$','demo_app.AdminRoles.views.nuevo_rol'),
+     # url(r'^rol/eliminar/(?P<idRol>\d+)/$','demo_app.AdminRoles.views.eliminar_rol'),
      url(r'^rol/ver/(?P<idRol>\d+)/$','demo_app.AdminRoles.views.ver_rol'),
-     url(r'^rol/asignarrol','demo_app.AdminRoles.views.nuevo_rol_user'),
-     url(r'^rol/permiso','demo_app.AdminRoles.views.nuevo_rol_permiso'),
+     url(r'^rol/asignar','demo_app.AdminRoles.views.nuevo_rol_user'),
+     url(r'^sinpermiso/$','demo_app.AdminRoles.views.sinpermiso'),
+     url(r'^leader/$','demo_app.AdminRoles.views.nuevo_leader'),
+
+
+
+
 )
 
 

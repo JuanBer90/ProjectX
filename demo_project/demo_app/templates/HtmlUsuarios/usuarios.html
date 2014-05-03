@@ -19,6 +19,7 @@
         <th class="navbar-inner">Email</th>
         <th class="navbar-inner">Nombre</th>
         <th class="navbar-inner">Apellido</th>
+        <th class="navbar-inner">Rol</th>
         <th class="navbar-inner">Activo</th>
         <th class="navbar-inner">Accion</th>
     </tr>
@@ -28,7 +29,19 @@
         <td><em>{{dato.email}}</em></td>
         <td>{{ dato.first_name }}</td>
         <td>{{ dato.last_name }}</td>
-        <td>{{ dato.is_active }}</td>
+
+{#    for r in roles:#}
+{#        print r.rol.descripcion#}
+{#        print r.user.username#}
+{##}
+          <td> {% for r in roles %}
+              {% if r.user.id == dato.id %}
+                  <a href="{% url 'demo_app.AdminRoles.views.ver_rol' r.rol.id_rol %}" target="_blank">{{ r.rol.nombre }}</a>
+               {% endif %}
+             {% endfor %}
+            </td>
+
+         <td>{{ dato.is_active }}</td>
         <td>
             {% if dato.is_active %}
                 <a href="{% url 'demo_app.AdminUsuarios.views.desactivar_usuario' dato.id %}">Desactivar</a>
@@ -44,7 +57,5 @@
 
 
 <br><br><br>
-
-
 
 {% endblock %}
