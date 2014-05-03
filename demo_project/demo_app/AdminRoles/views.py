@@ -453,7 +453,6 @@ def nuevo_rol_user(request):
     if request.method=='POST':
         formulario= RolUserForm(request.POST)
         if formulario.is_valid():
-            formulario.save()
             return HttpResponseRedirect('/roles/')
     else:
         formulario= RolUserForm(request.POST)
@@ -469,3 +468,5 @@ def nuevo_rol_permiso(request):
     else:
         formulario= RolPermisoForm(request.POST)
     return render_to_response('HtmlRoles/nuevoroluser.html',{'formulario':formulario}, context_instance=RequestContext(request))
+
+

@@ -25,7 +25,6 @@ class Proyecto(models.Model):
 class Rol(models.Model):
     class Meta:
         db_table='roles'
-
     id_rol=models.AutoField(primary_key=True)
     nombre=models.CharField(max_length=30, unique=True)
     descripcion=models.CharField(max_length=300)
@@ -41,9 +40,9 @@ class RolUser(models.Model):
     class Meta:
         db_table='rol_user'
     id_rol_user=models.AutoField(primary_key=True)
-    rol=models.OneToOneField(Rol,unique=True)
-    user=models.ForeignKey(User,unique=True)
-
-
-
+    rol = models.ForeignKey(Rol)
+    user = models.ForeignKey(User)
+    #id_rol_user=models.AutoField(primary_key=True)
+    #rol=models.OneToOneField(Rol,unique=True)
+    #user=models.ForeignKey(User,unique=True)
 

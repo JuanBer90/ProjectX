@@ -28,15 +28,16 @@ from django.db import models
 
 
 class RolUserForm(forms.ModelForm):
-
-    # rol=forms.ModelChoiceField(queryset=Rol.objects.all())
-    # user=forms.ModelChoiceField(queryset=User.objects.all())
-    rol = models.OneToOneField(Rol)
-    user = models.OneToOneField(User)
+    #rol=forms.ModelChoiceField(queryset=Rol.objects.all())
+    rol=forms.ModelChoiceField(queryset=Rol.objects.all())
+    user=forms.ModelChoiceField(queryset=User.objects.all())
+    #rol = models.OneToOneField(Rol)
+    #user = models.OneToOneField(User)
 
     class Meta:
-        model = RolUser
+        model=RolUser
         fields = ['rol','user']
+
 
     def save(self, commit=True):
         rol_user = super(RolUserForm, self).save(commit=False)
