@@ -64,3 +64,11 @@ class RolUser(models.Model):
     rol=models.ForeignKey(Rol)
     user=models.ForeignKey(User)
     proyecto=models.ForeignKey(Proyecto)
+
+
+class TipoItem(models.Model):
+    class Meta:
+        db_table='tipo_item'
+    id_tipo_item = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=30, unique=True)
+    descripcion = models.CharField(max_length=100)
