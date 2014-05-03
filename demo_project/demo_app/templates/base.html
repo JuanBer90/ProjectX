@@ -53,6 +53,13 @@
 
                     </ul>
                 </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">TipoItem<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'demo_app.AdminTipoItem.views.nuevoTipoItem' %}">Agregar TipoItem</a></li>
+                        <li><a href="{% url 'demo_app.AdminTipoItem.views.tipoitem' %}">Listar TipoItem</a></li>
+                    </ul>
+                </li>
             </ul>
             <div>
                 <a href="{% url 'demo_app.AdminUsuarios.views.cerrar' %}">Logout</a>

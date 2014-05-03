@@ -65,6 +65,14 @@ urlpatterns = patterns('',
      url(r'^leader/$','demo_app.AdminRoles.views.nuevo_leader'),
 
 
+     #TIPO ITEM
+     url(r'^tipoitem/nuevo/$','demo_app.AdminTipoItem.views.nuevoTipoItem'),
+     url(r'^tipoitem/$','demo_app.AdminTipoItem.views.tipoitem'),
+     url(r'^tipoitem/editar/(?P<id_tipoitem>\d+)/$','demo_app.AdminTipoItem.views.editartipoitem'),
+     url(r'^tipoitem/eliminar/(?P<id_tipoitem>\d+)/$','demo_app.AdminTipoItem.views.eliminartipoitem'),
+
+
+
 
 
 )

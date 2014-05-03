@@ -153,8 +153,8 @@ def nuevo_rol_user(request):
     if user_rol.count() == 0 and not user.is_staff:
           return HttpResponseRedirect('/sinpermiso/')
 
-    if not user_rol.rol.permisos.asignar_rol:
-          return HttpResponseRedirect('/sinpermiso/')
+    #if not user_rol.rol.permisos.asignar_rol:
+    #      return HttpResponseRedirect('/sinpermiso/')
 
     roles=Rol.objects.filter()
     users=User.objects.filter()
