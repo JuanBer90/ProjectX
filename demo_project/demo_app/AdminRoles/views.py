@@ -83,17 +83,6 @@ def roles(request, id_proyecto):
     """
     Buscador de Roles
     """
-    # user=request.user
-    # user_rol=RolUser.objects.filter(user_id=user.id)
-    #
-    # if user_rol.count() == 0 and not user.is_staff:
-    #       return HttpResponseRedirect('/sinpermiso/')
-    #
-    # for u in user_rol:
-    #     if not u.rol.permisos.consultar_rol:
-    #       return HttpResponseRedirect('/sinpermiso/')
-    #
-
     nro_lineas=10
     lines = []
     page = request.GET.get('page')
@@ -153,13 +142,6 @@ def nuevo_rol_user(request,id_proyecto):
     if user_rol.count() == 0 and not user.is_staff:
           return HttpResponseRedirect('/sinpermiso/')
 
-<<<<<<< Updated upstream
-    #if not user_rol.rol.permisos.asignar_rol:
-    #      return HttpResponseRedirect('/sinpermiso/')
-=======
-    # if not user_rol.rol.permisos.asignar_rol:
-    #       return HttpResponseRedirect('/sinpermiso/')
->>>>>>> Stashed changes
 
     roles=Rol.objects.filter()
     users=User.objects.filter()

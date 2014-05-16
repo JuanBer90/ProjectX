@@ -58,32 +58,34 @@
 </table>
 <h1 class="epydoc">Source Code for <a href="demo_project.demo_app.AdminRoles.forms-module.html">Module demo_project.demo_app.AdminRoles.forms</a></h1>
 <pre class="py-src">
-<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module demo_project.demo_app.AdminPermisos.forms=demo_project.demo_app.AdminPermisos.forms-module.html,Module demo_project.demo_app.AdminProyectos.forms=demo_project.demo_app.AdminProyectos.forms-module.html,Module demo_project.demo_app.AdminRoles.forms=demo_project.demo_app.AdminRoles.forms-module.html,Module demo_project.demo_app.AdminUsuarios.forms=demo_project.demo_app.AdminUsuarios.forms-module.html,Module demo_project.demo_app.forms=demo_project.demo_app.forms-module.html"><a title="demo_project.demo_app.AdminPermisos.forms
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module demo_project.demo_app.AdminFases.forms=demo_project.demo_app.AdminFases.forms-module.html,Module demo_project.demo_app.AdminProyectos.forms=demo_project.demo_app.AdminProyectos.forms-module.html,Module demo_project.demo_app.AdminRoles.forms=demo_project.demo_app.AdminRoles.forms-module.html,Module demo_project.demo_app.AdminTipoItem.forms=demo_project.demo_app.AdminTipoItem.forms-module.html,Module demo_project.demo_app.AdminUsuarios.forms=demo_project.demo_app.AdminUsuarios.forms-module.html,Module demo_project.demo_app.forms=demo_project.demo_app.forms-module.html"><a title="demo_project.demo_app.AdminFases.forms
 demo_project.demo_app.AdminProyectos.forms
 demo_project.demo_app.AdminRoles.forms
+demo_project.demo_app.AdminTipoItem.forms
 demo_project.demo_app.AdminUsuarios.forms
 demo_project.demo_app.forms" class="py-name" href="#" onclick="return doclink('link-0', 'forms', 'link-0');">forms</a></tt> </tt>
 <a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># from django.conf.app_template import models</tt> </tt>
 <a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># from django.contrib.auth.models import Permission, User</tt> </tt>
 <a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># from django.contrib.contenttypes.models import ContentType</tt> </tt>
-<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">db</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module demo_project.demo_app.AdminPermisos.models=demo_project.demo_app.AdminPermisos.models-module.html,Module demo_project.demo_app.AdminProyectos.models=demo_project.demo_app.AdminProyectos.models-module.html,Module demo_project.demo_app.AdminRoles.models=demo_project.demo_app.AdminRoles.models-module.html,Module demo_project.demo_app.AdminUsuarios.models=demo_project.demo_app.AdminUsuarios.models-module.html,Module demo_project.demo_app.models=demo_project.demo_app.models-module.html"><a title="demo_project.demo_app.AdminPermisos.models
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">db</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module demo_project.demo_app.AdminPermisos.models=demo_project.demo_app.AdminPermisos.models-module.html,Module demo_project.demo_app.AdminProyectos.models=demo_project.demo_app.AdminProyectos.models-module.html,Module demo_project.demo_app.AdminRoles.models=demo_project.demo_app.AdminRoles.models-module.html,Module demo_project.demo_app.AdminTipoItem.models=demo_project.demo_app.AdminTipoItem.models-module.html,Module demo_project.demo_app.AdminUsuarios.models=demo_project.demo_app.AdminUsuarios.models-module.html,Module demo_project.demo_app.models=demo_project.demo_app.models-module.html"><a title="demo_project.demo_app.AdminPermisos.models
 demo_project.demo_app.AdminProyectos.models
 demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminTipoItem.models
 demo_project.demo_app.AdminUsuarios.models
-demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-1', 'models', 'link-1');">models</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Variable demo_project.demo_app.AdminPermisos.forms.PermisoForm.Meta.fields=demo_project.demo_app.AdminPermisos.forms.PermisoForm.Meta-class.html#fields,Variable demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.Meta.fields=demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.Meta-class.html#fields,Variable demo_project.demo_app.AdminProyectos.forms.ProyectoForm.Meta.fields=demo_project.demo_app.AdminProyectos.forms.ProyectoForm.Meta-class.html#fields,Variable demo_project.demo_app.AdminRoles.forms.RolUserForm.Meta.fields=demo_project.demo_app.AdminRoles.forms.RolUserForm.Meta-class.html#fields,Variable demo_project.demo_app.AdminUsuarios.forms.EditUserForm.Meta.fields=demo_project.demo_app.AdminUsuarios.forms.EditUserForm.Meta-class.html#fields,Variable demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.Meta.fields=demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.Meta-class.html#fields"><a title="demo_project.demo_app.AdminPermisos.forms.PermisoForm.Meta.fields
-demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.Meta.fields
-demo_project.demo_app.AdminProyectos.forms.ProyectoForm.Meta.fields
-demo_project.demo_app.AdminRoles.forms.RolUserForm.Meta.fields
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-1', 'models', 'link-1');">models</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Variable demo_project.demo_app.AdminProyectos.forms.ProyectoForm.Meta.fields=demo_project.demo_app.AdminProyectos.forms.ProyectoForm.Meta-class.html#fields,Variable demo_project.demo_app.AdminTipoItem.forms.TipoItemForm.Meta.fields=demo_project.demo_app.AdminTipoItem.forms.TipoItemForm.Meta-class.html#fields,Variable demo_project.demo_app.AdminUsuarios.forms.EditUserForm.Meta.fields=demo_project.demo_app.AdminUsuarios.forms.EditUserForm.Meta-class.html#fields,Variable demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.Meta.fields=demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.Meta-class.html#fields"><a title="demo_project.demo_app.AdminProyectos.forms.ProyectoForm.Meta.fields
+demo_project.demo_app.AdminTipoItem.forms.TipoItemForm.Meta.fields
 demo_project.demo_app.AdminUsuarios.forms.EditUserForm.Meta.fields
 demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.Meta.fields" class="py-name" href="#" onclick="return doclink('link-2', 'fields', 'link-2');">fields</a></tt><tt class="py-op">.</tt><tt class="py-name">related</tt> <tt class="py-keyword">import</tt> <tt class="py-name">OneToOneField</tt><tt class="py-op">,</tt><tt class="py-name">ManyToOneRel</tt> </tt>
 <a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">contrib</tt><tt class="py-op">.</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
 demo_project.demo_app.AdminProyectos.models
 demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminTipoItem.models
 demo_project.demo_app.AdminUsuarios.models
 demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-3', 'models', 'link-1');">models</a></tt> <tt class="py-keyword">import</tt> <tt class="py-name">User</tt><tt class="py-op">,</tt> <tt class="py-name">Permission</tt> </tt>
-<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name"><a title="demo_project.demo_app.AdminPermisos.forms
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name"><a title="demo_project.demo_app.AdminFases.forms
 demo_project.demo_app.AdminProyectos.forms
 demo_project.demo_app.AdminRoles.forms
+demo_project.demo_app.AdminTipoItem.forms
 demo_project.demo_app.AdminUsuarios.forms
 demo_project.demo_app.forms" class="py-name" href="#" onclick="return doclink('link-4', 'forms', 'link-0');">forms</a></tt><tt class="py-op">.</tt><tt class="py-name">widgets</tt> <tt class="py-keyword">import</tt> <tt class="py-name">TextInput</tt><tt class="py-op">,</tt><tt class="py-name">Textarea</tt> </tt>
 <a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-comment"># from django.forms.fields import CheckboxInput</tt> </tt>
@@ -106,114 +108,48 @@ demo_project.demo_app.forms" class="py-name" href="#" onclick="return doclink('l
 <a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">demo_project</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Package demo_project.demo_app=demo_project.demo_app-module.html"><a title="demo_project.demo_app" class="py-name" href="#" onclick="return doclink('link-5', 'demo_app', 'link-5');">demo_app</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
 demo_project.demo_app.AdminProyectos.models
 demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminTipoItem.models
 demo_project.demo_app.AdminUsuarios.models
-demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-6', 'models', 'link-1');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-7" class="py-name" targets="Class demo_project.demo_app.models.Rol=demo_project.demo_app.models.Rol-class.html"><a title="demo_project.demo_app.models.Rol" class="py-name" href="#" onclick="return doclink('link-7', 'Rol', 'link-7');">Rol</a></tt><tt class="py-op">,</tt> <tt id="link-8" class="py-name" targets="Class demo_project.demo_app.models.RolUser=demo_project.demo_app.models.RolUser-class.html"><a title="demo_project.demo_app.models.RolUser" class="py-name" href="#" onclick="return doclink('link-8', 'RolUser', 'link-8');">RolUser</a></tt><tt class="py-op">,</tt> <tt id="link-9" class="py-name" targets="Class demo_project.demo_app.models.RolPermiso=demo_project.demo_app.models.RolPermiso-class.html"><a title="demo_project.demo_app.models.RolPermiso" class="py-name" href="#" onclick="return doclink('link-9', 'RolPermiso', 'link-9');">RolPermiso</a></tt> </tt>
-<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">db</tt> <tt class="py-keyword">import</tt> <tt id="link-10" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-6', 'models', 'link-1');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-7" class="py-name" targets="Class demo_project.demo_app.models.Rol=demo_project.demo_app.models.Rol-class.html"><a title="demo_project.demo_app.models.Rol" class="py-name" href="#" onclick="return doclink('link-7', 'Rol', 'link-7');">Rol</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">db</tt> <tt class="py-keyword">import</tt> <tt id="link-8" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
 demo_project.demo_app.AdminProyectos.models
 demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminTipoItem.models
 demo_project.demo_app.AdminUsuarios.models
-demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-10', 'models', 'link-1');">models</a></tt> </tt>
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-8', 'models', 'link-1');">models</a></tt> </tt>
 <a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"> </tt>
 <a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"> </tt>
-<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"> </tt>
-<a name="RolUserForm"></a><div id="RolUserForm-def"><a name="L30"></a><tt class="py-lineno">30</tt> <a class="py-toggle" href="#" id="RolUserForm-toggle" onclick="return toggle('RolUserForm');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="demo_project.demo_app.AdminRoles.forms.RolUserForm-class.html">RolUserForm</a><tt class="py-op">(</tt><tt class="py-base-class">forms</tt><tt class="py-op">.</tt><tt class="py-base-class">ModelForm</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="RolUserForm-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="RolUserForm-expanded"><a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"> </tt>
-<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">    <tt class="py-comment"># rol=forms.ModelChoiceField(queryset=Rol.objects.all())</tt> </tt>
-<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">    <tt class="py-comment"># user=forms.ModelChoiceField(queryset=User.objects.all())</tt> </tt>
-<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">    <tt id="link-11" class="py-name" targets="Variable demo_project.demo_app.AdminRoles.forms.RolPermisoForm.rol=demo_project.demo_app.AdminRoles.forms.RolPermisoForm-class.html#rol,Variable demo_project.demo_app.AdminRoles.forms.RolUserForm.rol=demo_project.demo_app.AdminRoles.forms.RolUserForm-class.html#rol,Variable demo_project.demo_app.models.RolPermiso.rol=demo_project.demo_app.models.RolPermiso-class.html#rol,Variable demo_project.demo_app.models.RolUser.rol=demo_project.demo_app.models.RolUser-class.html#rol"><a title="demo_project.demo_app.AdminRoles.forms.RolPermisoForm.rol
-demo_project.demo_app.AdminRoles.forms.RolUserForm.rol
-demo_project.demo_app.models.RolPermiso.rol
-demo_project.demo_app.models.RolUser.rol" class="py-name" href="#" onclick="return doclink('link-11', 'rol', 'link-11');">rol</a></tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
-demo_project.demo_app.AdminProyectos.models
-demo_project.demo_app.AdminRoles.models
-demo_project.demo_app.AdminUsuarios.models
-demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-12', 'models', 'link-1');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">OneToOneField</tt><tt class="py-op">(</tt><tt id="link-13" class="py-name"><a title="demo_project.demo_app.models.Rol" class="py-name" href="#" onclick="return doclink('link-13', 'Rol', 'link-7');">Rol</a></tt><tt class="py-op">)</tt> </tt>
-<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">    <tt id="link-14" class="py-name" targets="Variable demo_project.demo_app.AdminRoles.forms.RolUserForm.user=demo_project.demo_app.AdminRoles.forms.RolUserForm-class.html#user,Variable demo_project.demo_app.models.RolUser.user=demo_project.demo_app.models.RolUser-class.html#user"><a title="demo_project.demo_app.AdminRoles.forms.RolUserForm.user
-demo_project.demo_app.models.RolUser.user" class="py-name" href="#" onclick="return doclink('link-14', 'user', 'link-14');">user</a></tt> <tt class="py-op">=</tt> <tt id="link-15" class="py-name"><a title="demo_project.demo_app.AdminPermisos.models
-demo_project.demo_app.AdminProyectos.models
-demo_project.demo_app.AdminRoles.models
-demo_project.demo_app.AdminUsuarios.models
-demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-15', 'models', 'link-1');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">OneToOneField</tt><tt class="py-op">(</tt><tt class="py-name">User</tt><tt class="py-op">)</tt> </tt>
-<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"> </tt>
-<a name="RolUserForm.Meta"></a><div id="RolUserForm.Meta-def"><a name="L37"></a><tt class="py-lineno">37</tt> <a class="py-toggle" href="#" id="RolUserForm.Meta-toggle" onclick="return toggle('RolUserForm.Meta');">-</a><tt class="py-line">    <tt class="py-keyword">class</tt> <a class="py-def-name" href="demo_project.demo_app.AdminRoles.forms.RolUserForm.Meta-class.html">Meta</a><tt class="py-op">:</tt> </tt>
-</div><div id="RolUserForm.Meta-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="RolUserForm.Meta-expanded"><a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">        <tt id="link-16" class="py-name" targets="Variable demo_project.demo_app.AdminPermisos.forms.PermisoForm.Meta.model=demo_project.demo_app.AdminPermisos.forms.PermisoForm.Meta-class.html#model,Variable demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.Meta.model=demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.Meta-class.html#model,Variable demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.model=demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm-class.html#model,Variable demo_project.demo_app.AdminProyectos.forms.ProyectoForm.Meta.model=demo_project.demo_app.AdminProyectos.forms.ProyectoForm.Meta-class.html#model,Variable demo_project.demo_app.AdminRoles.forms.RolPermisoForm.Meta.model=demo_project.demo_app.AdminRoles.forms.RolPermisoForm.Meta-class.html#model,Variable demo_project.demo_app.AdminRoles.forms.RolUserForm.Meta.model=demo_project.demo_app.AdminRoles.forms.RolUserForm.Meta-class.html#model,Variable demo_project.demo_app.AdminUsuarios.forms.EditUserForm.Meta.model=demo_project.demo_app.AdminUsuarios.forms.EditUserForm.Meta-class.html#model,Variable demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.Meta.model=demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.Meta-class.html#model,Variable demo_project.demo_app.forms.TestModelForm.Meta.model=demo_project.demo_app.forms.TestModelForm.Meta-class.html#model"><a title="demo_project.demo_app.AdminPermisos.forms.PermisoForm.Meta.model
-demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.Meta.model
-demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.model
-demo_project.demo_app.AdminProyectos.forms.ProyectoForm.Meta.model
-demo_project.demo_app.AdminRoles.forms.RolPermisoForm.Meta.model
-demo_project.demo_app.AdminRoles.forms.RolUserForm.Meta.model
-demo_project.demo_app.AdminUsuarios.forms.EditUserForm.Meta.model
-demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.Meta.model
-demo_project.demo_app.forms.TestModelForm.Meta.model" class="py-name" href="#" onclick="return doclink('link-16', 'model', 'link-16');">model</a></tt> <tt class="py-op">=</tt> <tt id="link-17" class="py-name"><a title="demo_project.demo_app.models.RolUser" class="py-name" href="#" onclick="return doclink('link-17', 'RolUser', 'link-8');">RolUser</a></tt> </tt>
-<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt id="link-18" class="py-name"><a title="demo_project.demo_app.AdminPermisos.forms.PermisoForm.Meta.fields
-demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.Meta.fields
-demo_project.demo_app.AdminProyectos.forms.ProyectoForm.Meta.fields
-demo_project.demo_app.AdminRoles.forms.RolUserForm.Meta.fields
-demo_project.demo_app.AdminUsuarios.forms.EditUserForm.Meta.fields
-demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.Meta.fields" class="py-name" href="#" onclick="return doclink('link-18', 'fields', 'link-2');">fields</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'rol'</tt><tt class="py-op">,</tt><tt class="py-string">'user'</tt><tt class="py-op">]</tt> </tt>
-</div><a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"> </tt>
-<a name="RolUserForm.save"></a><div id="RolUserForm.save-def"><a name="L41"></a><tt class="py-lineno">41</tt> <a class="py-toggle" href="#" id="RolUserForm.save-toggle" onclick="return toggle('RolUserForm.save');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="demo_project.demo_app.AdminRoles.forms.RolUserForm-class.html#save">save</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">commit</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="RolUserForm.save-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="RolUserForm.save-expanded"><a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-name">rol_user</tt> <tt class="py-op">=</tt> <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-19" class="py-name" targets="Class demo_project.demo_app.AdminRoles.forms.RolUserForm=demo_project.demo_app.AdminRoles.forms.RolUserForm-class.html"><a title="demo_project.demo_app.AdminRoles.forms.RolUserForm" class="py-name" href="#" onclick="return doclink('link-19', 'RolUserForm', 'link-19');">RolUserForm</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method demo_project.demo_app.AdminPermisos.forms.PermisoForm.save()=demo_project.demo_app.AdminPermisos.forms.PermisoForm-class.html#save,Method demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.save()=demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm-class.html#save,Method demo_project.demo_app.AdminProyectos.forms.ProyectoForm.save()=demo_project.demo_app.AdminProyectos.forms.ProyectoForm-class.html#save,Method demo_project.demo_app.AdminRoles.forms.RolPermisoForm.save()=demo_project.demo_app.AdminRoles.forms.RolPermisoForm-class.html#save,Method demo_project.demo_app.AdminRoles.forms.RolUserForm.save()=demo_project.demo_app.AdminRoles.forms.RolUserForm-class.html#save,Method demo_project.demo_app.AdminUsuarios.forms.EditUserForm.save()=demo_project.demo_app.AdminUsuarios.forms.EditUserForm-class.html#save,Method demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.save()=demo_project.demo_app.AdminUsuarios.forms.RegistrationForm-class.html#save"><a title="demo_project.demo_app.AdminPermisos.forms.PermisoForm.save
-demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.save
-demo_project.demo_app.AdminProyectos.forms.ProyectoForm.save
-demo_project.demo_app.AdminRoles.forms.RolPermisoForm.save
-demo_project.demo_app.AdminRoles.forms.RolUserForm.save
-demo_project.demo_app.AdminUsuarios.forms.EditUserForm.save
-demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.save" class="py-name" href="#" onclick="return doclink('link-20', 'save', 'link-20');">save</a></tt><tt class="py-op">(</tt><tt class="py-name">commit</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
-<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">commit</tt><tt class="py-op">:</tt> </tt>
-<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">           <tt class="py-name">rol_user</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="demo_project.demo_app.AdminPermisos.forms.PermisoForm.save
-demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.save
-demo_project.demo_app.AdminProyectos.forms.ProyectoForm.save
-demo_project.demo_app.AdminRoles.forms.RolPermisoForm.save
-demo_project.demo_app.AdminRoles.forms.RolUserForm.save
-demo_project.demo_app.AdminUsuarios.forms.EditUserForm.save
-demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.save" class="py-name" href="#" onclick="return doclink('link-21', 'save', 'link-20');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">rol_user</tt> </tt>
-</div></div><a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"> </tt>
-<a name="RolPermisoForm"></a><div id="RolPermisoForm-def"><a name="L47"></a><tt class="py-lineno">47</tt> <a class="py-toggle" href="#" id="RolPermisoForm-toggle" onclick="return toggle('RolPermisoForm');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="demo_project.demo_app.AdminRoles.forms.RolPermisoForm-class.html">RolPermisoForm</a><tt class="py-op">(</tt><tt class="py-base-class">forms</tt><tt class="py-op">.</tt><tt class="py-base-class">ModelForm</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="RolPermisoForm-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="RolPermisoForm-expanded"><a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">    <tt id="link-22" class="py-name"><a title="demo_project.demo_app.AdminRoles.forms.RolPermisoForm.rol
-demo_project.demo_app.AdminRoles.forms.RolUserForm.rol
-demo_project.demo_app.models.RolPermiso.rol
-demo_project.demo_app.models.RolUser.rol" class="py-name" href="#" onclick="return doclink('link-22', 'rol', 'link-11');">rol</a></tt> <tt class="py-op">=</tt> <tt id="link-23" class="py-name"><a title="demo_project.demo_app.AdminPermisos.forms
-demo_project.demo_app.AdminProyectos.forms
-demo_project.demo_app.AdminRoles.forms
-demo_project.demo_app.AdminUsuarios.forms
-demo_project.demo_app.forms" class="py-name" href="#" onclick="return doclink('link-23', 'forms', 'link-0');">forms</a></tt><tt class="py-op">.</tt><tt class="py-name">ModelChoiceField</tt><tt class="py-op">(</tt><tt class="py-name">queryset</tt><tt class="py-op">=</tt><tt id="link-24" class="py-name"><a title="demo_project.demo_app.models.Rol" class="py-name" href="#" onclick="return doclink('link-24', 'Rol', 'link-7');">Rol</a></tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">order_by</tt><tt class="py-op">(</tt><tt class="py-string">'nombre'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
-<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">    <tt id="link-25" class="py-name" targets="Variable demo_project.demo_app.AdminRoles.forms.RolPermisoForm.permiso=demo_project.demo_app.AdminRoles.forms.RolPermisoForm-class.html#permiso,Variable demo_project.demo_app.models.RolPermiso.permiso=demo_project.demo_app.models.RolPermiso-class.html#permiso"><a title="demo_project.demo_app.AdminRoles.forms.RolPermisoForm.permiso
-demo_project.demo_app.models.RolPermiso.permiso" class="py-name" href="#" onclick="return doclink('link-25', 'permiso', 'link-25');">permiso</a></tt> <tt class="py-op">=</tt> <tt id="link-26" class="py-name"><a title="demo_project.demo_app.AdminPermisos.forms
-demo_project.demo_app.AdminProyectos.forms
-demo_project.demo_app.AdminRoles.forms
-demo_project.demo_app.AdminUsuarios.forms
-demo_project.demo_app.forms" class="py-name" href="#" onclick="return doclink('link-26', 'forms', 'link-0');">forms</a></tt><tt class="py-op">.</tt><tt class="py-name">ModelChoiceField</tt><tt class="py-op">(</tt><tt class="py-name">queryset</tt><tt class="py-op">=</tt><tt class="py-name">Permission</tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
-<a name="RolPermisoForm.Meta"></a><div id="RolPermisoForm.Meta-def"><a name="L50"></a><tt class="py-lineno">50</tt> <a class="py-toggle" href="#" id="RolPermisoForm.Meta-toggle" onclick="return toggle('RolPermisoForm.Meta');">-</a><tt class="py-line">    <tt class="py-keyword">class</tt> <a class="py-def-name" href="demo_project.demo_app.AdminRoles.forms.RolPermisoForm.Meta-class.html">Meta</a><tt class="py-op">:</tt> </tt>
-</div><div id="RolPermisoForm.Meta-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="RolPermisoForm.Meta-expanded"><a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">        <tt id="link-27" class="py-name"><a title="demo_project.demo_app.AdminPermisos.forms.PermisoForm.Meta.model
-demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.Meta.model
-demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.model
-demo_project.demo_app.AdminProyectos.forms.ProyectoForm.Meta.model
-demo_project.demo_app.AdminRoles.forms.RolPermisoForm.Meta.model
-demo_project.demo_app.AdminRoles.forms.RolUserForm.Meta.model
-demo_project.demo_app.AdminUsuarios.forms.EditUserForm.Meta.model
-demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.Meta.model
-demo_project.demo_app.forms.TestModelForm.Meta.model" class="py-name" href="#" onclick="return doclink('link-27', 'model', 'link-16');">model</a></tt> <tt class="py-op">=</tt> <tt id="link-28" class="py-name"><a title="demo_project.demo_app.models.RolPermiso" class="py-name" href="#" onclick="return doclink('link-28', 'RolPermiso', 'link-9');">RolPermiso</a></tt> </tt>
-</div><a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"> </tt>
-<a name="RolPermisoForm.save"></a><div id="RolPermisoForm.save-def"><a name="L53"></a><tt class="py-lineno">53</tt> <a class="py-toggle" href="#" id="RolPermisoForm.save-toggle" onclick="return toggle('RolPermisoForm.save');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="demo_project.demo_app.AdminRoles.forms.RolPermisoForm-class.html#save">save</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">commit</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="RolPermisoForm.save-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="RolPermisoForm.save-expanded"><a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">        <tt class="py-name">rol_user</tt> <tt class="py-op">=</tt> <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-29" class="py-name" targets="Class demo_project.demo_app.AdminRoles.forms.RolPermisoForm=demo_project.demo_app.AdminRoles.forms.RolPermisoForm-class.html"><a title="demo_project.demo_app.AdminRoles.forms.RolPermisoForm" class="py-name" href="#" onclick="return doclink('link-29', 'RolPermisoForm', 'link-29');">RolPermisoForm</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="demo_project.demo_app.AdminPermisos.forms.PermisoForm.save
-demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.save
-demo_project.demo_app.AdminProyectos.forms.ProyectoForm.save
-demo_project.demo_app.AdminRoles.forms.RolPermisoForm.save
-demo_project.demo_app.AdminRoles.forms.RolUserForm.save
-demo_project.demo_app.AdminUsuarios.forms.EditUserForm.save
-demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.save" class="py-name" href="#" onclick="return doclink('link-30', 'save', 'link-20');">save</a></tt><tt class="py-op">(</tt><tt class="py-name">commit</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
-<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">commit</tt><tt class="py-op">:</tt> </tt>
-<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">           <tt class="py-name">rol_user</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="demo_project.demo_app.AdminPermisos.forms.PermisoForm.save
-demo_project.demo_app.AdminPermisos.forms.TipoContenidoForm.save
-demo_project.demo_app.AdminProyectos.forms.ProyectoForm.save
-demo_project.demo_app.AdminRoles.forms.RolPermisoForm.save
-demo_project.demo_app.AdminRoles.forms.RolUserForm.save
-demo_project.demo_app.AdminUsuarios.forms.EditUserForm.save
-demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.save" class="py-name" href="#" onclick="return doclink('link-31', 'save', 'link-20');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
-<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">rol_user</tt> </tt>
-</div></div><a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"><tt class="py-comment"># class RolUserForm(forms.ModelForm):</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"><tt class="py-comment">#     # rol=forms.ModelChoiceField(queryset=Rol.objects.all())</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-comment">#     # user=forms.ModelChoiceField(queryset=User.objects.all())</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt class="py-comment">#     rol = models.OneToOneField(Rol)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-comment">#     user = models.OneToOneField(User)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt class="py-comment">#     class Meta:</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt class="py-comment">#         model = RolUser</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"><tt class="py-comment">#         fields = ['rol','user']</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"><tt class="py-comment">#     def save(self, commit=True):</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line"><tt class="py-comment">#         rol_user = super(RolUserForm, self).save(commit=False)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"><tt class="py-comment">#         if commit:</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"><tt class="py-comment">#            rol_user.save()</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line"><tt class="py-comment">#         return rol_user</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line"><tt class="py-comment"># class RolPermisoForm(forms.ModelForm):</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line"><tt class="py-comment">#     rol = forms.ModelChoiceField(queryset=Rol.objects.all().order_by('nombre'))</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"><tt class="py-comment">#     permiso = forms.ModelChoiceField(queryset=Permission.objects.all())</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"><tt class="py-comment">#     class Meta:</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"><tt class="py-comment">#         model = RolPermiso</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"><tt class="py-comment">#     def save(self, commit=True):</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"><tt class="py-comment">#         rol_user = super(RolPermisoForm, self).save(commit=False)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"><tt class="py-comment">#         if commit:</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line"><tt class="py-comment">#            rol_user.save()</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"><tt class="py-comment">#         return rol_user</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -246,7 +182,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Mon Apr 21 13:50:05 2014
+    Generated by Epydoc 3.0.1 on Sat May  3 08:58:58 2014
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

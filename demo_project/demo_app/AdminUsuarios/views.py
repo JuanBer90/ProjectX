@@ -1,6 +1,5 @@
 
 from django.contrib.auth.models import User
-from django.forms.formsets import formset_factory
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -8,8 +7,9 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
+from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminUsuarios.forms import RegistrationForm, EditUserForm
-from demo_project.demo_app.models import Rol, RolUser
+from demo_project.demo_app.models import RolUser
 
 
 def nuevo_usuario(request):

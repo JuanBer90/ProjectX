@@ -19,7 +19,7 @@
         <th class="navbar-inner">Email</th>
         <th class="navbar-inner">Nombre</th>
         <th class="navbar-inner">Apellido</th>
-        <th class="navbar-inner">Rol</th>
+{#        <th class="navbar-inner">Rol</th>#}
         <th class="navbar-inner">Activo</th>
         <th class="navbar-inner">Accion</th>
     </tr>
@@ -34,12 +34,12 @@
 {#        print r.rol.descripcion#}
 {#        print r.user.username#}
 {##}
-          <td> {% for r in roles %}
-              {% if r.user.id == dato.id %}
-                  <a href="{% url 'demo_app.AdminRoles.views.ver_rol' r.rol.id_rol %}" target="_blank">{{ r.rol.nombre }}</a>
-               {% endif %}
-             {% endfor %}
-            </td>
+{#          <td> {% for r in roles %}#}
+{#              {% if r.user.id == dato.id %}#}
+{#                  <a href="{% url 'demo_app.AdminRoles.views.ver_rol' r.rol.id_rol %}" target="_blank">{{ r.rol.nombre }}</a>#}
+{#               {% endif %}#}
+{#             {% endfor %}#}
+{#            </td>#}
 
          <td>{{ dato.is_active }}</td>
         <td>

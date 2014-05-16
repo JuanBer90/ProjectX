@@ -26,7 +26,8 @@ def tipoitem(request):
     lines = []
     page = request.GET.get('page')
     if request.method=='POST':
-        buscar=request.POST["buscar"]
+        buscar=request.POST.get("buscar",'')
+        print 'BUSCAR QUE OND: '+buscar
     else:
         buscar = ''
 
@@ -61,6 +62,7 @@ def tipoitem(request):
         proyectos_list = TipoItem.objects.order_by('nombre').all()[ini:fin]
     else:
         proyectos_list = TipoItem.objects.filter(nombre=buscar)[ini:fin]
+    print 'BUSCAR: '+buscar
 
     return render_to_response('HtmlTipoItem/tipoitem.html',{'tipoitem':proyectos_list}, RequestContext(request, {
         'lines': items

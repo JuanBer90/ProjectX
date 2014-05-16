@@ -41,11 +41,12 @@ class EditUserForm(forms.ModelForm):
     last_name=forms.CharField(widget=TextInput,label="Apellido")
     email = forms.EmailField(widget=EmailInput,label="Email")
     is_active = forms.BooleanField(required=False, label='Activo')
+    is_staff = forms.BooleanField(required=False, label='Is Staff')
 
 
     class Meta:
         model = User
-        fields = ['username','first_name','last_name','email','is_active']
+        fields = ['username','first_name','last_name','email','is_active','is_staff']
 
     def save(self, commit=True):
         user = super(EditUserForm, self).save(commit=False)

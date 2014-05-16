@@ -3,7 +3,7 @@
 {% load bootstrap_toolkit %}
 
 {% block extra_head %}
- <center>
+    <center xmlns="http://www.w3.org/1999/html">
         <h1>Proyectos</h1>
     </center>
 {% endblock %}
@@ -27,6 +27,33 @@
 
    </table>
 
+
+ <form id="myform" class="form-wizard">
+
+      <h2 class="form-wizard-heading">BootStap Wizzard Form</h2>
+<input type="text" value="HOLLAAAA">
+<input type="submit"  class="btn btn-info"> holaaaa </input>
+ <button type="button" data-toggle="modal" data-target="#myModal">Launch modal</button>
+ <a type="btn"></a>
+ </form>
+
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Eliminar Usuario</h3>
+</div>
+<div class="modal-body">
+<p>Esta seguro que desea eliminar a este usuario?? </p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+<button class="btn btn-primary">Si</button>
+</div>
+</div>
 
 
  <table class="table" >

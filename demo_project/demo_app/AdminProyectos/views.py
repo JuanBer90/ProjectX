@@ -113,6 +113,7 @@ def eliminar_proyecto(request, id_proyecto):
     get_roles=RolUser.objects.filter(user=user,proyecto=proyecto)
     if get_roles.count() == 0:
         return HttpResponseRedirect('/sinpermiso')
+
     for r in get_roles:
         if not r.rol.permisos.delete_project:
             return HttpResponseRedirect('/sinpermiso')
