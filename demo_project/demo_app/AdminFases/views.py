@@ -6,7 +6,7 @@ from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
 from demo_project.demo_app import constantes
 
-from demo_project.demo_app.models import Rol, Permisos, RolUser, Fase
+from demo_project.demo_app.models import Rol, Permisos, RolUser, Fase, TipoItem
 
 
 def fases_proyecto(request, id_proyecto):
@@ -102,3 +102,8 @@ def procesar_import(request,id_fase,id_import):
     fase.estado = fase_import.estado
     fase.save()
     return HttpResponseRedirect('/proyecto/fases/'+str(fase.proyecto_id))
+
+def fase_tipo_item(request,id):
+    fase=Fase.objects.get(pk=id)
+    tipo_items=TipoItem.objects.filter(fase=fase)
+    return render_to_response('HtmlFases/fases_tipo_item.html',{'fase':fase,'datos':tipo_items}, RequestContext(request))

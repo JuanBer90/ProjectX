@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+
+{% block extra_head %}
+
+
+{% endblock %}
+<body >
+{% block content %}
+    <center><H2>Historial</H2></center>
+   <table>
+   <td style="width: 70%;margin-right: 0px; margin-left: 100%; ">
+        {{ lines|pagination }}
+   </td>
+   </table>
+
+
+
+ <table class="table table-bordered table-condensed" >
+    <tr>
+        <th class="navbar-inner">Tipo Modificacion</th>
+        <th class="navbar-inner">Fecha</th>
+        <th class="navbar-inner">Usuario</th>
+
+
+    </tr>
+    {% for dato in datos %}
+    <tr>
+	    <td><em>{{dato.tipo_modificacion}}</em></td>
+        <td>{{ dato.fecha_modificacion }}</td>
+        <td>{{ dato.user.username }}</td>
+
+
+	</tr>
+	{% endfor %}
+ </table>
+
+
+<br><br><br>
+
+
+
+{% endblock %}
+</body>
+

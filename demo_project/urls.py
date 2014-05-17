@@ -75,6 +75,9 @@ urlpatterns = patterns('',
      url(r'^fases/edit/(?P<id_fase>\d+)/(?P<id_proyecto>\d+)$', 'demo_app.AdminFases.views.fase'),
      url(r'^fases/import/(?P<id_fase>\d+)/$', 'demo_app.AdminFases.views.importar'),
      url(r'^fases/import/(?P<id_fase>\d+)/(?P<id_import>\d+)$', 'demo_app.AdminFases.views.procesar_import'),
+     url(r'^fases/tipoitems/(?P<id>\d+)$', 'demo_app.AdminFases.views.fase_tipo_item'),
+     url(r'^fases/tipoitems/add/(?P<id>\d+)$', 'demo_app.AdminTipoItem.views.TipoItemToFase'),
+
 
 
 
@@ -83,14 +86,19 @@ urlpatterns = patterns('',
      url(r'^tipoitem/listar/$','demo_app.AdminTipoItem.views.tipoitem'),
      url(r'^tipoitem/editar/(?P<id_tipoitem>\d+)/$','demo_app.AdminTipoItem.views.editartipoitem'),
      url(r'^tipoitem/eliminar/(?P<id_tipoitem>\d+)/$','demo_app.AdminTipoItem.views.eliminartipoitem'),
+     url(r'^tipoitem/items/(?P<id>\d+)/$','demo_app.AdminTipoItem.views.TipoItemToItem'),
+     url(r'^tipoitem/items/add/(?P<id>\d+)/$','demo_app.AdminItem.views.TipoItem_nuevo_item'),
+     url(r'^tipoitem/items/edit/(?P<id>\d+)/$','demo_app.AdminItem.views.TipoItem_editar_item'),
 
     #ITEM
      url(r'^item/nuevo/$','demo_app.AdminItem.views.nuevo_item'),
      url(r'^item/editar/(?P<id>\d+)/$','demo_app.AdminItem.views.editar_item'),
      url(r'^item/eliminar/(?P<id>\d+)/$','demo_app.AdminItem.views.eliminar_item'),
      url(r'^item/listar/$','demo_app.AdminItem.views.listar_items'),
+     url(r'^item/historial/(?P<id>\d+)/$','demo_app.AdminItem.views.historial'),
 
-     #Relacion
+
+    #RELACION
     url(r'^relacion/nuevo/$','demo_app.AdminRelacion.views.nuevoRelacion'),
     url(r'^relacion/$','demo_app.AdminRelacion.views.relacion'),
     url(r'^relacion/editar/(?P<id>\d+)/$','demo_app.AdminRelacion.views.editarrelacion'),

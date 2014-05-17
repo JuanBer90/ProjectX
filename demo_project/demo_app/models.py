@@ -101,7 +101,7 @@ class Item(models.Model):
     id_item=models.AutoField(primary_key=True)
     nombre=models.CharField(max_length=30,null=True)
     descripcion=models.CharField(max_length=100,null=True)
-    numero=models.IntegerField()
+    numero=models.IntegerField(null=True)
     numero_por_tipo=models.IntegerField(null=True)
     tipo_item=models.ForeignKey(TipoItem)
     fase=models.ForeignKey(Fase,null=True)
