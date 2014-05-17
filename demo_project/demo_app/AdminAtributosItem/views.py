@@ -46,6 +46,23 @@ def editaratributoitem(request,id):
     return render_to_response('HtmlAtributoItem/editaratributoitem.html',{'item':item,'atributo':atributo}, context_instance=RequestContext(request))
 
 
+
+def ver_atributo(request,id):
+    """
+    Edita una nueva Relacion con sus atributos proveidos por el
+    usuario y el Sistema autogenera los demas atributos
+
+    """
+    atributo=AtributosPorItem.objects.get(pk=id)
+    item=atributo.item
+    if request.method=='POST':
+        return HttpResponseRedirect('/tipoitem/items/'+str(item.tipo_item_id))
+
+
+    return render_to_response('HtmlAtributoItem/veratributo.html',{'item':item,'atributo':atributo}, context_instance=RequestContext(request))
+
+
+
 def atributoitem(request):
     nro_lineas=10
     lines = []
@@ -91,3 +108,10 @@ def eliminaratributoitem(request, id):
 
     return render_to_response('HtmlAtributoItem/eliminaratributoitem.html',{'proyecto':proyecto},
                               context_instance=RequestContext(request))
+
+
+def atributos_por_item(request,id):
+    item=Item.objects.get(pk=id)
+    objetos_list = AtributosPorItem.objects.filter(item=item)
+    return render_to_response('HtmlAtributoItem/atributos_por_item.html',{'objetos':objetos_list,'item':item}, RequestContext(request))
+

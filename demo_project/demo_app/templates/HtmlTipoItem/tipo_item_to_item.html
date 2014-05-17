@@ -26,8 +26,10 @@
 	    <td><em>{{dato.nombre}}</em></td>
 
         <td>{{ dato.descripcion }}</td>
-    <td><a href="{% url 'demo_app.AdminItem.views.TipoItem_editar_item' dato.id_item %}">Editar</a>
+    <td style="width: 300px"><a href="{% url 'demo_app.AdminItem.views.TipoItem_editar_item' dato.id_item %}">Editar</a>
     - <a href="{% url 'demo_app.AdminRelacion.views.relacion_item' dato.id_item %}">Relacionar</a>
+        - <a href="{% url 'demo_app.AdminAtributosItem.views.atributos_por_item' dato.id_item %}">Ver Atributos</a>
+
     </td>
 
 	</tr>
