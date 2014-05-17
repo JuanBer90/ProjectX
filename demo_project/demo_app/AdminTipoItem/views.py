@@ -3,10 +3,10 @@ from django.template.context import RequestContext
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from demo_project.demo_app.AdminTipoItem.forms import TipoItemForm
-from demo_project.demo_app.models import TipoItem, Fase, Proyecto
+from demo_project.demo_app.models import TipoItem, Fase, Proyecto, Item
 
 
-def nuevoTipoItem(request):
+def nuevoTipoItem(request,id):
     """
     Crea un nuevo Usuario con sus atributos proveidos por el
     usuario y el Sistema autogenera los demas atributos
@@ -57,7 +57,7 @@ def editartipoitem(request, id_tipoitem):
             tipo_item.padre_id=padre
 
         tipo_item.save()
-        return HttpResponseRedirect('/tipoitem/listar')
+        return HttpResponseRedirect('/fases/tipoitems/'+str(tipo_item.fase_id))
 
     return render_to_response('HtmlTipoItem/editartipoitem.html',
                               {'fases':fases,'tipo_item':tipo_item,'proyectos':proyectos,'tipo_items':tipo_items},
@@ -99,12 +99,48 @@ def tipoitem(request):
 
 def eliminartipoitem(request, id_tipoitem):
     proyecto= TipoItem.objects.get(pk=id_tipoitem)
+
     if request.method=='POST':
+        id_fase= proyecto.fase_id
         delete= request.POST['delete']
         if delete == 'si':
             proyecto.delete()
 
-        return HttpResponseRedirect('/tipoitem/')
+        return HttpResponseRedirect('/fases/tipoitems/'+str(id_fase))
 
     return render_to_response('HtmlTipoItem/eliminartipoitem.html',{'proyecto':proyecto},
                               context_instance=RequestContext(request))
+
+
+
+def TipoItemToFase(request,id):
+    """
+    Crea un nuevo Usuario con sus atributos proveidos por el
+    usuario y el Sistema autogenera los demas atributos
+    """
+    fase=Fase.objects.get(pk=id)
+    tipo_items=TipoItem.objects.all()
+    if request.method=='POST':
+        tipo_item=TipoItem()
+        padre=request.POST.get('padre','')
+
+        tipo_item.nombre=request.POST.get('nombre','')
+        tipo_item.descripcion=request.POST.get('descripcion','')
+        tipo_item.proyecto=fase.proyecto
+        tipo_item.fase=fase
+        if padre != '':
+            tipo_item.padre_id=padre
+
+        tipo_item.save()
+        return HttpResponseRedirect('/fases/tipoitems/'+str(fase.id_fase))
+
+    return render_to_response('HtmlTipoItem/tipoitemtofase.html',
+                              {'fase':fase,'tipo_items':tipo_items}, context_instance=RequestContext(request))
+
+
+def TipoItemToItem(request,id):
+    tipo_item=TipoItem.objects.get(pk=id)
+    items=Item.objects.filter(tipo_item=tipo_item)
+    return render_to_response('HtmlTipoItem/tipo_item_to_item.html',
+                              {'tipo_item':tipo_item,'datos':items}, context_instance=RequestContext(request))
+

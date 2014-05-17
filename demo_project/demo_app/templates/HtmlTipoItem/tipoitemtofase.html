@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block title %}Nuevo Tipo Item{% endblock %}
+{% block extra_head %}
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Registrar TipoItem</h1></center>
+    <br><br>
+    <center>
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+		<label>Nombre:</label>
+            <input type="text" maxlength="50" name="nombre"/>
+        <label>Descripcion:</label>
+            <textarea name="descripcion" maxlength="200" cols="4"></textarea>
+        <label>Fase:</label>
+        <input disabled type="text" value="{{ fase.nombre }}" />
+        <label>Proyecto:</label>
+        <input disabled type="text" value="{{ fase.proyecto.nombre }}" />
+         <label>Padre:</label>
+        <select name="padre">
+            <option value="">Seleccionar...</option>
+            {% for tipo in tipo_items %}
+            <option value="{{ tipo.id_tipo_item }}" > {{ tipo.nombre }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+		<input class="btn btn-info" type='submit' value='Registrar'/>
+
+	</form>
+    </center>
+{% endblock %}
