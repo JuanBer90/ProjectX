@@ -96,6 +96,12 @@ urlpatterns = patterns('',
     url(r'^relacion/editar/(?P<id>\d+)/$','demo_app.AdminRelacion.views.editarrelacion'),
     url(r'^relacion/eliminar/(?P<id>\d+)/$','demo_app.AdminRelacion.views.eliminarrelacion'),
 
+    #AtributoItem
+    url(r'^atributoitem/nuevo/$','demo_app.AdminAtributoItem.views.nuevoatributoitem'),
+    url(r'^atributoitem/$','demo_app.AdminAtributoItem.views.atributoitem'),
+    url(r'^atributoitem/editar/(?P<id>\d+)/$','demo_app.AdminAtributoItem.views.editaratributoitem'),
+    url(r'^atributoitem/eliminar/(?P<id>\d+)/$','demo_app.AdminAtributoItem.views.eliminaratributoitem'),
+
 
 
 
