@@ -1,16 +1,8 @@
 import os
 import sys
-
-sys.path.append('/home/juanber/PycharmProjects/ProjectX')
-	#carpeta donde está el proyecto clonado.
-sys.path.append('/home/juanber/PycharmProjects/ProjectX/demo_project')
-	#carpeta que contiene a wsgi.py
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "demo_project.settings")
-	#se setea al settings de nuestro proyecto
-
+from unipath import Path
+p = Path(__file__)
+sys.path = [p.ancestor(1)] + sys.path
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
-
-
-
-

@@ -55,6 +55,16 @@
 
                     </ul>
                 </li>
+
+                </li>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relacion<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'demo_app.AdminRelacion.views.relacion' %}">Relacion</a></li>
+                        <li><a href="{% url 'demo_app.AdminRelacion.views.nuevoRelacion' %}">Nuevo Relacion</a></li>
+                    </ul>
+                </li>
+
             </ul>
             <div>
                 <a href="{% url 'demo_app.AdminUsuarios.views.cerrar' %}">Logout</a>

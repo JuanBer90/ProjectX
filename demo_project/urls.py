@@ -85,6 +85,13 @@ urlpatterns = patterns('',
      url(r'^tipoitem/eliminar/(?P<id_tipoitem>\d+)/$','demo_app.AdminTipoItem.views.eliminartipoitem'),
 
 
+     #Relacion
+    url(r'^relacion/nuevo/$','demo_app.AdminRelacion.views.nuevoRelacion'),
+    url(r'^relacion/$','demo_app.AdminRelacion.views.relacion'),
+    url(r'^relacion/editar/(?P<id_tipoitem>\d+)/$','demo_app.AdminRelacion.views.editarrelacion'),
+    url(r'^relacion/eliminar/(?P<id_tipoitem>\d+)/$','demo_app.AdminRelacion.views.eliminarrelacion'),
+
+
 
 
 

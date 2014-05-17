@@ -167,4 +167,9 @@ class AtributosPorItem(models.Model):
     valor_defecto=models.CharField(max_length=32,null=True)
     item=models.ForeignKey(Item)
 
-
+class ItemporLB(models.Model):
+    class Meta:
+        db_table='itemporlb'
+    id_itemporlb = models.AutoField(primary_key=True)
+    id_item = models.ForeignKey(Item)
+    id_lb = models.ForeignKey(LineaBase)
