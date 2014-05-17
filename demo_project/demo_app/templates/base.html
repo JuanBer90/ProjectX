@@ -44,7 +44,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Desarrollo<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="{% url 'demo_app.AdminProyectos.views.mis_proyectos' %}">Mis Proyectos</a></li>
-                        <li><a>Username: {{ user.username }}</a></li>
+
                         <li><a href="{% url 'demo_app.AdminTipoItem.views.nuevoTipoItem' %}">Agregar TipoItem</a></li>
                         <li><a href="{% url 'demo_app.AdminTipoItem.views.tipoitem' %}">Listar TipoItem</a></li>
                     </ul>
@@ -67,6 +67,7 @@
 
             </ul>
             <div>
+                <a>Logged as: {{ user.username }} </a> - 
                 <a href="{% url 'demo_app.AdminUsuarios.views.cerrar' %}">Logout</a>
             </div>
         </div>

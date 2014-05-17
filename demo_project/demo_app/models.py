@@ -144,7 +144,7 @@ class Relacion(models.Model):
         db_table='relacion'
     id_relacion=models.AutoField(primary_key=True)
     tipo=models.CharField(max_length=45,null=True)
-    codigo=models.CharField(max_length=50,unique=True)
+    nombre=models.CharField(max_length=50,unique=True)
     anterior=models.ForeignKey(Item, related_name='anterior_item')
     posterior=models.ForeignKey(Item, related_name='posterior_item')
 
@@ -169,5 +169,5 @@ class ItemporLB(models.Model):
     class Meta:
         db_table='itemporlb'
     id_itemporlb = models.AutoField(primary_key=True)
-    id_item = models.ForeignKey(Item)
-    id_lb = models.ForeignKey(LineaBase)
+    item = models.ForeignKey(Item)
+    linea_base = models.ForeignKey(LineaBase)

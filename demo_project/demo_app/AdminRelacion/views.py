@@ -3,22 +3,53 @@ from django.template.context import RequestContext
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from demo_project.demo_app.AdminRelacion.forms import RelacionForm
-from demo_project.demo_app.models import Relacion
+from demo_project.demo_app.models import Relacion, Item
 
 
 def nuevoRelacion(request):
     """
     Crea un nuevo Usuario con sus atributos proveidos por el
     usuario y el Sistema autogenera los demas atributos
+
     """
+    items=Item.objects.all()
     if request.method=='POST':
-        formulario = RelacionForm(request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            return HttpResponseRedirect('/relacion')
-    else:
-        formulario = RelacionForm(request.POST)
-    return render_to_response('HtmlRelacion/nuevorelacion.html',{'formulario':formulario}, context_instance=RequestContext(request))
+        relac=Relacion()
+        relac.tipo=request.POST.get('tipo','')
+        relac.nombre=request.POST.get('nombre','')
+        anterior=int(request.POST.get('anterior',''))
+        posterior=int(request.POST.get('posterior',''))
+        if(anterior != '' and posterior !=''):
+            relac.anterior_id=int(anterior)
+            relac.posterior_id=int(posterior)
+            relac.save()
+
+        return HttpResponseRedirect('/relacion')
+
+    return render_to_response('HtmlRelacion/nuevorelacion.html',{'items':items}, context_instance=RequestContext(request))
+
+
+def editarrelacion(request,id):
+    """
+    Edita una nueva Relacion con sus atributos proveidos por el
+    usuario y el Sistema autogenera los demas atributos
+
+    """
+    items=Item.objects.all()
+    relac=Relacion.objects.get(pk=id)
+    if request.method=='POST':
+        relac.tipo=request.POST.get('tipo','')
+        relac.nombre=request.POST.get('nombre','')
+        anterior=int(request.POST.get('anterior',''))
+        posterior=int(request.POST.get('posterior',''))
+        if(anterior != '' and posterior !=''):
+            relac.anterior_id=int(anterior)
+            relac.posterior_id=int(posterior)
+            relac.save()
+
+        return HttpResponseRedirect('/relacion')
+
+    return render_to_response('HtmlRelacion/editarrelacion.html',{'items':items,'relacion':relac}, context_instance=RequestContext(request))
 
 
 def relacion(request):
@@ -64,21 +95,10 @@ def relacion(request):
         proyectos_list = Relacion.objects.filter(nombre=buscar)[ini:fin]
     print 'BUSCAR: '+buscar
 
-    return render_to_response('HtmlRelacion/relacion.html',{'tipoitem':proyectos_list}, RequestContext(request, {
+    return render_to_response('HtmlRelacion/relacion.html',{'relacion':proyectos_list}, RequestContext(request, {
         'lines': items
     }))
 
-
-def editarrelacion(request, id_tipoitem):
-     permiso =Relacion.objects.get(pk=id_tipoitem)
-     if request.method=='POST':
-        formulario = RelacionForm(request.POST,instance=permiso)
-        if formulario.is_valid():
-            formulario.save()
-            return HttpResponseRedirect('/relacion/')
-     else:
-        formulario = RelacionForm(instance=permiso)
-     return render_to_response('HtmlRelacion/editarrelacion.html',{'formulario':formulario}, context_instance=RequestContext(request))
 
 
 def eliminarrelacion(request, id_tipoitem):
