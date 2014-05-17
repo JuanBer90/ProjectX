@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>demo_project.demo_app.AdminAtributosItem.views</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="demo_project.demo_app-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;demo_project ::
+        <a href="demo_project.demo_app-module.html">Package&nbsp;demo_app</a> ::
+        <a href="demo_project.demo_app.AdminAtributosItem-module.html">Package&nbsp;AdminAtributosItem</a> ::
+        Module&nbsp;views
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="demo_project.demo_app.AdminAtributosItem.views-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="demo_project.demo_app.AdminAtributosItem.views-module.html">Module demo_project.demo_app.AdminAtributosItem.views</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">shortcuts</tt> <tt class="py-keyword">import</tt> <tt class="py-name">render_to_response</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">template</tt><tt class="py-op">.</tt><tt class="py-name">context</tt> <tt class="py-keyword">import</tt> <tt class="py-name">RequestContext</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">core</tt><tt class="py-op">.</tt><tt class="py-name">paginator</tt> <tt class="py-keyword">import</tt> <tt class="py-name">Paginator</tt><tt class="py-op">,</tt> <tt class="py-name">PageNotAnInteger</tt><tt class="py-op">,</tt> <tt class="py-name">EmptyPage</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">http</tt> <tt class="py-keyword">import</tt> <tt class="py-name">HttpResponseRedirect</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">demo_project</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Package demo_project.demo_app=demo_project.demo_app-module.html"><a title="demo_project.demo_app" class="py-name" href="#" onclick="return doclink('link-0', 'demo_app', 'link-0');">demo_app</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module demo_project.demo_app.AdminPermisos.models=demo_project.demo_app.AdminPermisos.models-module.html,Module demo_project.demo_app.AdminProyectos.models=demo_project.demo_app.AdminProyectos.models-module.html,Module demo_project.demo_app.AdminRelacion.models=demo_project.demo_app.AdminRelacion.models-module.html,Module demo_project.demo_app.AdminRoles.models=demo_project.demo_app.AdminRoles.models-module.html,Module demo_project.demo_app.AdminTipoItem.models=demo_project.demo_app.AdminTipoItem.models-module.html,Module demo_project.demo_app.AdminUsuarios.models=demo_project.demo_app.AdminUsuarios.models-module.html,Module demo_project.demo_app.models=demo_project.demo_app.models-module.html"><a title="demo_project.demo_app.AdminPermisos.models
+demo_project.demo_app.AdminProyectos.models
+demo_project.demo_app.AdminRelacion.models
+demo_project.demo_app.AdminRoles.models
+demo_project.demo_app.AdminTipoItem.models
+demo_project.demo_app.AdminUsuarios.models
+demo_project.demo_app.models" class="py-name" href="#" onclick="return doclink('link-1', 'models', 'link-1');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Class demo_project.demo_app.models.AtributosPorItem=demo_project.demo_app.models.AtributosPorItem-class.html"><a title="demo_project.demo_app.models.AtributosPorItem" class="py-name" href="#" onclick="return doclink('link-2', 'AtributosPorItem', 'link-2');">AtributosPorItem</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Class demo_project.demo_app.models.Item=demo_project.demo_app.models.Item-class.html"><a title="demo_project.demo_app.models.Item" class="py-name" href="#" onclick="return doclink('link-3', 'Item', 'link-3');">Item</a></tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"> </tt>
+<a name="nuevoatributoitem"></a><div id="nuevoatributoitem-def"><a name="L8"></a><tt class="py-lineno">  8</tt> <a class="py-toggle" href="#" id="nuevoatributoitem-toggle" onclick="return toggle('nuevoatributoitem');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="demo_project.demo_app.AdminAtributosItem.views-module.html#nuevoatributoitem">nuevoatributoitem</a><tt class="py-op">(</tt><tt class="py-param">request</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="nuevoatributoitem-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="nuevoatributoitem-expanded"><a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">    Crea un nuevo Usuario con sus atributos proveidos por el</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring">    usuario y el Sistema autogenera los demas atributos</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line">    <tt class="py-name">items</tt><tt class="py-op">=</tt><tt id="link-4" class="py-name"><a title="demo_project.demo_app.models.Item" class="py-name" href="#" onclick="return doclink('link-4', 'Item', 'link-3');">Item</a></tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">method</tt><tt class="py-op">==</tt><tt class="py-string">'POST'</tt><tt class="py-op">:</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line">        <tt class="py-name">relac</tt><tt class="py-op">=</tt><tt id="link-5" class="py-name"><a title="demo_project.demo_app.models.AtributosPorItem" class="py-name" href="#" onclick="return doclink('link-5', 'AtributosPorItem', 'link-2');">AtributosPorItem</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line">        <tt class="py-name">relac</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Variable demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.nombre=demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm-class.html#nombre,Variable demo_project.demo_app.AdminItem.forms.ItemForm.nombre=demo_project.demo_app.AdminItem.forms.ItemForm-class.html#nombre,Variable demo_project.demo_app.AdminProyectos.forms.ProyectoForm.nombre=demo_project.demo_app.AdminProyectos.forms.ProyectoForm-class.html#nombre,Variable demo_project.demo_app.AdminTipoItem.forms.TipoItemForm.nombre=demo_project.demo_app.AdminTipoItem.forms.TipoItemForm-class.html#nombre,Variable demo_project.demo_app.models.AtributosPorItem.nombre=demo_project.demo_app.models.AtributosPorItem-class.html#nombre,Variable demo_project.demo_app.models.Fase.nombre=demo_project.demo_app.models.Fase-class.html#nombre,Variable demo_project.demo_app.models.Item.nombre=demo_project.demo_app.models.Item-class.html#nombre,Variable demo_project.demo_app.models.Proyecto.nombre=demo_project.demo_app.models.Proyecto-class.html#nombre,Variable demo_project.demo_app.models.Relacion.nombre=demo_project.demo_app.models.Relacion-class.html#nombre,Variable demo_project.demo_app.models.Rol.nombre=demo_project.demo_app.models.Rol-class.html#nombre,Variable demo_project.demo_app.models.TipoItem.nombre=demo_project.demo_app.models.TipoItem-class.html#nombre"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.nombre
+demo_project.demo_app.AdminItem.forms.ItemForm.nombre
+demo_project.demo_app.AdminProyectos.forms.ProyectoForm.nombre
+demo_project.demo_app.AdminTipoItem.forms.TipoItemForm.nombre
+demo_project.demo_app.models.AtributosPorItem.nombre
+demo_project.demo_app.models.Fase.nombre
+demo_project.demo_app.models.Item.nombre
+demo_project.demo_app.models.Proyecto.nombre
+demo_project.demo_app.models.Relacion.nombre
+demo_project.demo_app.models.Rol.nombre
+demo_project.demo_app.models.TipoItem.nombre" class="py-name" href="#" onclick="return doclink('link-6', 'nombre', 'link-6');">nombre</a></tt><tt class="py-op">=</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">POST</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'nombre'</tt><tt class="py-op">,</tt><tt class="py-string">''</tt><tt class="py-op">)</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line">        <tt class="py-name">relac</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Variable demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.tipo=demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm-class.html#tipo,Variable demo_project.demo_app.AdminRelacion.forms.RelacionForm.tipo=demo_project.demo_app.AdminRelacion.forms.RelacionForm-class.html#tipo,Variable demo_project.demo_app.models.AtributosPorItem.tipo=demo_project.demo_app.models.AtributosPorItem-class.html#tipo,Variable demo_project.demo_app.models.Relacion.tipo=demo_project.demo_app.models.Relacion-class.html#tipo"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.tipo
+demo_project.demo_app.AdminRelacion.forms.RelacionForm.tipo
+demo_project.demo_app.models.AtributosPorItem.tipo
+demo_project.demo_app.models.Relacion.tipo" class="py-name" href="#" onclick="return doclink('link-7', 'tipo', 'link-7');">tipo</a></tt><tt class="py-op">=</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">POST</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'tipo'</tt><tt class="py-op">,</tt><tt class="py-string">''</tt><tt class="py-op">)</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line">        <tt class="py-name">relac</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Variable demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.valor_defecto=demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm-class.html#valor_defecto,Variable demo_project.demo_app.models.AtributosPorItem.valor_defecto=demo_project.demo_app.models.AtributosPorItem-class.html#valor_defecto"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.valor_defecto
+demo_project.demo_app.models.AtributosPorItem.valor_defecto" class="py-name" href="#" onclick="return doclink('link-8', 'valor_defecto', 'link-8');">valor_defecto</a></tt><tt class="py-op">=</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">POST</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'valor_defecto'</tt><tt class="py-op">,</tt><tt class="py-string">''</tt><tt class="py-op">)</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line">        <tt id="link-9" class="py-name" targets="Variable demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item=demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm-class.html#item,Variable demo_project.demo_app.models.AtributosPorItem.item=demo_project.demo_app.models.AtributosPorItem-class.html#item,Variable demo_project.demo_app.models.HistorialItem.item=demo_project.demo_app.models.HistorialItem-class.html#item,Variable demo_project.demo_app.models.ItemporLB.item=demo_project.demo_app.models.ItemporLB-class.html#item"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-9', 'item', 'link-9');">item</a></tt><tt class="py-op">=</tt><tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">POST</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'item'</tt><tt class="py-op">,</tt><tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt id="link-10" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-10', 'item', 'link-9');">item</a></tt> <tt class="py-op">&gt;</tt><tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line">            <tt class="py-name">relac</tt><tt class="py-op">.</tt><tt class="py-name">item_id</tt><tt class="py-op">=</tt><tt class="py-name">int</tt><tt class="py-op">(</tt><tt id="link-11" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-11', 'item', 'link-9');">item</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">            <tt class="py-name">relac</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Method demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.save()=demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm-class.html#save,Method demo_project.demo_app.AdminItem.forms.ItemForm.save()=demo_project.demo_app.AdminItem.forms.ItemForm-class.html#save,Method demo_project.demo_app.AdminProyectos.forms.ProyectoForm.save()=demo_project.demo_app.AdminProyectos.forms.ProyectoForm-class.html#save,Method demo_project.demo_app.AdminRelacion.forms.RelacionForm.save()=demo_project.demo_app.AdminRelacion.forms.RelacionForm-class.html#save,Method demo_project.demo_app.AdminTipoItem.forms.TipoItemForm.save()=demo_project.demo_app.AdminTipoItem.forms.TipoItemForm-class.html#save,Method demo_project.demo_app.AdminUsuarios.forms.EditUserForm.save()=demo_project.demo_app.AdminUsuarios.forms.EditUserForm-class.html#save,Method demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.save()=demo_project.demo_app.AdminUsuarios.forms.RegistrationForm-class.html#save"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.save
+demo_project.demo_app.AdminItem.forms.ItemForm.save
+demo_project.demo_app.AdminProyectos.forms.ProyectoForm.save
+demo_project.demo_app.AdminRelacion.forms.RelacionForm.save
+demo_project.demo_app.AdminTipoItem.forms.TipoItemForm.save
+demo_project.demo_app.AdminUsuarios.forms.EditUserForm.save
+demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.save" class="py-name" href="#" onclick="return doclink('link-12', 'save', 'link-12');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">HttpResponseRedirect</tt><tt class="py-op">(</tt><tt class="py-string">'/atributoitem'</tt><tt class="py-op">)</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">'HtmlAtributoItem/nuevoatributoitem.html'</tt><tt class="py-op">,</tt><tt class="py-op">{</tt><tt class="py-string">'items'</tt><tt class="py-op">:</tt><tt class="py-name">items</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-name">context_instance</tt><tt class="py-op">=</tt><tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="editaratributoitem"></a><div id="editaratributoitem-def"><a name="L30"></a><tt class="py-lineno"> 30</tt> <a class="py-toggle" href="#" id="editaratributoitem-toggle" onclick="return toggle('editaratributoitem');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="demo_project.demo_app.AdminAtributosItem.views-module.html#editaratributoitem">editaratributoitem</a><tt class="py-op">(</tt><tt class="py-param">request</tt><tt class="py-op">,</tt><tt class="py-param">id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="editaratributoitem-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="editaratributoitem-expanded"><a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-docstring">    Edita una nueva Relacion con sus atributos proveidos por el</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">    usuario y el Sistema autogenera los demas atributos</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">    <tt class="py-name">atributo</tt><tt class="py-op">=</tt><tt id="link-13" class="py-name"><a title="demo_project.demo_app.models.AtributosPorItem" class="py-name" href="#" onclick="return doclink('link-13', 'AtributosPorItem', 'link-2');">AtributosPorItem</a></tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-name">pk</tt><tt class="py-op">=</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">    <tt id="link-14" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-14', 'item', 'link-9');">item</a></tt><tt class="py-op">=</tt><tt class="py-name">atributo</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-15', 'item', 'link-9');">item</a></tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">method</tt><tt class="py-op">==</tt><tt class="py-string">'POST'</tt><tt class="py-op">:</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-name">atributo</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.nombre
+demo_project.demo_app.AdminItem.forms.ItemForm.nombre
+demo_project.demo_app.AdminProyectos.forms.ProyectoForm.nombre
+demo_project.demo_app.AdminTipoItem.forms.TipoItemForm.nombre
+demo_project.demo_app.models.AtributosPorItem.nombre
+demo_project.demo_app.models.Fase.nombre
+demo_project.demo_app.models.Item.nombre
+demo_project.demo_app.models.Proyecto.nombre
+demo_project.demo_app.models.Relacion.nombre
+demo_project.demo_app.models.Rol.nombre
+demo_project.demo_app.models.TipoItem.nombre" class="py-name" href="#" onclick="return doclink('link-16', 'nombre', 'link-6');">nombre</a></tt><tt class="py-op">=</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">POST</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'nombre'</tt><tt class="py-op">,</tt><tt class="py-string">''</tt><tt class="py-op">)</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">        <tt class="py-name">atributo</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.tipo
+demo_project.demo_app.AdminRelacion.forms.RelacionForm.tipo
+demo_project.demo_app.models.AtributosPorItem.tipo
+demo_project.demo_app.models.Relacion.tipo" class="py-name" href="#" onclick="return doclink('link-17', 'tipo', 'link-7');">tipo</a></tt><tt class="py-op">=</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">POST</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'tipo'</tt><tt class="py-op">,</tt><tt class="py-string">''</tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt class="py-name">atributo</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.valor_defecto
+demo_project.demo_app.models.AtributosPorItem.valor_defecto" class="py-name" href="#" onclick="return doclink('link-18', 'valor_defecto', 'link-8');">valor_defecto</a></tt><tt class="py-op">=</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">POST</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'valor_defecto'</tt><tt class="py-op">,</tt><tt class="py-string">''</tt><tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-name">atributo</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.save
+demo_project.demo_app.AdminItem.forms.ItemForm.save
+demo_project.demo_app.AdminProyectos.forms.ProyectoForm.save
+demo_project.demo_app.AdminRelacion.forms.RelacionForm.save
+demo_project.demo_app.AdminTipoItem.forms.TipoItemForm.save
+demo_project.demo_app.AdminUsuarios.forms.EditUserForm.save
+demo_project.demo_app.AdminUsuarios.forms.RegistrationForm.save" class="py-name" href="#" onclick="return doclink('link-19', 'save', 'link-12');">save</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">HttpResponseRedirect</tt><tt class="py-op">(</tt><tt class="py-string">'/atributoitem'</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">'HtmlAtributoItem/editaratributoitem.html'</tt><tt class="py-op">,</tt><tt class="py-op">{</tt><tt class="py-string">'item'</tt><tt class="py-op">:</tt><tt id="link-20" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-20', 'item', 'link-9');">item</a></tt><tt class="py-op">,</tt><tt class="py-string">'atributo'</tt><tt class="py-op">:</tt><tt class="py-name">atributo</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-name">context_instance</tt><tt class="py-op">=</tt><tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"> </tt>
+<a name="ver_atributo"></a><div id="ver_atributo-def"><a name="L50"></a><tt class="py-lineno"> 50</tt> <a class="py-toggle" href="#" id="ver_atributo-toggle" onclick="return toggle('ver_atributo');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="demo_project.demo_app.AdminAtributosItem.views-module.html#ver_atributo">ver_atributo</a><tt class="py-op">(</tt><tt class="py-param">request</tt><tt class="py-op">,</tt><tt class="py-param">id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ver_atributo-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ver_atributo-expanded"><a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-docstring">    Edita una nueva Relacion con sus atributos proveidos por el</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-docstring">    usuario y el Sistema autogenera los demas atributos</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">    <tt class="py-name">atributo</tt><tt class="py-op">=</tt><tt id="link-21" class="py-name"><a title="demo_project.demo_app.models.AtributosPorItem" class="py-name" href="#" onclick="return doclink('link-21', 'AtributosPorItem', 'link-2');">AtributosPorItem</a></tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-name">pk</tt><tt class="py-op">=</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">    <tt id="link-22" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-22', 'item', 'link-9');">item</a></tt><tt class="py-op">=</tt><tt class="py-name">atributo</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-23', 'item', 'link-9');">item</a></tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">method</tt><tt class="py-op">==</tt><tt class="py-string">'POST'</tt><tt class="py-op">:</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">HttpResponseRedirect</tt><tt class="py-op">(</tt><tt class="py-string">'/tipoitem/items/'</tt><tt class="py-op">+</tt><tt class="py-name">str</tt><tt class="py-op">(</tt><tt id="link-24" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-24', 'item', 'link-9');">item</a></tt><tt class="py-op">.</tt><tt class="py-name">tipo_item_id</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">'HtmlAtributoItem/veratributo.html'</tt><tt class="py-op">,</tt><tt class="py-op">{</tt><tt class="py-string">'item'</tt><tt class="py-op">:</tt><tt id="link-25" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-25', 'item', 'link-9');">item</a></tt><tt class="py-op">,</tt><tt class="py-string">'atributo'</tt><tt class="py-op">:</tt><tt class="py-name">atributo</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-name">context_instance</tt><tt class="py-op">=</tt><tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
+<a name="atributoitem"></a><div id="atributoitem-def"><a name="L66"></a><tt class="py-lineno"> 66</tt> <a class="py-toggle" href="#" id="atributoitem-toggle" onclick="return toggle('atributoitem');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="demo_project.demo_app.AdminAtributosItem.views-module.html#atributoitem">atributoitem</a><tt class="py-op">(</tt><tt class="py-param">request</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="atributoitem-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="atributoitem-expanded"><a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">    <tt class="py-name">nro_lineas</tt><tt class="py-op">=</tt><tt class="py-number">10</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">    <tt class="py-name">lines</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">    <tt class="py-name">page</tt> <tt class="py-op">=</tt> <tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">GET</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'page'</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">    <tt class="py-name">objetos_total</tt> <tt class="py-op">=</tt> <tt id="link-26" class="py-name"><a title="demo_project.demo_app.models.AtributosPorItem" class="py-name" href="#" onclick="return doclink('link-26', 'AtributosPorItem', 'link-2');">AtributosPorItem</a></tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">count</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">objetos_total</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-name">lines</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-string">u'Line %s'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">i</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">    <tt class="py-name">paginator</tt> <tt class="py-op">=</tt> <tt class="py-name">Paginator</tt><tt class="py-op">(</tt><tt class="py-name">lines</tt><tt class="py-op">,</tt> <tt class="py-name">nro_lineas</tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-name">page</tt><tt class="py-op">=</tt><tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">page</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-name">page</tt><tt class="py-op">=</tt><tt class="py-number">1</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">page</tt><tt class="py-op">)</tt><tt class="py-op">*</tt><tt class="py-name">nro_lineas</tt><tt class="py-op">&gt;</tt><tt class="py-name">objetos_total</tt> <tt class="py-keyword">or</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">page</tt><tt class="py-op">)</tt><tt class="py-op">&gt;</tt><tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">            <tt class="py-name">items</tt> <tt class="py-op">=</tt> <tt class="py-name">paginator</tt><tt class="py-op">.</tt><tt class="py-name">page</tt><tt class="py-op">(</tt><tt class="py-name">page</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">            <tt class="py-name">fin</tt><tt class="py-op">=</tt><tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">page</tt><tt class="py-op">)</tt><tt class="py-op">*</tt><tt class="py-name">nro_lineas</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">            <tt class="py-name">ini</tt> <tt class="py-op">=</tt><tt class="py-name">fin</tt><tt class="py-op">-</tt><tt class="py-name">nro_lineas</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">PageNotAnInteger</tt> <tt class="py-keyword">or</tt> <tt class="py-name">EmptyPage</tt><tt class="py-op">:</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">            <tt class="py-name">fin</tt><tt class="py-op">=</tt><tt class="py-name">nro_lineas</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">            <tt class="py-name">ini</tt><tt class="py-op">=</tt><tt class="py-number">0</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">            <tt class="py-name">items</tt> <tt class="py-op">=</tt> <tt class="py-name">paginator</tt><tt class="py-op">.</tt><tt class="py-name">page</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-name">fin</tt><tt class="py-op">=</tt><tt class="py-name">nro_lineas</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-name">ini</tt><tt class="py-op">=</tt><tt class="py-number">0</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-name">items</tt> <tt class="py-op">=</tt> <tt class="py-name">paginator</tt><tt class="py-op">.</tt><tt class="py-name">page</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt class="py-name">objetos_list</tt> <tt class="py-op">=</tt> <tt id="link-27" class="py-name"><a title="demo_project.demo_app.models.AtributosPorItem" class="py-name" href="#" onclick="return doclink('link-27', 'AtributosPorItem', 'link-2');">AtributosPorItem</a></tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">order_by</tt><tt class="py-op">(</tt><tt class="py-string">'tipo'</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-name">ini</tt><tt class="py-op">:</tt><tt class="py-name">fin</tt><tt class="py-op">]</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">'HtmlAtributoItem/atributoitem.html'</tt><tt class="py-op">,</tt><tt class="py-op">{</tt><tt class="py-string">'objetos'</tt><tt class="py-op">:</tt><tt class="py-name">objetos_list</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-string">'lines'</tt><tt class="py-op">:</tt> <tt class="py-name">items</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-op">}</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt>
+<a name="eliminaratributoitem"></a><div id="eliminaratributoitem-def"><a name="L101"></a><tt class="py-lineno">101</tt> <a class="py-toggle" href="#" id="eliminaratributoitem-toggle" onclick="return toggle('eliminaratributoitem');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="demo_project.demo_app.AdminAtributosItem.views-module.html#eliminaratributoitem">eliminaratributoitem</a><tt class="py-op">(</tt><tt class="py-param">request</tt><tt class="py-op">,</tt> <tt class="py-param">id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="eliminaratributoitem-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="eliminaratributoitem-expanded"><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">    <tt id="link-28" class="py-name" targets="Variable demo_project.demo_app.models.Fase.proyecto=demo_project.demo_app.models.Fase-class.html#proyecto,Variable demo_project.demo_app.models.RolUser.proyecto=demo_project.demo_app.models.RolUser-class.html#proyecto,Variable demo_project.demo_app.models.TipoItem.proyecto=demo_project.demo_app.models.TipoItem-class.html#proyecto"><a title="demo_project.demo_app.models.Fase.proyecto
+demo_project.demo_app.models.RolUser.proyecto
+demo_project.demo_app.models.TipoItem.proyecto" class="py-name" href="#" onclick="return doclink('link-28', 'proyecto', 'link-28');">proyecto</a></tt><tt class="py-op">=</tt> <tt id="link-29" class="py-name"><a title="demo_project.demo_app.models.AtributosPorItem" class="py-name" href="#" onclick="return doclink('link-29', 'AtributosPorItem', 'link-2');">AtributosPorItem</a></tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-name">pk</tt><tt class="py-op">=</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">method</tt><tt class="py-op">==</tt><tt class="py-string">'POST'</tt><tt class="py-op">:</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-name">delete</tt><tt class="py-op">=</tt> <tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">POST</tt><tt class="py-op">[</tt><tt class="py-string">'delete'</tt><tt class="py-op">]</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">delete</tt> <tt class="py-op">==</tt> <tt class="py-string">'si'</tt><tt class="py-op">:</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">            <tt id="link-30" class="py-name"><a title="demo_project.demo_app.models.Fase.proyecto
+demo_project.demo_app.models.RolUser.proyecto
+demo_project.demo_app.models.TipoItem.proyecto" class="py-name" href="#" onclick="return doclink('link-30', 'proyecto', 'link-28');">proyecto</a></tt><tt class="py-op">.</tt><tt class="py-name">delete</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">HttpResponseRedirect</tt><tt class="py-op">(</tt><tt class="py-string">'/atributoitem/'</tt><tt class="py-op">)</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">'HtmlAtributoItem/eliminaratributoitem.html'</tt><tt class="py-op">,</tt><tt class="py-op">{</tt><tt class="py-string">'proyecto'</tt><tt class="py-op">:</tt><tt id="link-31" class="py-name"><a title="demo_project.demo_app.models.Fase.proyecto
+demo_project.demo_app.models.RolUser.proyecto
+demo_project.demo_app.models.TipoItem.proyecto" class="py-name" href="#" onclick="return doclink('link-31', 'proyecto', 'link-28');">proyecto</a></tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">                              <tt class="py-name">context_instance</tt><tt class="py-op">=</tt><tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"> </tt>
+<a name="atributos_por_item"></a><div id="atributos_por_item-def"><a name="L113"></a><tt class="py-lineno">113</tt> <a class="py-toggle" href="#" id="atributos_por_item-toggle" onclick="return toggle('atributos_por_item');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="demo_project.demo_app.AdminAtributosItem.views-module.html#atributos_por_item">atributos_por_item</a><tt class="py-op">(</tt><tt class="py-param">request</tt><tt class="py-op">,</tt><tt class="py-param">id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="atributos_por_item-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="atributos_por_item-expanded"><a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">    <tt id="link-32" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-32', 'item', 'link-9');">item</a></tt><tt class="py-op">=</tt><tt id="link-33" class="py-name"><a title="demo_project.demo_app.models.Item" class="py-name" href="#" onclick="return doclink('link-33', 'Item', 'link-3');">Item</a></tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-name">pk</tt><tt class="py-op">=</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">    <tt class="py-name">objetos_list</tt> <tt class="py-op">=</tt> <tt id="link-34" class="py-name"><a title="demo_project.demo_app.models.AtributosPorItem" class="py-name" href="#" onclick="return doclink('link-34', 'AtributosPorItem', 'link-2');">AtributosPorItem</a></tt><tt class="py-op">.</tt><tt class="py-name">objects</tt><tt class="py-op">.</tt><tt class="py-name">filter</tt><tt class="py-op">(</tt><tt id="link-35" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-35', 'item', 'link-9');">item</a></tt><tt class="py-op">=</tt><tt id="link-36" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-36', 'item', 'link-9');">item</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">'HtmlAtributoItem/atributos_por_item.html'</tt><tt class="py-op">,</tt><tt class="py-op">{</tt><tt class="py-string">'objetos'</tt><tt class="py-op">:</tt><tt class="py-name">objetos_list</tt><tt class="py-op">,</tt><tt class="py-string">'item'</tt><tt class="py-op">:</tt><tt id="link-37" class="py-name"><a title="demo_project.demo_app.AdminAtributosItem.forms.AtributosItemForm.item
+demo_project.demo_app.models.AtributosPorItem.item
+demo_project.demo_app.models.HistorialItem.item
+demo_project.demo_app.models.ItemporLB.item" class="py-name" href="#" onclick="return doclink('link-37', 'item', 'link-9');">item</a></tt><tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="demo_project.demo_app-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat May 17 09:26:41 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
