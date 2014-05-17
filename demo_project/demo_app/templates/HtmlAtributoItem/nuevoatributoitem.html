@@ -18,7 +18,7 @@
         <label>Valor Defecto: </label>
         <input type="text" maxlength="50" required="" value="{{ atributo.valor_defecto }}" name="valor_defecto"/>
          <label>Item: </label>
-        <select name="Item" required="required">
+        <select name="item" required="required">
             {% for item in items %}
             <option value="{{ item.id_item }}" {% if relacion.anterior_id == item.id_item %} selected {% endif %}>{{ item.nombre }}</option>
             {% endfor %}

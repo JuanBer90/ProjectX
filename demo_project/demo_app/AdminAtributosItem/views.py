@@ -17,13 +17,14 @@ def nuevoatributoitem(request):
         relac.nombre=request.POST.get('nombre','')
         relac.tipo=request.POST.get('tipo','')
         relac.valor_defecto=request.POST.get('valor_defecto','')
-        item=int(request.POST.get('item',''))
-        relac.item_id=int(item)
-        relac.save()
+        item=int(request.POST.get('item',0))
+        if(item >0):
+            relac.item_id=int(item)
+            relac.save()
+            return HttpResponseRedirect('/atributoitem')
 
-        return HttpResponseRedirect('/atributositem')
 
-    return render_to_response('HtmlAtributosItem/nuevoatributositem.html',{'items':items}, context_instance=RequestContext(request))
+    return render_to_response('HtmlAtributoItem/nuevoatributoitem.html',{'items':items}, context_instance=RequestContext(request))
 
 
 def editaratributoitem(request,id):
@@ -32,20 +33,17 @@ def editaratributoitem(request,id):
     usuario y el Sistema autogenera los demas atributos
 
     """
-    items=Item.objects.all()
-    relac=AtributosPorItem.objects.get(pk=id)
+    atributo=AtributosPorItem.objects.get(pk=id)
+    item=atributo.item
     if request.method=='POST':
-        relac=AtributosPorItem()
-        relac.nombre=request.POST.get('nombre','')
-        relac.tipo=request.POST.get('tipo','')
-        relac.valor_defecto=request.POST.get('valor_defecto','')
-        item=int(request.POST.get('item',''))
-        relac.item_id=int(item)
-        relac.save()
-
+        atributo.nombre=request.POST.get('nombre','')
+        atributo.tipo=request.POST.get('tipo','')
+        atributo.valor_defecto=request.POST.get('valor_defecto','')
+        atributo.save()
         return HttpResponseRedirect('/atributoitem')
 
-    return render_to_response('HtmlAtributoItem/editaratributoitem.html',{'items':items,'atributoitem':relac}, context_instance=RequestContext(request))
+
+    return render_to_response('HtmlAtributoItem/editaratributoitem.html',{'item':item,'atributo':atributo}, context_instance=RequestContext(request))
 
 
 def atributoitem(request):
@@ -77,21 +75,19 @@ def atributoitem(request):
         ini=0
         items = paginator.page(1)
 
-    objetos_list = AtributosPorItem.objects.order_by('nombre').all()[ini:fin]
-    return render_to_response('HtmlAtributoItem/atributoitem.html',{'relacion':objetos_list}, RequestContext(request, {
+    objetos_list = AtributosPorItem.objects.order_by('tipo').all()[ini:fin]
+    return render_to_response('HtmlAtributoItem/atributoitem.html',{'objetos':objetos_list}, RequestContext(request, {
         'lines': items
     }))
 
 
-
-def eliminaratributoitem(request, id_tipoitem):
-    proyecto= AtributosPorItem.objects.get(pk=id_tipoitem)
+def eliminaratributoitem(request, id):
+    proyecto= AtributosPorItem.objects.get(pk=id)
     if request.method=='POST':
         delete= request.POST['delete']
         if delete == 'si':
             proyecto.delete()
+            return HttpResponseRedirect('/atributoitem/')
 
-        return HttpResponseRedirect('/atributoitem/')
-
-    return render_to_response('Html/eliminaratributoitem.html',{'proyecto':proyecto},
+    return render_to_response('HtmlAtributoItem/eliminaratributoitem.html',{'proyecto':proyecto},
                               context_instance=RequestContext(request))

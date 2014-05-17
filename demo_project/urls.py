@@ -103,12 +103,14 @@ urlpatterns = patterns('',
     url(r'^relacion/$','demo_app.AdminRelacion.views.relacion'),
     url(r'^relacion/editar/(?P<id>\d+)/$','demo_app.AdminRelacion.views.editarrelacion'),
     url(r'^relacion/eliminar/(?P<id>\d+)/$','demo_app.AdminRelacion.views.eliminarrelacion'),
+    url(r'^relacion/items/(?P<id>\d+)/$','demo_app.AdminRelacion.views.relacion_item'),
+
 
     #AtributoItem
-    url(r'^atributoitem/nuevo/$','demo_app.AdminAtributoItem.views.nuevoatributoitem'),
-    url(r'^atributoitem/$','demo_app.AdminAtributoItem.views.atributoitem'),
-    url(r'^atributoitem/editar/(?P<id>\d+)/$','demo_app.AdminAtributoItem.views.editaratributoitem'),
-    url(r'^atributoitem/eliminar/(?P<id>\d+)/$','demo_app.AdminAtributoItem.views.eliminaratributoitem'),
+    url(r'^atributoitem/nuevo/$','demo_app.AdminAtributosItem.views.nuevoatributoitem'),
+    url(r'^atributoitem/$','demo_app.AdminAtributosItem.views.atributoitem'),
+    url(r'^atributoitem/editar/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.editaratributoitem'),
+    url(r'^atributoitem/eliminar/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.eliminaratributoitem'),
 
 
 
