@@ -56,19 +56,10 @@ def relacion(request):
     nro_lineas=10
     lines = []
     page = request.GET.get('page')
-    if request.method=='POST':
-        buscar=request.POST.get("buscar",'')
-        print 'BUSCAR QUE OND: '+buscar
-    else:
-        buscar = ''
 
-    if buscar == '':
-        proyectos_total = Relacion.objects.count()
-    else:
-        permisos_list = Relacion.objects.filter(nombre=buscar)
-        proyectos_total = permisos_list.count()
+    objetos_total = Relacion.objects.count()
 
-    for i in range(proyectos_total):
+    for i in range(objetos_total):
         lines.append(u'Line %s' % (i + 1))
     paginator = Paginator(lines, nro_lineas)
     try:
@@ -76,7 +67,7 @@ def relacion(request):
     except:
         page=1
 
-    if int(page)*nro_lineas>proyectos_total or int(page)>0:
+    if int(page)*nro_lineas>objetos_total or int(page)>0:
         try:
             items = paginator.page(page)
             fin=int(page)*nro_lineas
@@ -89,13 +80,9 @@ def relacion(request):
         fin=nro_lineas
         ini=0
         items = paginator.page(1)
-    if buscar == '':
-        proyectos_list = Relacion.objects.order_by('nombre').all()[ini:fin]
-    else:
-        proyectos_list = Relacion.objects.filter(nombre=buscar)[ini:fin]
-    print 'BUSCAR: '+buscar
 
-    return render_to_response('HtmlRelacion/relacion.html',{'relacion':proyectos_list}, RequestContext(request, {
+    objetos_list = Relacion.objects.order_by('nombre').all()[ini:fin]
+    return render_to_response('HtmlRelacion/relacion.html',{'relacion':objetos_list}, RequestContext(request, {
         'lines': items
     }))
 
