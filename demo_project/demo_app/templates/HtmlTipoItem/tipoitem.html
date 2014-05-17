@@ -12,20 +12,6 @@
    <td style="width: 70%;margin-right: 0px; margin-left: 100%; ">
         {{ lines|pagination }}
    </td>
-       <!-- PERMISOS: {{ p  }} -->
-    <!--BUSQUEDA DE PERMISOS -->
-   <td>
-            <form id='formulario' method='post' action=''>{% csrf_token %}
-		     <table>
-                 <td><input type="text" placeholder="Nombre del Tipo Item" name="buscar" width="200px"></td>
-                 <td style="width: 20px"></td>
-		           <td><input class="btn btn-info btn-lrg" type='submit' value='Buscar'/></td>
-            </table>
-           </form>
-   </td>
-
-
-
    </table>
 
 
@@ -33,13 +19,20 @@
  <table class="table table-bordered table-condensed" >
     <tr>
         <th class="navbar-inner">Nombre</th>
+
         <th class="navbar-inner">Descripcion</th>
+        <th class="navbar-inner">Proyecto</th>
+        <th class="navbar-inner">Fase</th>
+        <th class="navbar-inner">Padre</th>
         <th class="navbar-inner">Accion</th>
     </tr>
-    {% for dato in tipoitem %}
+    {% for dato in datos %}
     <tr>
 	    <td >{{dato.nombre }}</td>
         <td>{{ dato.descripcion }}</td>
+        <td>{{ dato.proyecto.nombre }}</td>
+        <td>{{ dato.fase.nombre }}</td>
+        <td>{{ dato.padre.nombre }}</td>
         <td> <a href="{% url 'demo_app.AdminTipoItem.views.editartipoitem' dato.id_tipo_item %}">Editar</a>
             -<a href="{% url 'demo_app.AdminTipoItem.views.eliminartipoitem' dato.id_tipo_item %}">Eliminar</a></td>
 

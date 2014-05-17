@@ -75,39 +75,37 @@ class Fase(models.Model):
         db_table='fase'
     id_fase= models.AutoField(primary_key=True)
     proyecto=models.ForeignKey(Proyecto)
-    posicion=models.IntegerField()
+    posicion=models.IntegerField(null=True)
     nombre = models.CharField(max_length=30, unique=False, null=True)
+    numero=models.IntegerField(null=True)
     descripcion = models.CharField(max_length=100,null=True)
     numero_items=models.IntegerField(null=True)
     numero_lb=models.IntegerField(null=True)
     estado=models.CharField(max_length=30,default=constantes.EstadosFase.FASE_NI)
     fecha_creacion= models.DateTimeField(auto_now=True,null=True)
 
-
-
 class TipoItem(models.Model):
     class Meta:
         db_table='tipo_item'
-
     id_tipo_item = models.AutoField(primary_key=True)
-    codigo=models.CharField(max_length=50)
     nombre = models.CharField(max_length=50, unique=True)
     descripcion = models.CharField(max_length=200)
-    proyecto=models.ForeignKey(Proyecto)
-    fase=models.ForeignKey(Fase)
-    padre=models.ForeignKey('self')
+    proyecto=models.ForeignKey(Proyecto,null=True)
+    fase=models.ForeignKey(Fase,null=True)
+    padre=models.ForeignKey('self',null=True)
 
 
 class Item(models.Model):
     class Meta:
         db_table='item'
     id_item=models.AutoField(primary_key=True)
-    codigo=models.CharField(max_length=30,null=True)
+    nombre=models.CharField(max_length=30,null=True)
+    descripcion=models.CharField(max_length=100,null=True)
     numero=models.IntegerField()
-    numero_por_tipo=models.IntegerField()
+    numero_por_tipo=models.IntegerField(null=True)
     tipo_item=models.ForeignKey(TipoItem)
-    fase=models.ForeignKey(Fase)
-    propiedad_item=models.IntegerField()
+    fase=models.ForeignKey(Fase,null=True)
+    propiedad_item=models.IntegerField(null=True)
 
 
 class PropiedadItem(models.Model):

@@ -80,10 +80,15 @@ urlpatterns = patterns('',
 
      #TIPO ITEM
      url(r'^tipoitem/nuevo/$','demo_app.AdminTipoItem.views.nuevoTipoItem'),
-     url(r'^tipoitem/$','demo_app.AdminTipoItem.views.tipoitem'),
+     url(r'^tipoitem/listar/$','demo_app.AdminTipoItem.views.tipoitem'),
      url(r'^tipoitem/editar/(?P<id_tipoitem>\d+)/$','demo_app.AdminTipoItem.views.editartipoitem'),
      url(r'^tipoitem/eliminar/(?P<id_tipoitem>\d+)/$','demo_app.AdminTipoItem.views.eliminartipoitem'),
 
+    #ITEM
+     url(r'^item/nuevo/$','demo_app.AdminItem.views.nuevo_item'),
+     url(r'^item/editar/(?P<id>\d+)/$','demo_app.AdminItem.views.editar_item'),
+     url(r'^item/eliminar/(?P<id>\d+)/$','demo_app.AdminItem.views.eliminar_item'),
+     url(r'^item/listar/$','demo_app.AdminItem.views.listar_items'),
 
      #Relacion
     url(r'^relacion/nuevo/$','demo_app.AdminRelacion.views.nuevoRelacion'),
