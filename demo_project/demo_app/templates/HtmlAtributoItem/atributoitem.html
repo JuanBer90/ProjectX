@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+
+{% block extra_head %}
+ <center>
+        <h1>Lista de Atributo Item</h1>
+    </center>
+{% endblock %}
+{% block content %}
+   <table>
+   <td style="width: 70%;margin-right: 0px; margin-left: 100%; ">
+        {{ lines|pagination }}
+   </td>
+
+
+   </table>
+
+
+
+ <table class="table table-bordered table-condensed" >
+    <tr>
+        <th class="navbar-inner">Tipo</th>
+        <th class="navbar-inner">Nombre</th>
+        <th class="navbar-inner">Item</th>
+    </tr>
+    {% for dato in atributo_item %}
+    <tr>
+	    <td >{{dato.tipo }}</td>
+        <td>{{ dato.nombre }}</td>
+        <td>{{ dato.item.nombre }}</td>
+
+        <td> <a href="{% url 'demo_app.AdminAtributosItem.views.editaratributoitem' dato.id_atributo_por_item %}">Editar</a>
+            {% comment %}-<a href="{% url 'demo_app.AdminRelacion.views.eliminarrelacion' dato.id_relacion %}">Eliminar</a> {% endcomment %}</td>
+
+
+	</tr>
+	{% endfor %}
+ </table>
+
+
+<br><br><br>
+
+
+
+{% endblock %}
