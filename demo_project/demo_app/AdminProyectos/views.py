@@ -37,7 +37,7 @@ def nuevo_proyecto(request):
             rol_user.proyecto = proyecto
             rol_user.user = user
             rol_user.save()
-            return HttpResponseRedirect('/proyectos')
+            return HttpResponseRedirect('/proyectos/miproyecto/'+str(proyecto.id_proyecto))
     else:
         formulario= ProyectoForm(request.POST)
     return render_to_response('HtmlProyecto/nuevoproyecto.html',{'formulario':formulario,'user':user},

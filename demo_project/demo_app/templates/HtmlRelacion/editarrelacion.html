@@ -10,8 +10,27 @@
     <br><br>
     <center>
 	<form id='formulario' method='post' action=''>{% csrf_token %}
-		<table>{{formulario}}</table>
 
+
+        	<label>Tipo: </label>
+        <input type="text" maxlength="45" required="" value="{{ relacion.tipo }}" name="tipo"/>
+        <label>Nombre: </label>
+        <input type="text" maxlength="50" required="" value="{{ relacion.nombre }}" name="nombre"/>
+         <label>Anterior: </label>
+        <select name="anterior" required="required">
+            {% for item in items %}
+            <option value="{{ item.id_item }}" {% if relacion.anterior_id == item.id_item %} selected {% endif %}>{{ item.nombre }}</option>
+            {% endfor %}
+
+        </select>
+         <label>Posterior: </label>
+        <select name="posterior" required="required">
+            {% for item in items %}
+            <option value="{{ item.id_item }}" {% if relacion.posterior_id == item.id_item %} selected {% endif %}>{{ item.nombre }}</option>
+            {% endfor %}
+
+        </select>
+        <br>
 		<input class="btn btn-info" type='submit' value='Actualizar'/>
 
 	</form>

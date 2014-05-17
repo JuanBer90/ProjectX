@@ -3,7 +3,7 @@ from django.template.context import RequestContext
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from demo_project.demo_app.AdminTipoItem.forms import TipoItemForm
-from demo_project.demo_app.models import TipoItem
+from demo_project.demo_app.models import TipoItem, Fase, Proyecto
 
 
 def nuevoTipoItem(request):
@@ -11,33 +11,65 @@ def nuevoTipoItem(request):
     Crea un nuevo Usuario con sus atributos proveidos por el
     usuario y el Sistema autogenera los demas atributos
     """
+    fases=Fase.objects.all()
+    proyectos=Proyecto.objects.all()
+    tipo_items=TipoItem.objects.all()
     if request.method=='POST':
-        formulario = TipoItemForm(request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            return HttpResponseRedirect('/tipoitem')
-    else:
-        formulario = TipoItemForm(request.POST)
-    return render_to_response('HtmlTipoItem/nuevotipoitem.html',{'formulario':formulario}, context_instance=RequestContext(request))
+        tipo_item=TipoItem()
+        proyecto=request.POST.get('proyecto', None)
+        fase=request.POST.get('fase', None)
+        padre=request.POST.get('padre','')
+
+        tipo_item.nombre=request.POST.get('nombre','')
+        tipo_item.descripcion=request.POST.get('descripcion','')
+        if proyecto != None:
+            tipo_item.proyecto_id=proyecto
+        if fase != None:
+            tipo_item.fase_id=fase
+        if padre != '':
+            tipo_item.padre_id=padre
+
+        tipo_item.save()
+        return HttpResponseRedirect('/tipoitem/editar/'+str(tipo_item.id_tipo_item))
+
+    return render_to_response('HtmlTipoItem/nuevotipoitem.html',{'fases':fases,'proyectos':proyectos,'tipo_items':tipo_items}, context_instance=RequestContext(request))
+
+def editartipoitem(request, id_tipoitem):
+    fases=Fase.objects.all()
+    proyectos=Proyecto.objects.all()
+
+    tipo_items=TipoItem.objects.all()
+    tipo_item=TipoItem.objects.get(pk=id_tipoitem)
+    if request.method=='POST':
+        proyecto=request.POST.get('proyecto', None)
+        fase=request.POST.get('fase', None)
+        padre=request.POST.get('padre','')
+
+        tipo_item.nombre=request.POST.get('nombre','')
+        tipo_item.descripcion=request.POST.get('descripcion','')
+        if proyecto != None:
+            tipo_item.proyecto_id=proyecto
+        if fase != None:
+            tipo_item.fase_id=fase
+        if padre == '':
+            tipo_item.padre_id=None
+        else:
+            tipo_item.padre_id=padre
+
+        tipo_item.save()
+        return HttpResponseRedirect('/tipoitem/listar')
+
+    return render_to_response('HtmlTipoItem/editartipoitem.html',
+                              {'fases':fases,'tipo_item':tipo_item,'proyectos':proyectos,'tipo_items':tipo_items},
+                              context_instance=RequestContext(request))
 
 
 def tipoitem(request):
     nro_lineas=10
     lines = []
     page = request.GET.get('page')
-    if request.method=='POST':
-        buscar=request.POST.get("buscar",'')
-        print 'BUSCAR QUE OND: '+buscar
-    else:
-        buscar = ''
-
-    if buscar == '':
-        proyectos_total = TipoItem.objects.count()
-    else:
-        permisos_list = TipoItem.objects.filter(nombre=buscar)
-        proyectos_total = permisos_list.count()
-
-    for i in range(proyectos_total):
+    objetos_total = TipoItem.objects.count()
+    for i in range(objetos_total):
         lines.append(u'Line %s' % (i + 1))
     paginator = Paginator(lines, nro_lineas)
     try:
@@ -45,7 +77,7 @@ def tipoitem(request):
     except:
         page=1
 
-    if int(page)*nro_lineas>proyectos_total or int(page)>0:
+    if int(page)*nro_lineas>objetos_total or int(page)>0:
         try:
             items = paginator.page(page)
             fin=int(page)*nro_lineas
@@ -58,27 +90,11 @@ def tipoitem(request):
         fin=nro_lineas
         ini=0
         items = paginator.page(1)
-    if buscar == '':
-        proyectos_list = TipoItem.objects.order_by('nombre').all()[ini:fin]
-    else:
-        proyectos_list = TipoItem.objects.filter(nombre=buscar)[ini:fin]
-    print 'BUSCAR: '+buscar
 
-    return render_to_response('HtmlTipoItem/tipoitem.html',{'tipoitem':proyectos_list}, RequestContext(request, {
+    objetos_list = TipoItem.objects.all()[ini:fin]
+    return render_to_response('HtmlTipoItem/tipoitem.html',{'datos':objetos_list}, RequestContext(request, {
         'lines': items
     }))
-
-
-def editartipoitem(request, id_tipoitem):
-     permiso =TipoItem.objects.get(pk=id_tipoitem)
-     if request.method=='POST':
-        formulario = TipoItemForm(request.POST,instance=permiso)
-        if formulario.is_valid():
-            formulario.save()
-            return HttpResponseRedirect('/tipoitem/')
-     else:
-        formulario = TipoItemForm(instance=permiso)
-     return render_to_response('HtmlTipoItem/editartipoitem.html',{'formulario':formulario}, context_instance=RequestContext(request))
 
 
 def eliminartipoitem(request, id_tipoitem):
