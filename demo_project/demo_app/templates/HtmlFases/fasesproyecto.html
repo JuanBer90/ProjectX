@@ -30,7 +30,7 @@ open(url,'','top=300,left=300,width=300,height=300') ;
     </tr>
     {% for fase in fases %}
     <tr>
-	    <td>{% if fase.nombre != None %} {{ fase.nombre }} {% else %}  Fase{{ fase.numero }} {% endif %}</td>
+	    <td>{% if fase.nombre != None %} {{ fase.nombre }} {% else %}  Fase{{ fase.numero_items}} {% endif %}</td>
         {% if fase.nombre == None %}<td> <a href="{% url 'demo_app.AdminFases.views.importar' fase.id_fase %}">Importar </a> -
         <a href="{% url 'demo_app.AdminFases.views.fase' fase.id_fase id_proyecto %}">Crear</a></td>
         {% else %}<td> <a href="{% url 'demo_app.AdminFases.views.fase' fase.id_fase id_proyecto %}">Modificar</a></td>

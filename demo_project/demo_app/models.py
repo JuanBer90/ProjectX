@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 import constantes
-from demo_project.demo_app.models import TipoItem
+
 
 
 class Proyecto(models.Model):
@@ -69,16 +69,6 @@ class RolUser(models.Model):
     proyecto=models.ForeignKey(Proyecto)
 
 
-class TipoItem(models.Model):
-    class Meta:
-        db_table='tipo_item'
-    id_tipo_item = models.AutoField(primary_key=True)
-    codigo=models.CharField(max_length=50)
-    nombre = models.CharField(max_length=50, unique=True)
-    descripcion = models.CharField(max_length=200)
-    proyecto=models.ForeignKey(Proyecto)
-    fase=models.ForeignKey(Fase)
-    padre=models.ForeignKey(TipoItem)
 
 class Fase(models.Model):
     class Meta:
@@ -93,17 +83,20 @@ class Fase(models.Model):
     estado=models.CharField(max_length=30,default=constantes.EstadosFase.FASE_NI)
     fecha_creacion= models.DateTimeField(auto_now=True,null=True)
 
-class PropiedadItem(models.Model):
+
+
+class TipoItem(models.Model):
     class Meta:
-        db_table='propiedad_item'
-    id_propiedad_item=models.AutoField(primary_key=True)
-    version=models.IntegerField()
-    complejidad=models.IntegerField()
-    prioridad=models.IntegerField()
-    estado=models.CharField(max_length=20,null=True)
-    descripcion=models.CharField(max_length=200,null=True)
-    observaciones=models.CharField(max_length=200, null=True)
-    id_item_actual=models.ForeignKey(Item)
+        db_table='tipo_item'
+
+    id_tipo_item = models.AutoField(primary_key=True)
+    codigo=models.CharField(max_length=50)
+    nombre = models.CharField(max_length=50, unique=True)
+    descripcion = models.CharField(max_length=200)
+    proyecto=models.ForeignKey(Proyecto)
+    fase=models.ForeignKey(Fase)
+    padre=models.ForeignKey('self')
+
 
 class Item(models.Model):
     class Meta:
@@ -114,7 +107,21 @@ class Item(models.Model):
     numero_por_tipo=models.IntegerField()
     tipo_item=models.ForeignKey(TipoItem)
     fase=models.ForeignKey(Fase)
-    propiedad_item=models.ForeignKey(PropiedadItem)
+    propiedad_item=models.IntegerField()
+
+
+class PropiedadItem(models.Model):
+    class Meta:
+        db_table='propiedad_item'
+    id_propiedad_item=models.AutoField(primary_key=True)
+    version=models.IntegerField()
+    complejidad=models.IntegerField()
+    prioridad=models.IntegerField()
+    estado=models.CharField(max_length=20,null=True)
+    descripcion=models.CharField(max_length=200,null=True)
+    observaciones=models.CharField(max_length=200, null=True)
+    item_actual=models.ForeignKey(Item)
+
 
 class HistorialItem(models.Model):
     class Meta:
@@ -140,8 +147,8 @@ class Relacion(models.Model):
     id_relacion=models.AutoField(primary_key=True)
     tipo=models.CharField(max_length=45,null=True)
     codigo=models.CharField(max_length=50,unique=True)
-    anterior=models.ForeignKey(Item)
-    posterior=models.ForeignKey(Item)
+    anterior=models.ForeignKey(Item, related_name='anterior_item')
+    posterior=models.ForeignKey(Item, related_name='posterior_item')
 
 class RelacionItem(models.Model):
     class Meta:
