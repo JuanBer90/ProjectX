@@ -108,7 +108,7 @@ urlpatterns = patterns('',
 
     #AtributoItem
     url(r'^atributoitem/nuevo/$','demo_app.AdminAtributosItem.views.nuevoatributoitem'),
-    # url(r'^atributoitem/$','demo_app.AdminAtributosItem.views.atributoitem'),
+    url(r'^atributoitem/$','demo_app.AdminAtributosItem.views.atributoitem'),
     url(r'^atributoitem/editar/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.editaratributoitem'),
     url(r'^atributoitem/eliminar/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.eliminaratributoitem'),
 
