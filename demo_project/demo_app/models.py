@@ -145,6 +145,7 @@ class Relacion(models.Model):
     id_relacion=models.AutoField(primary_key=True)
     tipo=models.CharField(max_length=45,null=True)
     nombre=models.CharField(max_length=50,unique=True)
+    actual=models.ForeignKey(Item, related_name='actual_item')
     anterior=models.ForeignKey(Item, related_name='anterior_item')
     posterior=models.ForeignKey(Item, related_name='posterior_item')
 

@@ -52,6 +52,33 @@ def editarrelacion(request,id):
     return render_to_response('HtmlRelacion/editarrelacion.html',{'items':items,'relacion':relac}, context_instance=RequestContext(request))
 
 
+
+def relacion_item(request,id):
+    """
+    Edita una nueva Relacion con sus atributos proveidos por el
+    usuario y el Sistema autogenera los demas atributos
+
+    """
+
+    actual=Item.objects.get(pk=id)
+    items=Item.objects.all()
+
+    if request.method=='POST':
+        relac = Relacion()
+        relac.actual=actual
+        relac.tipo=request.POST.get('tipo','')
+        relac.nombre=request.POST.get('nombre','')
+        anterior=int(request.POST.get('anterior',''))
+        posterior=int(request.POST.get('posterior',''))
+        if(anterior != '' and posterior !=''):
+            relac.anterior_id=int(anterior)
+            relac.posterior_id=int(posterior)
+            relac.save()
+        return HttpResponseRedirect('/tipoitem/items/'+str(actual.tipo_item_id))
+
+    return render_to_response('HtmlRelacion/relacion_items.html',{'items':items,'actual':actual}, context_instance=RequestContext(request))
+
+
 def relacion(request):
     nro_lineas=10
     lines = []

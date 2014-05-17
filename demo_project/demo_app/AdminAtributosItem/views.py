@@ -45,43 +45,43 @@ def editaratributoitem(request,id):
 
         return HttpResponseRedirect('/atributoitem')
 
-    return render_to_response('HtmlAtributoItem/editaratributoitem.html',{'items':items,'atributoitem':relac}, context_instance=RequestContext(request))
+    return render_to_response('HtmlAtributosItem/editaratributoitem.html',{'items':items,'atributoitem':relac}, context_instance=RequestContext(request))
 
 
-def atributoitem(request):
-    nro_lineas=10
-    lines = []
-    page = request.GET.get('page')
-
-    objetos_total = AtributosPorItem.objects.count()
-
-    for i in range(objetos_total):
-        lines.append(u'Line %s' % (i + 1))
-    paginator = Paginator(lines, nro_lineas)
-    try:
-        page=int(page)
-    except:
-        page=1
-
-    if int(page)*nro_lineas>objetos_total or int(page)>0:
-        try:
-            items = paginator.page(page)
-            fin=int(page)*nro_lineas
-            ini =fin-nro_lineas
-        except PageNotAnInteger or EmptyPage:
-            fin=nro_lineas
-            ini=0
-            items = paginator.page(1)
-    else:
-        fin=nro_lineas
-        ini=0
-        items = paginator.page(1)
-
-    objetos_list = AtributosPorItem.objects.order_by('nombre').all()[ini:fin]
-    return render_to_response('HtmlAtributoItem/atributoitem.html',{'relacion':objetos_list}, RequestContext(request, {
-        'lines': items
-    }))
-
+# def atributoitem(request):
+#     nro_lineas=10
+#     lines = []
+#     page = request.GET.get('page')
+#
+#     objetos_total = AtributosPorItem.objects.count()
+#
+#     for i in range(objetos_total):
+#         lines.append(u'Line %s' % (i + 1))
+#     paginator = Paginator(lines, nro_lineas)
+#     try:
+#         page=int(page)
+#     except:
+#         page=1
+#
+#     if int(page)*nro_lineas>objetos_total or int(page)>0:
+#         try:
+#             items = paginator.page(page)
+#             fin=int(page)*nro_lineas
+#             ini =fin-nro_lineas
+#         except PageNotAnInteger or EmptyPage:
+#             fin=nro_lineas
+#             ini=0
+#             items = paginator.page(1)
+#     else:
+#         fin=nro_lineas
+#         ini=0
+#         items = paginator.page(1)
+#
+#     objetos_list = AtributosPorItem.objects.order_by('nombre').all()[ini:fin]
+#     return render_to_response('HtmlAtributosItem/atributoitem.html',{'relacion':objetos_list}, RequestContext(request, {
+#         'lines': items
+#     }))
+#
 
 
 def eliminaratributoitem(request, id_tipoitem):
@@ -90,8 +90,7 @@ def eliminaratributoitem(request, id_tipoitem):
         delete= request.POST['delete']
         if delete == 'si':
             proyecto.delete()
+       #return HttpResponseRedirect('/atributoitem/')
 
-        return HttpResponseRedirect('/atributoitem/')
-
-    return render_to_response('Html/eliminaratributoitem.html',{'proyecto':proyecto},
+    return render_to_response('HtmlAtributosItem/eliminaratributoitem.html',{'proyecto':proyecto},
                               context_instance=RequestContext(request))
