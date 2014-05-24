@@ -9,7 +9,6 @@ class Proyecto(models.Model):
     """
     Modelo de Proyecto con su respectivo atributos
     """
-
     class Meta:
         db_table='proyectos'
 
@@ -172,3 +171,19 @@ class ItemporLB(models.Model):
     id_itemporlb = models.AutoField(primary_key=True)
     item = models.ForeignKey(Item)
     linea_base = models.ForeignKey(LineaBase)
+
+class ArchivoExterno(models.Model):
+    class Meta:
+        db_table='archivo_externo'
+    id_archivo_externo = models.AutoField(primary_key=True)
+    archivo = models.FileField(upload_to='archivos')
+    nombre_archivo = models.CharField(max_length=40,null=True)
+
+class ArchivosPorItem(models.Model):
+    class Meta:
+        db_table='archivos_item'
+    id_archivos_item = models.AutoField(primary_key=True)
+    propiedad_item = models.ForeignKey(PropiedadItem)
+    archivos_externo = models.ForeignKey(ArchivoExterno)
+
+

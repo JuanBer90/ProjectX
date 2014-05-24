@@ -139,8 +139,57 @@ def TipoItemToFase(request,id):
 
 
 def TipoItemToItem(request,id):
-    tipo_item=TipoItem.objects.get(pk=id)
-    items=Item.objects.filter(tipo_item=tipo_item)
-    return render_to_response('HtmlTipoItem/tipo_item_to_item.html',
-                              {'tipo_item':tipo_item,'datos':items}, context_instance=RequestContext(request))
+    """
+    Buscador de Roles
+    """
+    nro_lineas=10
+    lines = []
+    page = request.GET.get('page')
+    if request.method=='POST':
+        buscar=request.POST["buscar"]
+    else:
+        buscar = ''
+
+    if buscar == '':
+        tipo_item=TipoItem.objects.get(pk=id)
+        items=Item.objects.filter(tipo_item=tipo_item)
+        items_total = items.count()
+    else:
+        tipo_item=TipoItem.objects.get(pk=id)
+        items=Item.objects.filter(tipo_item=tipo_item)
+        items_list = items.filter(nombre=buscar)
+        items_total = items_list.count()
+
+    for i in range(items_total):
+        lines.append(u'Line %s' % (i + 1))
+    paginator = Paginator(lines, nro_lineas)
+    try:
+        page=int(page)
+    except:
+        page=1
+
+    if int(page)*nro_lineas>items_total or int(page)>0:
+        try:
+            itemspagination = paginator.page(page)
+            fin=int(page)*nro_lineas
+            ini =fin-nro_lineas
+        except PageNotAnInteger or EmptyPage:
+            fin=nro_lineas
+            ini=0
+            itemspagination = paginator.page(1)
+    else:
+        fin=nro_lineas
+        ini=0
+        itemspagination = paginator.page(1)
+    if buscar == '':
+        tipo_item=TipoItem.objects.get(pk=id)
+        items=Item.objects.filter(tipo_item=tipo_item).all()[ini:fin]
+
+    else:
+        tipo_item=TipoItem.objects.get(pk=id)
+        items=Item.objects.filter(tipo_item=tipo_item,nombre=buscar)[ini:fin]
+
+    return render_to_response('HtmlTipoItem/tipo_item_to_item.html',{'tipo_item':tipo_item,'datos':items}, context_instance=RequestContext(request, {
+        'lines': itemspagination
+    }))
 
