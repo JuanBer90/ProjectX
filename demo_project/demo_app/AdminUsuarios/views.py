@@ -18,7 +18,6 @@ def nuevo_usuario(request):
     usuario y el Sistema autogenera los demas atributos
     """
     user=request.user
-    print 'SUPER USUARIO? :'+str(user.is_superuser)+'\n Username: '+user.username
     if not user.is_superuser:
           return HttpResponseRedirect('/sinpermiso/')
 

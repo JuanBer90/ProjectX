@@ -115,8 +115,8 @@ def relacion(request):
 
 
 
-def eliminarrelacion(request, id_tipoitem):
-    proyecto= Relacion.objects.get(pk=id_tipoitem)
+def eliminarrelacion(request, id):
+    proyecto= Relacion.objects.get(pk=id)
     if request.method=='POST':
         delete= request.POST['delete']
         if delete == 'si':

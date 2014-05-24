@@ -19,7 +19,7 @@
     <tr>
         <th class="navbar-inner">Nombre</th>
         <th class="navbar-inner">Descripcion</th>
-        <th class="navbar-inner">Accion</th>
+        <th class="navbar-inner">Acciones</th>
     </tr>
     {% for dato in datos %}
     <tr>
@@ -29,6 +29,9 @@
     <td style="width: 300px"><a href="{% url 'demo_app.AdminItem.views.TipoItem_editar_item' dato.id_item %}">Editar</a>
     - <a href="{% url 'demo_app.AdminRelacion.views.relacion_item' dato.id_item %}">Relacionar</a>
         - <a href="{% url 'demo_app.AdminAtributosItem.views.atributos_por_item' dato.id_item %}">Ver Atributos</a>
+        {% if estado_item == dato.estado %}
+           -  <a href="{% url 'demo_app.AdminItem.views.aprobar' dato.id_item %}">Aprobar</a>
+        {% endif %}
 
     </td>
 

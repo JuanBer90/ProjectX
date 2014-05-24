@@ -1,9 +1,11 @@
 from datetime import datetime
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.forms.formsets import formset_factory
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.views.generic.dates import timezone_today
 
 from bootstrap_toolkit.widgets import BootstrapUneditableInput
 
@@ -120,3 +122,5 @@ def demo_widgets(request):
         'form': form,
         'layout': layout,
     }))
+
+

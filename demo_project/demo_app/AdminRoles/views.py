@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from demo_project.demo_app.models import Rol, Permisos, RolUser
 
 
-def nuevo_rol(request, id_proyecto,id=0):
+def nuevo_rol(request, id_proyecto=0,id=0):
     """
         Crea el Rol con sus posibles permisos
     """

@@ -115,3 +115,53 @@ def atributos_por_item(request,id):
     objetos_list = AtributosPorItem.objects.filter(item=item)
     return render_to_response('HtmlAtributoItem/atributos_por_item.html',{'objetos':objetos_list,'item':item}, RequestContext(request))
 
+
+
+def add_atributo_item(request,id):
+    """
+    Crea un nuevo Usuario con sus atributos proveidos por el
+    usuario y el Sistema autogenera los demas atributos
+
+    """
+    item=Item.objects.get(pk=id)
+    if request.method=='POST':
+        atributo=AtributosPorItem()
+        atributo.nombre=request.POST.get('nombre','')
+        atributo.tipo=request.POST.get('tipo','')
+        atributo.valor_defecto=request.POST.get('valor_defecto','')
+        atributo.item=item
+        atributo.save()
+        return HttpResponseRedirect('/atributoitem/atributos/'+str(id))
+
+
+    return render_to_response('HtmlAtributoItem/add_atributo_item.html',{'item':item}, context_instance=RequestContext(request))
+
+
+def edit_atributo_item(request,id):
+    """
+    Crea un nuevo Usuario con sus atributos proveidos por el
+    usuario y el Sistema autogenera los demas atributos
+
+    """
+    atributo=AtributosPorItem.objects.get(pk=id)
+    item=atributo.item
+    if request.method=='POST':
+        atributo.nombre=request.POST.get('nombre','')
+        atributo.tipo=request.POST.get('tipo','')
+        atributo.valor_defecto=request.POST.get('valor_defecto','')
+        atributo.save()
+        return HttpResponseRedirect('/atributoitem/atributos/'+str(item.id_item))
+
+
+    return render_to_response('HtmlAtributoItem/edit_atributo_item.html',{'item':item,'atributo':atributo}, context_instance=RequestContext(request))
+
+def delete_atributo_item(request, id):
+    atributo= AtributosPorItem.objects.get(pk=id)
+    if request.method=='POST':
+        delete= request.POST['delete']
+        if delete == 'si':
+            atributo.delete()
+            return HttpResponseRedirect('/atributoitem/atributos/'+str(atributo.item_id))
+
+    return render_to_response('HtmlAtributoItem/delete_atributo_item.html',{'atributo':atributo},
+                              context_instance=RequestContext(request))
