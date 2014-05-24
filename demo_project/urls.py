@@ -101,7 +101,6 @@ urlpatterns = patterns('',
      url(r'^item/historial/(?P<id>\d+)/$','demo_app.AdminItem.views.historial'),
      url(r'^item/agregar_lb/$','demo_app.AdminItem.views.agregar_lb'),
 
-
     #RELACION
     url(r'^relacion/nuevo/$','demo_app.AdminRelacion.views.nuevoRelacion'),
     url(r'^relacion/$','demo_app.AdminRelacion.views.relacion'),
@@ -117,8 +116,6 @@ urlpatterns = patterns('',
     url(r'^atributoitem/eliminar/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.eliminaratributoitem'),
     url(r'^atributoitem/atributos/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.atributos_por_item'),
     url(r'^atributoitem/atributos/atributo/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.ver_atributo'),
-
-
 
 
 

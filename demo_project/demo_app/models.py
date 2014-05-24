@@ -147,5 +147,3 @@ class Relacion(models.Model):
     antes=models.ForeignKey(Item, related_name='antes')
     despues=models.OneToOneField(Item,related_name='despues')
     tipo_relacion=models.CharField(max_length=20)
-
-
