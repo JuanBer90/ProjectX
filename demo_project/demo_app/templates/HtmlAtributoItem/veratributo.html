@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block title %}Ver Atributo Item{% endblock %}
+{% block extra_head %}
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Ver Atributo</h1></center>
+    <br><br>
+    <center>
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+
+
+        	<label>Tipo: </label>
+        <input type="text" maxlength="45" disabled value="{{ atributo.tipo }}" name="tipo"/>
+        <label>Nombre: </label>
+        <input type="text" maxlength="50" disabled value="{{ atributo.nombre }}" name="nombre"/>
+        <label>Valor Defecto: </label>
+        <input type="text" maxlength="50" disabled value="{{ atributo.valor_defecto }}" name="valor_defecto"/>
+         <label>Item: </label>
+        <input type="text" maxlength="50"  disabled value="{{ item.nombre }}" name="valor_defecto"/>
+
+        <br>
+		<input class="btn btn-info" type='submit' value='Volver'/>
+
+	</form>
+    </center>
+{% endblock %}

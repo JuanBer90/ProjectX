@@ -3,10 +3,11 @@ from django.template.context import RequestContext
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from demo_project.demo_app.AdminTipoItem.forms import TipoItemForm
+from demo_project.demo_app.constantes import EstadosItem
 from demo_project.demo_app.models import TipoItem, Fase, Proyecto, Item
 
 
-def nuevoTipoItem(request):
+def nuevoTipoItem(request,id):
     """
     Crea un nuevo Usuario con sus atributos proveidos por el
     usuario y el Sistema autogenera los demas atributos
@@ -184,12 +185,14 @@ def TipoItemToItem(request,id):
     if buscar == '':
         tipo_item=TipoItem.objects.get(pk=id)
         items=Item.objects.filter(tipo_item=tipo_item).all()[ini:fin]
+        estado_item=EstadosItem().ITEM_NI
 
     else:
         tipo_item=TipoItem.objects.get(pk=id)
         items=Item.objects.filter(tipo_item=tipo_item,nombre=buscar)[ini:fin]
+        estado_item=EstadosItem().ITEM_NI
 
-    return render_to_response('HtmlTipoItem/tipo_item_to_item.html',{'tipo_item':tipo_item,'datos':items}, context_instance=RequestContext(request, {
+    return render_to_response('HtmlTipoItem/tipo_item_to_item.html',{'tipo_item':tipo_item,'datos':items,'estado_item':estado_item}, context_instance=RequestContext(request, {
         'lines': itemspagination
     }))
 

@@ -4,10 +4,12 @@
 
 {% block extra_head %}
  <center>
-        <h1>Lista de Atributo Item</h1>
+ <br>
+        <h2>Lista de Atributo Item</h2>
     </center>
 {% endblock %}
 {% block content %}
+<br>
    <table>
    <td style="width: 70%;margin-right: 0px; margin-left: 100%; ">
         {{ lines|pagination }}
@@ -34,7 +36,9 @@
         <td>{{ dato.item.nombre }}</td>
 
         <td> <a href="{% url 'demo_app.AdminAtributosItem.views.editaratributoitem' dato.id_atributo_por_item %}">Editar</a>
-            -<a href="{% url 'demo_app.AdminAtributosItem.views.eliminaratributoitem' dato.id_atributo_por_item %}">Eliminar</a></td>
+            -<a href="{% url 'demo_app.AdminAtributosItem.views.eliminaratributoitem' dato.id_atributo_por_item %}">Eliminar</a>
+        -<a href="{% url 'demo_app.AdminAtributosItem.views.ver_atributo' dato.id_atributo_por_item %}">Ver</a>
+        </td>
 
 
 	</tr>

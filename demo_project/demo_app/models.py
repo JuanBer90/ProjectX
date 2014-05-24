@@ -101,23 +101,15 @@ class Item(models.Model):
     nombre=models.CharField(max_length=30,null=True)
     descripcion=models.CharField(max_length=100,null=True)
     numero=models.IntegerField(null=True)
-    numero_por_tipo=models.IntegerField(null=True)
     tipo_item=models.ForeignKey(TipoItem)
     fase=models.ForeignKey(Fase,null=True)
+    estado=models.CharField(max_length=50,default=constantes.EstadosItem.ITEM_NI)
     propiedad_item=models.IntegerField(null=True)
+    linea_base=models.ForeignKey(LineaBase,null=True)
+    version = models.IntegerField(null=True)
+    complejidad = models.IntegerField(null=True)
+    prioridad = models.IntegerField(null=True)
 
-
-class PropiedadItem(models.Model):
-    class Meta:
-        db_table='propiedad_item'
-    id_propiedad_item=models.AutoField(primary_key=True)
-    version=models.IntegerField()
-    complejidad=models.IntegerField()
-    prioridad=models.IntegerField()
-    estado=models.CharField(max_length=20,null=True)
-    descripcion=models.CharField(max_length=200,null=True)
-    observaciones=models.CharField(max_length=200, null=True)
-    item_actual=models.ForeignKey(Item)
 
 
 class HistorialItem(models.Model):
@@ -130,32 +122,6 @@ class HistorialItem(models.Model):
     item=models.ForeignKey(Item)
 
 
-class LineaBase(models.Model):
-    class Meta:
-        db_table='linea_base'
-    id_linea_base=models.AutoField(primary_key=True)
-    numero=models.IntegerField()
-    estado=models.CharField(max_length=20,null=True)
-    codigo=models.CharField(max_length=50, unique=True)
-
-class Relacion(models.Model):
-    class Meta:
-        db_table='relacion'
-    id_relacion=models.AutoField(primary_key=True)
-    tipo=models.CharField(max_length=45,null=True)
-    nombre=models.CharField(max_length=50,unique=True)
-    actual=models.ForeignKey(Item, related_name='actual_item')
-    anterior=models.ForeignKey(Item, related_name='anterior_item')
-    posterior=models.ForeignKey(Item, related_name='posterior_item')
-
-class RelacionItem(models.Model):
-    class Meta:
-        db_table='relacion_item'
-    id_relacion_item=models.AutoField(primary_key=True)
-    propiedad_item=models.ForeignKey(PropiedadItem)
-    relacion=models.ForeignKey(Relacion)
-    revisar=models.BooleanField(default=False)
-
 class AtributosPorItem(models.Model):
     class Meta:
         db_table='atributos_por_item'
@@ -165,25 +131,13 @@ class AtributosPorItem(models.Model):
     valor_defecto=models.CharField(max_length=32,null=True)
     item=models.ForeignKey(Item)
 
-class ItemporLB(models.Model):
-    class Meta:
-        db_table='itemporlb'
-    id_itemporlb = models.AutoField(primary_key=True)
-    item = models.ForeignKey(Item)
-    linea_base = models.ForeignKey(LineaBase)
 
-class ArchivoExterno(models.Model):
+class Relacion(models.Model):
     class Meta:
-        db_table='archivo_externo'
-    id_archivo_externo = models.AutoField(primary_key=True)
-    archivo = models.FileField(upload_to='archivos')
-    nombre_archivo = models.CharField(max_length=40,null=True)
-
-class ArchivosPorItem(models.Model):
-    class Meta:
-        db_table='archivos_item'
-    id_archivos_item = models.AutoField(primary_key=True)
-    propiedad_item = models.ForeignKey(PropiedadItem)
-    archivos_externo = models.ForeignKey(ArchivoExterno)
+        db_table='relacion'
+    id_relacion=models.AutoField(primary_key=True)
+    antes=models.ForeignKey(Item, related_name='antes')
+    despues=models.OneToOneField(Item,related_name='despues')
+    tipo_relacion=models.CharField(max_length=20)
 
 

@@ -1,9 +1,12 @@
+import cgi
+import os
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.views.generic.dates import timezone_today
 from demo_project.demo_app.AdminItem.forms import ItemForm
+from demo_project.demo_app.constantes import EstadosItem
 from demo_project.demo_app.models import TipoItem, Item, Fase, HistorialItem
 
 
@@ -182,3 +185,38 @@ def historial(request,id):
     return render_to_response('HtmlItem/historial.html',{'datos':objetos_list}, RequestContext(request, {
         'lines': items
     }))
+
+def aprobar(request,id):
+    """
+    Edita un nuevo Item con sus atributos proveidos por el
+    usuario y el Sistema autogenera los demas atributos
+    """
+    item=Item.objects.get(pk=id)
+
+    tipo_items=TipoItem.objects.all()
+    if request.method=='POST':
+        aprobar=request.POST.get('aprobar','si')
+
+        if aprobar== 'si':
+            item.estado=EstadosItem().ITEM_AP
+            item.save()
+            historial=HistorialItem()
+            historial.fecha_modificacion=timezone_today()
+            historial.item=item
+            historial.tipo_modificacion="APROBACION"
+            historial.user=request.user
+            historial.save()
+
+        return HttpResponseRedirect('/tipoitem/items/'+str(item.tipo_item_id))
+
+    return render_to_response('HtmlItem/aprobar.html',{'item':item}, context_instance=RequestContext(request))
+
+
+def upload(request):
+    if(request.method == 'POST'):
+        arch=request.FILES.get('file')
+        if(arch != None):
+            print 'SIZE: '+str(arch)
+            
+
+    return render_to_response('HtmlItem/upload.html', context_instance=RequestContext(request))
