@@ -99,7 +99,6 @@ urlpatterns = patterns('',
      url(r'^item/aprobar/(?P<id>\d+)/$','demo_app.AdminItem.views.aprobar'),
      url(r'^item/upload/$', 'demo_app.AdminItem.views.upload'),
 
-
     #RELACION
     url(r'^relacion/nuevo/$','demo_app.AdminRelacion.views.nuevoRelacion'),
     url(r'^relacion/$','demo_app.AdminRelacion.views.relacion'),

@@ -9,6 +9,7 @@ class Proyecto(models.Model):
     """
     Modelo de Proyecto con su respectivo atributos
     """
+
     class Meta:
         db_table='proyectos'
 
@@ -91,8 +92,15 @@ class TipoItem(models.Model):
     descripcion = models.CharField(max_length=200)
     proyecto=models.ForeignKey(Proyecto,null=True)
     fase=models.ForeignKey(Fase,null=True)
-    padre=models.ForeignKey('self',null=True)
 
+
+class LineaBase(models.Model):
+    class Meta:
+        db_table='linea_base'
+    id_linea_base=models.AutoField(primary_key=True)
+    numero=models.IntegerField()
+    estado=models.CharField(max_length=20,null=True)
+    nombre=models.CharField(max_length=50, unique=True)
 
 class Item(models.Model):
     class Meta:
@@ -139,5 +147,3 @@ class Relacion(models.Model):
     antes=models.ForeignKey(Item, related_name='antes')
     despues=models.OneToOneField(Item,related_name='despues')
     tipo_relacion=models.CharField(max_length=20)
-
-

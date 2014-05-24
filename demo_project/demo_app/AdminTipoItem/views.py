@@ -189,9 +189,10 @@ def TipoItemToItem(request,id):
 
     else:
         tipo_item=TipoItem.objects.get(pk=id)
-        items=Item.objects.filter(tipo_item=tipo_item,nombre=buscar)[ini:fin]
+        #items=Item.objects.filter(tipo_item=tipo_item,nombre=buscar)[ini:fin]
+        items=Item.objects.raw("select * from item where nombre like '%%"+buscar+"%%'" )
         estado_item=EstadosItem().ITEM_NI
-
+        print 'buscar: '+str(buscar)
     return render_to_response('HtmlTipoItem/tipo_item_to_item.html',{'tipo_item':tipo_item,'datos':items,'estado_item':estado_item}, context_instance=RequestContext(request, {
         'lines': itemspagination
     }))
