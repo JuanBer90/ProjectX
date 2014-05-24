@@ -6,8 +6,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.views.generic.dates import timezone_today
 from demo_project.demo_app.AdminItem.forms import ItemForm
-from demo_project.demo_app.constantes import EstadosItem
-from demo_project.demo_app.models import TipoItem, Item, Fase, HistorialItem
+from demo_project.demo_app.constantes import EstadosItem, EstadosLB
+from demo_project.demo_app.models import TipoItem, Item, Fase, HistorialItem, LineaBase
 
 
 def nuevo_item(request,id=0):
@@ -220,3 +220,7 @@ def upload(request):
             
 
     return render_to_response('HtmlItem/upload.html', context_instance=RequestContext(request))
+def agregar_lb(request):
+    lb=LineaBase.objects.filter(estado=EstadosLB().ABIERTO)
+    items=Item.objects.filter(estado=EstadosItem().ITEM_AP)
+    return render_to_response('HtmlItem/agregar_a_lb.html',{'items':items, 'lb':lb}, context_instance=RequestContext(request))

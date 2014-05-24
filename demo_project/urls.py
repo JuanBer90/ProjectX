@@ -78,6 +78,9 @@ urlpatterns = patterns('',
      url(r'^fases/tipoitems/(?P<id>\d+)$', 'demo_app.AdminFases.views.fase_tipo_item'),
      url(r'^fases/tipoitems/add/(?P<id>\d+)$', 'demo_app.AdminTipoItem.views.TipoItemToFase'),
 
+     #LINEA BASE
+     url(r'^lineabase/nuevo', 'demo_app.AdminLineaBase.views.nuevo_lb'),
+
 
 
 
@@ -96,8 +99,7 @@ urlpatterns = patterns('',
      url(r'^item/eliminar/(?P<id>\d+)/$','demo_app.AdminItem.views.eliminar_item'),
      url(r'^item/listar/$','demo_app.AdminItem.views.listar_items'),
      url(r'^item/historial/(?P<id>\d+)/$','demo_app.AdminItem.views.historial'),
-     url(r'^item/aprobar/(?P<id>\d+)/$','demo_app.AdminItem.views.aprobar'),
-     url(r'^item/upload/$', 'demo_app.AdminItem.views.upload'),
+     url(r'^item/agregar_lb/$','demo_app.AdminItem.views.agregar_lb'),
 
 
     #RELACION
@@ -115,9 +117,7 @@ urlpatterns = patterns('',
     url(r'^atributoitem/eliminar/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.eliminaratributoitem'),
     url(r'^atributoitem/atributos/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.atributos_por_item'),
     url(r'^atributoitem/atributos/atributo/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.ver_atributo'),
-    url(r'^atributoitem/add_atributo_item/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.add_atributo_item'),
-    url(r'^atributoitem/edit_atributo_item/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.edit_atributo_item'),
-    url(r'^atributoitem/delete_atributo_item/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.delete_atributo_item'),
+
 
 
 

@@ -35,7 +35,8 @@ class Relacion:
         estados.append(self.P_H)
         return estados
 
-
+class EstadosLB:
+    ABIERTO='ABIERTO'
 
 
 

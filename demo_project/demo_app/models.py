@@ -106,7 +106,7 @@ class Item(models.Model):
     class Meta:
         db_table='item'
     id_item=models.AutoField(primary_key=True)
-    nombre=models.CharField(max_length=30,null=True)
+    nombre=models.eCharField(max_length=30,null=True)
     descripcion=models.CharField(max_length=100,null=True)
     numero=models.IntegerField(null=True)
     tipo_item=models.ForeignKey(TipoItem)
