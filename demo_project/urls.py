@@ -36,6 +36,10 @@ urlpatterns = patterns('',
     url(r'^usuario/activar/(?P<id_user>\d+)/$','demo_app.AdminUsuarios.views.activar_usuario'),
     url(r'^usuario/editar/(?P<id_user>\d+)/$','demo_app.AdminUsuarios.views.editar_usuario'),
     url(r'^demo01/$','demo_app.views.demo'),
+    url(r'^create_admin/$', 'demo_app.views.createAdmin'),
+    url(r'^create_rol_admin/$', 'demo_app.views.createPermisos'),
+
+
 
 
     #PROYECTO

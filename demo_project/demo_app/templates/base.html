@@ -29,6 +29,9 @@
 
         <div class="container">
             <a class="brand" href="/">PROJECT X</a>
+                {% if not user.is_authenticated %}
+                    No identificado
+                {% endif %}
             {% if user.is_authenticated %}
             <ul class="nav">
             {% if user.is_active and  user.is_staff or user.is_active and user.is_superuser %}
