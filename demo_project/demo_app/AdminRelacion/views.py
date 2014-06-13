@@ -3,6 +3,7 @@ from django.template.context import RequestContext
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from demo_project.demo_app.AdminRelacion.forms import RelacionForm
+from demo_project.demo_app.constantes import  RelacionEstados
 from demo_project.demo_app.models import Relacion, Item
 
 
@@ -52,6 +53,9 @@ def editarrelacion(request,id):
     return render_to_response('HtmlRelacion/editarrelacion.html',{'items':items,'relacion':relac}, context_instance=RequestContext(request))
 
 
+def questions(request):
+    if (request.method == 'POST'):
+        tipo=request.POST.get('tipo','')
 
 def relacion_item(request,id):
     """
@@ -61,22 +65,85 @@ def relacion_item(request,id):
     """
 
     actual=Item.objects.get(pk=id)
-    items=Item.objects.all()
+    post=False
 
     if request.method=='POST':
-        relac = Relacion()
-        relac.actual=actual
-        relac.tipo=request.POST.get('tipo','')
-        relac.nombre=request.POST.get('nombre','')
-        anterior=int(request.POST.get('anterior',''))
-        posterior=int(request.POST.get('posterior',''))
-        if(anterior != '' and posterior !=''):
-            relac.anterior_id=int(anterior)
-            relac.posterior_id=int(posterior)
-            relac.save()
-        return HttpResponseRedirect('/tipoitem/items/'+str(actual.tipo_item_id))
+        ok=request.POST.get('ok','volver')
+        if ok == 'Ok':
+            tipo_=request.POST.get('tipo',RelacionEstados().A_S)
+            a_o_d=request.POST.get('a_o_d','ANTES')
+            if(a_o_d == 'ANTES'):
+                antes=1
+            else:
+                antes=0
+            if(tipo_ == RelacionEstados().A_S):
+                tipo=1
+            else:
+                tipo=0
+            return HttpResponseRedirect('/relacion/items/' + str(actual.tipo_item_id)+'/'+str(tipo)+'/'+str(antes))
+        else:
+            return HttpResponseRedirect('/tipoitem/items/'+str(actual.tipo_item_id))
 
-    return render_to_response('HtmlRelacion/relacion_items.html',{'items':items,'actual':actual}, context_instance=RequestContext(request))
+    tipos_relacion=RelacionEstados().estados_relacion()
+
+    return render_to_response('HtmlRelacion/relacion_items.html',{'tipos_relacion':tipos_relacion,
+        'actual':actual}, context_instance=RequestContext(request))
+
+
+def relacion_item_2(request,id,tipo,antes):
+    """
+
+
+    """
+    if int(tipo) == 1:
+        tipo_ = RelacionEstados().A_S
+    else:
+        tipo_ = RelacionEstados().P_H
+    print 'TIPO: '+str(tipo)+" tipo_ : "+str(tipo_)
+    actual=Item.objects.get(pk=id)
+    if tipo == 1:
+        if request.method=='POST':
+                    relac = Relacion()
+                    relac.tipo=RelacionEstados().A_S
+                    relac.nombre=request.POST.get('nombre','')
+                    anterior=int(request.POST.get('anterior',''))
+                    posterior=int(request.POST.get('posterior',''))
+                    if(antes == 1):
+                        relac.despues_id=actual.id_item
+                        relac.antes_id=anterior
+                    else:
+                        relac.despues_id = posterior
+                        relac.antes_id = actual.id_item
+                    relac.save()
+
+                    return HttpResponseRedirect('/tipoitem/items/'+str(actual.tipo_item_id))
+        query = get_query(actual.fase.numero, id)
+        print query
+        items = Item.objects.raw(query)
+        return render_to_response('HtmlRelacion/relacion_items2.html', {'items': items, 'actual': actual,'tipo':tipo_,
+           'antes': antes},  context_instance=RequestContext(request))
+    else:
+        if request.method == 'POST':
+                relac = Relacion()
+                relac.tipo = RelacionEstados().P_H
+                relac.nombre = request.POST.get('nombre', '')
+                anterior = int(request.POST.get('anterior', ''))
+                posterior = int(request.POST.get('posterior', ''))
+                if (antes == 1):
+                    relac.despues_id = actual.id_item
+                    relac.antes_id = anterior
+                else:
+                    relac.despues_id = posterior
+                    relac.antes_id = actual.id_item
+                relac.save()
+                return HttpResponseRedirect('/tipoitem/items/' + str(actual.tipo_item_id))
+
+        query = get_query(actual.fase.numero, id)
+        print query
+        items = Item.objects.raw(query,'padre_hijo')
+
+        return render_to_response('HtmlRelacion/relacion_items2.html',{'items':items,'actual':actual,'tipo':tipo_,
+                    'antes':antes}, context_instance=RequestContext(request))
 
 
 def relacion(request):
@@ -114,15 +181,29 @@ def relacion(request):
     }))
 
 
-
 def eliminarrelacion(request, id):
     proyecto= Relacion.objects.get(pk=id)
     if request.method=='POST':
         delete= request.POST['delete']
         if delete == 'si':
-            proyecto.delete()
-
+            try:
+                proyecto.delete()
+            except ValueError:
+                print ValueError.message
         return HttpResponseRedirect('/relacion/')
 
     return render_to_response('HtmlRelacion/eliminarrelacion.html',{'proyecto':proyecto},
                               context_instance=RequestContext(request))
+
+
+def get_query(nro_fase,id_item,rel=''):
+    if(rel == '' or 'a_o_s'):
+        igual="<"
+    else:
+        igual=""
+    query="WITH  T1  AS( select distinct i. *  from item i left join relacion r on r.antes_id = i.id_item "\
+    "left join relacion r2 on r2.despues_id = i.id_item right outer join  fase f on f.id_fase = i.fase_id "\
+    "where i.estado not like 'ELIMINADO' and f.numero "+igual+"= "+str(nro_fase)+" order  by i.nombre "\
+    ") SELECT DISTINCT T1. * FROM T1 JOIN relacion r3 on r3.antes_id = T1.id_item WHERE r3.antes_id != "+str(id_item)
+    print query
+    return query

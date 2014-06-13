@@ -22,7 +22,6 @@
     <tr>
         <th class="navbar-inner">Tipo</th>
         <th class="navbar-inner">Nombre</th>
-        <th class="navbar-inner">Actual</th>
         <th class="navbar-inner">Anterior</th>
         <th class="navbar-inner">Posterior</th>
         <th class="navbar-inner">Accion</th>
@@ -31,9 +30,9 @@
     <tr>
 	    <td >{{dato.tipo }}</td>
         <td>{{ dato.nombre }}</td>
-        <td>{{ dato.actual.nombre }}</td>
-        <td>{{ dato.anterior.nombre }}</td>
-        <td>{{ dato.posterior.nombre }}</td>
+        <td>{{ dato.antes.nombre }}</td>
+        <td>{{ dato.despues.nombre }}</td>
+
 
         <td> <a href="{% url 'demo_app.AdminRelacion.views.editarrelacion' dato.id_relacion %}">Editar</a>
             -<a href="{% url 'demo_app.AdminRelacion.views.eliminarrelacion' dato.id_relacion %}">Eliminar</a> </td>

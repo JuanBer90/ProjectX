@@ -144,6 +144,7 @@ class Relacion(models.Model):
     class Meta:
         db_table='relacion'
     id_relacion=models.AutoField(primary_key=True)
+    nombre=models.CharField(max_length=40,null=True)
     antes=models.ForeignKey(Item, related_name='antes')
     despues=models.OneToOneField(Item,related_name='despues')
     tipo_relacion=models.CharField(max_length=20)

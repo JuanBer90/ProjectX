@@ -5,6 +5,7 @@ from django.template.context import RequestContext
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.views.generic.dates import timezone_today
+from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminItem.forms import ItemForm
 from demo_project.demo_app.constantes import EstadosItem
 from demo_project.demo_app.models import TipoItem, Item, Fase, HistorialItem
@@ -110,14 +111,27 @@ def editar_item(request,id):
 
     return render_to_response('HtmlItem/editItem.html',{'fases':fases,'datos':tipo_items,'item':item}, context_instance=RequestContext(request))
 def eliminar_item(request, id):
-    objeto= TipoItem.objects.get(pk=id)
+    objeto= Item.objects.get(pk=id)
     if request.method=='POST':
         delete= request.POST['delete']
         if delete == 'si':
-            objeto.delete()
+            objeto.estado=constantes.EstadosItem().ITEM_EL
+            objeto.save()
         return HttpResponseRedirect('/items/listar')
 
     return render_to_response('HtmlItem/eliminaritem.html',{'item':objeto},
+                              context_instance=RequestContext(request))
+
+def revivir_item(request, id):
+    objeto= Item.objects.get(pk=id)
+    if request.method=='POST':
+        delete= request.POST['revivir']
+        if delete == 'si':
+            objeto.estado=constantes.EstadosItem().ITEM_NI
+            objeto.save()
+        return HttpResponseRedirect('/items/listar')
+
+    return render_to_response('HtmlItem/revivir.html',{'item':objeto},
                               context_instance=RequestContext(request))
 
 
@@ -217,6 +231,8 @@ def upload(request):
         arch=request.FILES.get('file')
         if(arch != None):
             print 'SIZE: '+str(arch)
-            
+
 
     return render_to_response('HtmlItem/upload.html', context_instance=RequestContext(request))
+
+

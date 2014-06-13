@@ -13,15 +13,7 @@ urlpatterns = patterns('',
     # Examples:
     #url(r'^$', 'demo_project.views.home', name='home'),
     url(r'^$', 'demo_project.demo_app.AdminUsuarios.views.ingresar', name='home'),
-    # url(r'^demo_project/', include('demo_project.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
     url(r'^admin$', include(admin.admin.site.urls)),
-    #url(r'^$', TemplateView.as_view(template_name='index.html'), name="home"),
     #url(r'^$', TemplateView.as_view(template_name='index.html'), name="home"),
     url(r'^contact$', TemplateView.as_view(template_name='contact.html'), name="contact"),
     url(r'^form$', 'demo_app.views.demo_form'),
@@ -98,7 +90,7 @@ urlpatterns = patterns('',
      url(r'^item/historial/(?P<id>\d+)/$','demo_app.AdminItem.views.historial'),
      url(r'^item/aprobar/(?P<id>\d+)/$','demo_app.AdminItem.views.aprobar'),
      url(r'^item/upload/$', 'demo_app.AdminItem.views.upload'),
-
+     url(r'^item/revivir/(?P<id>\d+)/$', 'demo_app.AdminItem.views.revivir_item'),
 
     #RELACION
     url(r'^relacion/nuevo/$','demo_app.AdminRelacion.views.nuevoRelacion'),
@@ -106,6 +98,7 @@ urlpatterns = patterns('',
     url(r'^relacion/editar/(?P<id>\d+)/$','demo_app.AdminRelacion.views.editarrelacion'),
     url(r'^relacion/eliminar/(?P<id>\d+)/$','demo_app.AdminRelacion.views.eliminarrelacion'),
     url(r'^relacion/items/(?P<id>\d+)/$','demo_app.AdminRelacion.views.relacion_item'),
+    url(r'^relacion/items/(?P<id>\d+)/(?P<tipo>\d+)/(?P<antes>\d+)$', 'demo_app.AdminRelacion.views.'),
 
 
     #AtributoItem
@@ -118,9 +111,6 @@ urlpatterns = patterns('',
     url(r'^atributoitem/add_atributo_item/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.add_atributo_item'),
     url(r'^atributoitem/edit_atributo_item/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.edit_atributo_item'),
     url(r'^atributoitem/delete_atributo_item/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.delete_atributo_item'),
-
-
-
 
 )
 

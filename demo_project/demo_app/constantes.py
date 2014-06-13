@@ -25,7 +25,7 @@ class EstadosItem:
         estados.append(self.ITEM_EL)
         return estados
 
-class Relacion:
+class RelacionEstados:
     A_S='ANTECESOR/SUCESOR'
     P_H='PADRE/HIJO'
 
