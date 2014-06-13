@@ -12,28 +12,23 @@
 	<form id='formulario' method='post' action=''>{% csrf_token %}
 
 
-        	<label>Tipo: </label>
-        <input type="text" maxlength="45" required="" value="ANTECESOR-SUCESOR" readonly name="tipo"/>
-        <label>Nombre: </label>
-        <input type="text" maxlength="50" required="" value="{{ relacion.nombre }}" name="nombre"/>
-    <label>Actual: </label>
-        <input type="text" maxlength="50" disabled required="" value="{{ actual.nombre }}" name="nombre"/>
-         <label>Anterior: </label>
-        <select name="anterior" required="required">
-            {% for item in items %}
-            <option value="{{ item.id_item }}" {% if relacion.anterior_id == item.id_item %} selected {% endif %}>{{ item.nombre }}</option>
-            {% endfor %}
+        <label>Tipo: </label>
+        <select name="tipo"  >
+        {% for tp in tipos_relacion %}
+            <option value="{{ tp }}" >{{ tp }}</option>
+        {% endfor %}
+        </select>
+         <label>Asignar: </label>
+        <select name="a_o_d"  >
+
+            <option value="ANTES" >ANTES</option>
+          <option value="DESPUES" >DESPUES</option>
 
         </select>
-         <label>Posterior: </label>
-        <select name="posterior" required="required">
-            {% for item in items %}
-            <option value="{{ item.id_item }}" {% if relacion.posterior_id == item.id_item %} selected {% endif %}>{{ item.nombre }}</option>
-            {% endfor %}
 
-        </select>
-        <br>
-		<input class="btn btn-info" type='submit' value='Actualizar'/>
+        <br><br>
+        <input class="btn btn-info" type='submit' name="ok" value='Volver'/>
+        <input class="btn btn-info" type='submit' name="ok" value='Ok'/>
 
 	</form>
     </center>

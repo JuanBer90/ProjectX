@@ -28,7 +28,16 @@
 	    <td><em>{{dato.nombre}}</em></td>
 
         <td>{{ dato.descripcion }}</td>
-    <td><a href="{% url 'demo_app.AdminItem.views.editar_item' dato.id_item %}">Editar</a></td>
+    <td><a href="{% url 'demo_app.AdminItem.views.editar_item' dato.id_item %}">Editar</a>
+
+        {% if dato.estado == 'ELIMINADO' %}
+        <a href="{% url 'demo_app.AdminItem.views.revivir_item' dato.id_item %}">Revivir</a><
+        {% endif %}
+    {% if dato.estado != 'ELIMINADO' %}
+        <a href="{% url 'demo_app.AdminItem.views.eliminar_item' dato.id_item %}">Eliminar</a></td>
+        {% endif %}
+
+
 
 	</tr>
 	{% endfor %}
