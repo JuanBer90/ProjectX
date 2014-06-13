@@ -111,9 +111,63 @@ def eliminaratributoitem(request, id):
 
 
 def atributos_por_item(request,id):
-    item=Item.objects.get(pk=id)
-    objetos_list = AtributosPorItem.objects.filter(item=item)
-    return render_to_response('HtmlAtributoItem/atributos_por_item.html',{'objetos':objetos_list,'item':item}, RequestContext(request))
+    nro_lineas=10
+    lines = []
+    page = request.GET.get('page')
+    if request.method=='POST':
+        buscar=request.POST["buscar"]
+    else:
+        buscar = ''
+
+    if buscar == '':
+        item=Item.objects.get(pk=id)
+        objetos_list = AtributosPorItem.objects.filter(item=item)
+        proyectos_total = objetos_list.count()
+    else:
+        item=Item.objects.get(pk=id)
+        objetos_list = AtributosPorItem.objects.filter(item=item)
+        permisos_list = objetos_list.filter(nombre=buscar)
+        proyectos_total = permisos_list.count()
+
+    for i in range(proyectos_total):
+        lines.append(u'Line %s' % (i + 1))
+    paginator = Paginator(lines, nro_lineas)
+    try:
+        page=int(page)
+    except:
+        page=1
+
+    if int(page)*nro_lineas>proyectos_total or int(page)>0:
+        try:
+            items = paginator.page(page)
+            fin=int(page)*nro_lineas
+            ini =fin-nro_lineas
+        except PageNotAnInteger or EmptyPage:
+            fin=nro_lineas
+            ini=0
+            items = paginator.page(1)
+    else:
+        fin=nro_lineas
+        ini=0
+        items = paginator.page(1)
+    if buscar == '':
+        item=Item.objects.get(pk=id)
+        objetos_list = AtributosPorItem.objects.filter(item=item)
+        proyectos_list = objetos_list.order_by('nombre').all()[ini:fin]
+    else:
+        item=Item.objects.get(pk=id)
+        objetos_list = AtributosPorItem.objects.filter(item=item)
+        proyectos_list = objetos_list.filter(nombre=buscar)[ini:fin]
+
+    return render_to_response('HtmlAtributoItem/atributos_por_item.html',{'objetos':proyectos_list,'item':item,'id_proyecto':id}, RequestContext(request, {
+        'lines': items
+    }))
+
+
+    ##
+    #item=Item.objects.get(pk=id)
+    #objetos_list = AtributosPorItem.objects.filter(item=item)
+    #return render_to_response('HtmlAtributoItem/atributos_por_item.html',{'objetos':objetos_list,'item':item}, RequestContext(request))
 
 
 

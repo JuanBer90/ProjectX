@@ -2,6 +2,7 @@ from gufw import model
 from django import forms
 from demo_project.demo_app.models import TipoItem, Item
 from django.forms.widgets import TextInput
+from django import forms
 
 class ItemForm(forms.ModelForm):
     nombre=forms.CharField(widget=TextInput,max_length=30, label="nombre")
@@ -21,5 +22,12 @@ class ItemForm(forms.ModelForm):
            objeto.save()
         return objeto
 
+
+
+class DocumentForm(forms.Form):
+    docfile = forms.FileField(
+        label='Select a file',
+        help_text='max. 42 megabytes'
+    )
 
 
