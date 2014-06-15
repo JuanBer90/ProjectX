@@ -10,9 +10,10 @@
     <br>
     <center><h1>Mis Proyectos</h1></center>
     <br><br>
-    <center>
+    <center> hola: {{ proyectos|length}}
 
-        <table class="">
+        <table class="table">
+        {% if proyectos|length > 0 %}
         {% for dato in proyectos %}
                     <tr>
                       <td>
@@ -23,6 +24,7 @@
                     </tr>
 
         {% endfor %}
+        {% endif %}
     </table>
         </center>
 {% endblock %}

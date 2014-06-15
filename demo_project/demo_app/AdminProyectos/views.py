@@ -4,7 +4,9 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
+from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminProyectos.forms import ProyectoForm
+from demo_project.demo_app.constantes import EstadoProyecto
 from demo_project.demo_app.models import Proyecto, RolUser, Rol, Fase
 
 
@@ -130,6 +132,8 @@ def eliminar_proyecto(request, id_proyecto):
 def mis_proyectos(request):
     query= "select p.* from proyectos p right join rol_user r on r.proyecto_id = p.id_proyecto where r.user_id ="+str(request.user.id)
     proyectos_list= Proyecto.objects.raw(query)
+    print proyectos_list
+    proyectos_list=None
     return render_to_response('HtmlProyecto/misproyectos.html',{'proyectos':proyectos_list})
 
 
@@ -146,14 +150,17 @@ def mi_proyecto(request, id_proyecto):
             return HttpResponseRedirect('/sinpermiso')
 
     if request.method=='POST':
-        formulario= ProyectoForm(request.POST,instance=proyecto)
-        if formulario.is_valid():
-            proyecto= formulario.save()
-            proyecto.save()
-            return HttpResponseRedirect('/proyectos')
+        proyecto.estado=EstadoProyecto().PRO_IN
+        proyecto.save()
+        #
+        # formulario= ProyectoForm(request.POST,instance=proyecto)
+        # if formulario.is_valid():
+        #     proyecto= formulario.save()
+        #     proyecto.save()
+        #     return HttpResponseRedirect('/proyectos')
     else:
         formulario= ProyectoForm(instance=proyecto)
-    return render_to_response('HtmlProyecto/miproyecto.html',{'formulario':formulario,'id_proyecto':id_proyecto,'user':proyecto.leader},
+    return render_to_response('HtmlProyecto/miproyecto.html',{'formulario':formulario,'proyecto':proyecto,'id_proyecto':id_proyecto,'user':proyecto.leader},
                               context_instance=RequestContext(request))
 
 def colaboradores(request, id_proyecto):

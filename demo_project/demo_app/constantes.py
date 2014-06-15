@@ -11,6 +11,7 @@ class EstadosFase:
         return estados
 
 
+
 class EstadosItem:
     ITEM_NI='INICIADO'
     ITEM_AP='APROBADO'
@@ -24,6 +25,13 @@ class EstadosItem:
         estados.append(self.ITEM_BL)
         estados.append(self.ITEM_EL)
         return estados
+
+class EstadoProyecto:
+    PRO_IN='INICIADO'
+    PRO_NI='NO-INICIADO'
+    PRO_FI='FINALIZADO'
+
+
 
 class RelacionEstados:
     A_S='ANTECESOR/SUCESOR'

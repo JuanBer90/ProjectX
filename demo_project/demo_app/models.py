@@ -2,14 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 import constantes
-
+from demo_project.demo_app.constantes import EstadoProyecto
 
 
 class Proyecto(models.Model):
     """
     Modelo de Proyecto con su respectivo atributos
     """
-
     class Meta:
         db_table='proyectos'
 
@@ -18,7 +17,7 @@ class Proyecto(models.Model):
     leader=models.ForeignKey(User,unique=False)
     fecha_creacion= models.DateTimeField(auto_now=True)
     complejidad=models.IntegerField(default=0)
-    estado=models.BooleanField(default=True)
+    estado=models.CharField(default=EstadoProyecto().PRO_NI,max_length=30)
     nro_fases=models.IntegerField()
     coste_total = models.IntegerField()
     descripcion = models.CharField(max_length=300)
