@@ -7,7 +7,7 @@ from demo_project.demo_app.constantes import EstadosItem
 from demo_project.demo_app.models import TipoItem, Fase, Proyecto, Item
 
 
-def nuevoTipoItem(request,id):
+def nuevoTipoItem(request,id=0):
     """
     Crea un nuevo Tipo Item con sus atributos proveidos por el
     usuario y el Sistema autogenera los demas atributos

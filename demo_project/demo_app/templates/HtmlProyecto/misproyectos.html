@@ -10,21 +10,22 @@
     <br>
     <center><h1>Mis Proyectos</h1></center>
     <br><br>
-    <center> hola: {{ proyectos|length}}
+    <center>
 
         <table class="table">
-        {% if proyectos|length > 0 %}
-        {% for dato in proyectos %}
+            {{ proyectos.0 }}{{ proyectos.1 }}
+         {{ proyectos.2 }}{{ proyectos.3 }}
+        {% for x,y in proyectos %}
                     <tr>
                       <td>
-                         <a href="{% url 'demo_app.AdminProyectos.views.mi_proyecto' dato.id_proyecto %}">{{ dato.nombre }}</a>
+                      <li>   <a href="{% url 'demo_app.AdminProyectos.views.nuevo_proyecto'%}">{{ x }}  {{ y }}</a></li>
                         <hr>
                       </td>
 
                     </tr>
 
         {% endfor %}
-        {% endif %}
+
     </table>
         </center>
 {% endblock %}

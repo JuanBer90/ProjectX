@@ -6,7 +6,7 @@ from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
 from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminProyectos.forms import ProyectoForm
-from demo_project.demo_app.constantes import EstadoProyecto
+from demo_project.demo_app.constantes import EstadoProyecto, execute_query
 from demo_project.demo_app.models import Proyecto, RolUser, Rol, Fase
 
 
@@ -39,7 +39,7 @@ def nuevo_proyecto(request):
             rol_user.proyecto = proyecto
             rol_user.user = user
             rol_user.save()
-            return HttpResponseRedirect('/proyectos/miproyecto/'+str(proyecto.id_proyecto))
+            return HttpResponseRedirect('/proyecto/miproyecto/'+str(proyecto.id_proyecto))
     else:
         formulario= ProyectoForm(request.POST)
     return render_to_response('HtmlProyecto/nuevoproyecto.html',{'formulario':formulario,'user':user},
@@ -130,10 +130,13 @@ def eliminar_proyecto(request, id_proyecto):
     return render_to_response('HtmlProyecto/eliminarproyecto.html',{'proyecto':proyecto},
                               context_instance=RequestContext(request))
 def mis_proyectos(request):
-    query= "select p.* from proyectos p right join rol_user r on r.proyecto_id = p.id_proyecto where r.user_id ="+str(request.user.id)
-    proyectos_list= Proyecto.objects.raw(query)
+    query= "select p.nombre, p.id_proyecto from proyectos p right join rol_user r on r.proyecto_id = p.id_proyecto where r.user_id ="+str(request.user.id)
+    proyectos_list=execute_query(query)
+    print query
+    #proyectos_list= Proyecto.objects.raw(query)
+    for p in proyectos_list:
+        print p
     print proyectos_list
-    proyectos_list=None
     return render_to_response('HtmlProyecto/misproyectos.html',{'proyectos':proyectos_list})
 
 

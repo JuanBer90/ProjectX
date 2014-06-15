@@ -1,3 +1,6 @@
+from django.db import connection
+
+
 class EstadosFase:
     FASE_NI = 'NO-INICIADA'
     FASE_DE= 'DESARROLLO'
@@ -47,5 +50,11 @@ class EstadosLB:
     ABIERTO='ABIERTO'
 
 
+
+def execute_query(query):
+   cursor = connection.cursor()
+   cursor.execute(query)
+   rows = cursor.fetchone()
+   return rows
 
 
