@@ -50,11 +50,12 @@ def TipoItem_nuevo_item(request,id):
         item.numero =request.POST.get('numero','')
         item.descripcion =request.POST.get('descripcion','')
         item.tipo_item=tipo_item
+        item.fase_id=tipo_item.fase_id
         item.save()
         historial=HistorialItem()
         historial.fecha_modificacion=timezone_today()
         historial.item=item
-        historial.tipo_modificacion="Creacion"
+        historial.tipo_modificacion=EstadosItem().ITEM_NI
         historial.user=request.user
         historial.save()
         return HttpResponseRedirect('/tipoitem/items/'+str(tipo_item.id_tipo_item))

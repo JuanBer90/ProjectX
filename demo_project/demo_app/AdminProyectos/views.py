@@ -54,7 +54,7 @@ def editar_proyecto(request, id_proyecto):
     if get_roles.count() == 0:
         return HttpResponseRedirect('/sinpermiso')
     for r in get_roles:
-        if not r.rol.permisos.edit_project:
+        if not r.rol.permisos.AdminProyecto:
             return HttpResponseRedirect('/sinpermiso')
 
     if request.method=='POST':
@@ -150,7 +150,7 @@ def mi_proyecto(request, id_proyecto):
     if get_roles.count() == 0:
         return HttpResponseRedirect('/sinpermiso')
     for r in get_roles:
-        if not r.rol.permisos.edit_project:
+        if not r.rol.permisos.AdminProyecto:
             return HttpResponseRedirect('/sinpermiso')
 
     if request.method=='POST':

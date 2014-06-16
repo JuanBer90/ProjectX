@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 import constantes
-from demo_project.demo_app.constantes import EstadoProyecto
+from demo_project.demo_app.constantes import EstadoProyecto, EstadosLB
 
 
 class Proyecto(models.Model):
@@ -77,7 +77,7 @@ class LineaBase(models.Model):
     class Meta:
         db_table='linea_base'
     id_linea_base=models.AutoField(primary_key=True)
-    numero=models.IntegerField()
+    proyecto=models.ForeignKey(Proyecto)
     estado=models.CharField(max_length=20,null=True)
     nombre=models.CharField(max_length=50, unique=True)
 
@@ -96,7 +96,6 @@ class Item(models.Model):
     version = models.IntegerField(null=True)
     complejidad = models.IntegerField(null=True)
     prioridad = models.IntegerField(null=True)
-
 
 
 class HistorialItem(models.Model):
@@ -125,5 +124,5 @@ class Relacion(models.Model):
     id_relacion=models.AutoField(primary_key=True)
     nombre=models.CharField(max_length=40,null=True)
     antes=models.ForeignKey(Item, related_name='antes')
-    despues=models.OneToOneField(Item,related_name='despues')
+    actual=models.OneToOneField(Item,related_name='despues')
     tipo_relacion=models.CharField(max_length=20)

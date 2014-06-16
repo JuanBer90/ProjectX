@@ -48,6 +48,7 @@ class RelacionEstados:
 
 class EstadosLB:
     ABIERTO='ABIERTO'
+    CERRADO = 'CERRADO'
 
 
 

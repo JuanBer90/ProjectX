@@ -6,19 +6,17 @@
 {% endblock %}
 {% block content %}
     <br>
-    <center><h1>Crear Linea Base</h1></center>
+    <center><h1>Linea Base</h1></center>
     <br><br>
     <center>
 	<form  method='post' action=''>{% csrf_token %}
-		<label>Nombre:</label>
-            <input type="text" maxlength="50" required=""  name="nombre" />
-        <label>Numero:</label>
-            <input type="number" required=""  name="numero"/>
-        <label>Estado:</label>
-        <input type="text" maxlength="50" disabled required="" value="{{ estado }}" name="estado"/>
+		<label>Estado: </label>
+        <input disabled type="text" value="{{ lb.estado }}">
+        <label>Nombre:</label>
+            <input type="text" maxlength="50" required="" value="{{ lb.nombre }}" name="nombre" />
         <br>
-        <input class="btn btn-info" type='submit' value='Crear'/>
-	</form>
+                 <input class="btn btn-info" type='submit' value='Guardar'/>
+        	</form>
 
     </center>
 {% endblock %}

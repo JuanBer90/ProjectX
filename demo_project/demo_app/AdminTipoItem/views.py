@@ -7,7 +7,7 @@ from demo_project.demo_app.constantes import EstadosItem
 from demo_project.demo_app.models import TipoItem, Fase, Proyecto, Item
 
 
-def nuevoTipoItem(request,id=0):
+def nuevoTipoItem(request,id):
     """
     Crea un nuevo Tipo Item con sus atributos proveidos por el
     usuario y el Sistema autogenera los demas atributos
@@ -120,7 +120,7 @@ def TipoItemToFase(request,id):
     usuario y el Sistema autogenera los demas atributos
     """
     fase=Fase.objects.get(pk=id)
-    tipo_items=TipoItem.objects.all()
+    tipo_items=TipoItem.objects.filter(fase_id=fase.id_fase)
     if request.method=='POST':
         tipo_item=TipoItem()
         padre=request.POST.get('padre','')
@@ -153,7 +153,7 @@ def TipoItemToItem(request,id):
 
     if buscar == '':
         tipo_item=TipoItem.objects.get(pk=id)
-        items=Item.objects.filter(tipo_item=tipo_item)
+        items=Item.objects.filter(tipo_item=tipo_item,fase_id=tipo_item.fase_id)
         items_total = items.count()
     else:
         tipo_item=TipoItem.objects.get(pk=id)

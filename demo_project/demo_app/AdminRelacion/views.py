@@ -2,8 +2,9 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
+from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminRelacion.forms import RelacionForm
-from demo_project.demo_app.constantes import  RelacionEstados
+from demo_project.demo_app.constantes import  RelacionEstados, EstadosItem
 from demo_project.demo_app.models import Relacion, Item
 
 
@@ -57,6 +58,8 @@ def questions(request):
     if (request.method == 'POST'):
         tipo=request.POST.get('tipo','')
 
+
+
 def relacion_item(request,id):
     """
     Edita una nueva Relacion con sus atributos proveidos por el
@@ -91,10 +94,6 @@ def relacion_item(request,id):
 
 
 def relacion_item_2(request,id,tipo,antes):
-    """
-
-
-    """
     if int(tipo) == 1:
         tipo_ = RelacionEstados().A_S
     else:
@@ -196,6 +195,26 @@ def eliminarrelacion(request, id):
                               context_instance=RequestContext(request))
 
 
+def padre_hijo(request,id):
+    actual=Item.objects.get(pk=id)
+    tipo=RelacionEstados().P_H
+    items=Item.objects.filter(fase_id=actual.fase_id, estado=EstadosItem().ITEM_NI).exclude(id_item=id)
+    if request.method == 'POST':
+        antes=int(request.POST.get('padre',0))
+        if antes != 0:
+            relacion=Relacion()
+            relacion.actual=actual
+            relacion.tipo_relacion=tipo
+            relacion.antes_id=antes
+            relacion.save()
+            return HttpResponseRedirect('/tipoitem/items/'+str(id))
+
+
+    return render_to_response('HtmlRelacion/padrehijo.html', {'actual': actual,'tipo':tipo,'items':items},
+                              context_instance=RequestContext(request))
+
+
+
 def get_query(nro_fase,id_item,rel=''):
     if(rel == '' or 'a_o_s'):
         igual="<"
@@ -207,3 +226,4 @@ def get_query(nro_fase,id_item,rel=''):
     ") SELECT DISTINCT T1. * FROM T1 JOIN relacion r3 on r3.antes_id = T1.id_item WHERE r3.antes_id != "+str(id_item)
     print query
     return query
+
