@@ -54,7 +54,7 @@ class EstadosLB:
 def execute_query(query):
    cursor = connection.cursor()
    cursor.execute(query)
-   rows = cursor.fetchone()
+   rows = cursor.fetchall()
    return rows
 
 

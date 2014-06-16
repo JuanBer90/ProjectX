@@ -12,14 +12,12 @@
     <br><br>
     <center>
 
-        <table class="table">
-            {{ proyectos.0 }}{{ proyectos.1 }}
-         {{ proyectos.2 }}{{ proyectos.3 }}
+        <table class="table" style="width: 500px">
         {% for x,y in proyectos %}
                     <tr>
                       <td>
-                      <li>   <a href="{% url 'demo_app.AdminProyectos.views.nuevo_proyecto'%}">{{ x }}  {{ y }}</a></li>
-                        <hr>
+                      <li>   <a href="{% url 'demo_app.AdminProyectos.views.mi_proyecto' y %}">  {{ x }}</a></li>
+
                       </td>
 
                     </tr>
