@@ -127,6 +127,7 @@ def eliminar_proyecto(request, id_proyecto):
 
         return HttpResponseRedirect('/proyectos/')
 
+
     return render_to_response('HtmlProyecto/eliminarproyecto.html',{'proyecto':proyecto},
                               context_instance=RequestContext(request))
 def mis_proyectos(request):
