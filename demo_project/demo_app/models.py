@@ -21,35 +21,15 @@ class Proyecto(models.Model):
     nro_fases=models.IntegerField()
     coste_total = models.IntegerField()
     descripcion = models.CharField(max_length=300)
-
 class Permisos(models.Model):
     class Meta:
         db_table='permisos'
     id_permiso=models.AutoField(primary_key=True)
-    add_project=models.BooleanField(default=False)
-    edit_project=models.BooleanField(default=False)
-    delete_project=models.BooleanField(default=False)
-    consultar_project=models.BooleanField(default=False)
-    ver_fase=models.BooleanField(default=False)
-    add_item=models.BooleanField(default=False)
-    edit_item=models.BooleanField(default=False)
-    delete_item=models.BooleanField(default=False)
-    revive_item=models.BooleanField(default=False)
-    relacionar_item=models.BooleanField(default=False)
-    consultar_item=models.BooleanField(default=False)
-    add_tipo_item=models.BooleanField(default=False)
-    edit_tipo_item=models.BooleanField(default=False)
-    delete_tipo_item=models.BooleanField(default=False)
-    add_user=models.BooleanField(default=False)
-    edit_user=models.BooleanField(default=False)
-    delete_user=models.BooleanField(default=False)
-    consultar_user=models.BooleanField(default=False)
-    add_rol=models.BooleanField(default=False)
-    edit_rol=models.BooleanField(default=False)
-    delete_rol=models.BooleanField(default=False)
-    asignar_rol=models.BooleanField(default=False)
-    desasignar_rol=models.BooleanField(default=False)
-    consultar_rol=models.BooleanField(default=False)
+    AdminProyecto=models.BooleanField(default=False)
+    AdminFase=models.BooleanField(default=False)
+    AdminItem=models.BooleanField(default=False)
+    AdminUser=models.BooleanField(default=False)
+    AdminRol=models.BooleanField(default=False)
 
 class Rol(models.Model):
     class Meta:

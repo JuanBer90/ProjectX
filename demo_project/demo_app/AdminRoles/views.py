@@ -27,6 +27,7 @@ def nuevo_rol(request, id_proyecto=0,id=0):
     else:
         rol = Rol()
         permiso = Permisos()
+
         modo = 'Crear'
 
     if request.method=='POST':
@@ -38,37 +39,11 @@ def nuevo_rol(request, id_proyecto=0,id=0):
         existe = aux_total.count()
         if existe > 0  and modo == 'Crear':
             return render_to_response('HtmlRoles/nuevorol.html',{'rol_ya':True}, context_instance=RequestContext(request))
-
-        permiso.add_project=request.POST.get('add_proyecto',False)
-        permiso.edit_project=request.POST.get('edit_proyecto',False)
-        permiso.delete_project=request.POST.get('delete_proyecto',False)
-        permiso.consultar_project=request.POST.get('consultar_proyecto',False)
-
-        permiso.ver_fase=request.POST.get('ver_fase',False)
-
-        permiso.add_item=request.POST.get('add_item',False)
-        permiso.edit_item=request.POST.get('edit_item', False)
-        permiso.delete_item=request.POST.get('delete_item',False)
-        permiso.revive_item=request.POST.get('revive_item',False)
-        permiso.consultar_item=request.POST.get('consultar_item',False)
-        permiso.relacionar_item = request.POST.get('relacionar_item',False)
-
-        permiso.add_tipo_item= request.POST.get('add_tipo_item',False)
-        permiso.edit_tipo_item= request.POST.get('edit_tipo_item',False)
-        permiso.delete_tipo_item= request.POST.get('delete_tipo_item',False)
-
-        permiso.add_rol=request.POST.get('add_rol',False)
-        permiso.edit_rol=request.POST.get('edit_rol',False)
-        permiso.delete_rol=request.POST.get('delete_rol',False)
-        permiso.asignar_rol = request.POST.get('asignar_rol', False)
-        permiso.desasignar_rol = request.POST.get('desasignar_rol', False)
-        permiso.consultar_rol = request.POST.get('consultar_rol', False)
-
-        permiso.add_user = request.POST.get('add_user', False)
-        permiso.edit_user=request.POST.get('edit_user', False)
-        permiso.delete_user=request.POST.get('delete_user', False)
-        permiso.consultar_user=request.POST.get('consultar_user', False)
-
+        permiso.AdminProyecto=request.POST.get('proyecto',False)
+        permiso.AdminFase=request.POST.get('fase',False)
+        permiso.AdminItem=request.POST.get('item',False)
+        permiso.AdminRol=request.POST.get('rol',False)
+        permiso.AdminUser=request.POST.get('user',False)
         permiso.save()
         rol.descripcion=rol_descripcion
         rol.permisos=permiso
@@ -143,7 +118,6 @@ def ver_rol(request,idRol,id_proyecto):
     permiso=Permisos.objects.get(rol=rol.permisos_id)
     if request.method=='POST':
              return HttpResponseRedirect('/roles/'+str(id_proyecto))
-
     return render_to_response('HtmlRoles/verrol.html',{'rol':rol,'permiso':permiso,'modo':''}, context_instance=RequestContext(request))
 
 def nuevo_rol_user(request,id_proyecto):
