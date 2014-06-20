@@ -17,15 +17,15 @@
 	<form  method='post' action=''>{% csrf_token %}
 		<table class="table" style="width: 400px">
             <tr>
-            <th class="navbar-inner">Nombre</th>
+            <th class="navbar-inner">Numero</th>
             <th class="navbar-inner">Estado</th>
-            <th class="navbar-inner">Accion</th>
+
             </tr>
             {% for lb in lbs %}
             <tr>
-                <td><a href="{% url 'demo_app.AdminLineaBase.views.items' lb.id_linea_base %}">{{ lb.nombre }}</a></td>
+                <td><a href="{% url 'demo_app.AdminLineaBase.views.items' lb.id_linea_base %}">{{ lb.numero }}</a></td>
                 <td>{{ lb.estado }}</td>
-                <td><a href="{% url 'demo_app.AdminLineaBase.views.editar_lb' lb.id_linea_base %}">Editar</a></td>
+
             </tr>
             {% endfor %}
 

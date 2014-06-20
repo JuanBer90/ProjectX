@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block titulo %}Agregar Item{% endblock %}
+{% block encabezado %} 
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Agregar Item a Linea Base</h1></center>
+    <br><br>
+    <center>
+
+	<form  method='post' action=''>{% csrf_token %}
+      <table>
+      <tr>
+         <td><label>Item:</label>
+        <input type="text" disabled value="{{ item.nombre }}"></td></tr>
+    <tr><td><label>Linea Base:</label>
+        <select name="lb" >
+        {% for l in lbs %}
+            <option value="{{ l.id_linea_base }}"> {{ l.nombre }}</option>
+        {% endfor  %}
+       </select></td></tr>
+    </table>
+        <input class="btn btn-info" type='submit' value='Agregar'/>
+
+    </form>
+    </center>
+{% endblock %}

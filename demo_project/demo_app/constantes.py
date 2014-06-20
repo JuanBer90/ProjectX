@@ -58,4 +58,9 @@ def execute_query(query):
    rows = cursor.fetchall()
    return rows
 
+def execute_one(query):
+    cursor = connection.cursor()
+    cursor.execute(query)
+    return cursor.fetchone()
+
 

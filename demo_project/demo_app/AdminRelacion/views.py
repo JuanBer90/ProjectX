@@ -214,7 +214,6 @@ def padre_hijo(request,id):
                               context_instance=RequestContext(request))
 
 
-
 def get_query(nro_fase,id_item,rel=''):
     if(rel == '' or 'a_o_s'):
         igual="<"

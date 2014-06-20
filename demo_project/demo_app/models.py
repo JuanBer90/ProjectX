@@ -78,8 +78,8 @@ class LineaBase(models.Model):
         db_table='linea_base'
     id_linea_base=models.AutoField(primary_key=True)
     proyecto=models.ForeignKey(Proyecto)
-    estado=models.CharField(max_length=20,null=True)
-    nombre=models.CharField(max_length=50, unique=True)
+    estado=models.CharField(max_length=20,default=EstadosLB().ABIERTO)
+    numero=models.IntegerField()
 
 class Item(models.Model):
     class Meta:

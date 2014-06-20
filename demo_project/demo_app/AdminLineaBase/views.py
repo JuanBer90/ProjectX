@@ -1,5 +1,5 @@
 from demo_project.demo_app import constantes
-from demo_project.demo_app.constantes import EstadosLB
+from demo_project.demo_app.constantes import EstadosLB, execute_query, execute_one, EstadosItem
 
 __author__ = 'carlos'
 from django.shortcuts import render_to_response
@@ -13,15 +13,16 @@ def nuevo_lb(request,id):
     Crea un nuevo Linea Base con sus atributos proveidos por el
     usuario y el Sistema autogenera los demas atributos
     """
-    estado=constantes.EstadosLB().ABIERTO
+    query="select case when max(lb.numero) is null then 1 else max(lb.numero)+1 end " \
+          "from linea_base lb join proyectos p on p.id_proyecto = lb.proyecto_id where p.id_proyecto = "+str(id)
+    lb = LineaBase()
+    lb.numero=execute_one(query)[0]
+    lb.estado=EstadosLB().ABIERTO
     if request.method=='POST':
-        lb=LineaBase()
-        lb.nombre=request.POST.get('nombre','')
-        lb.estado =EstadosLB().ABIERTO
         lb.proyecto_id=id
         lb.save()
         return HttpResponseRedirect ('/proyecto/miproyecto/'+str(id))
-    return render_to_response('HtmlLineaBase/nuevoLB.html',{'estado':estado}, context_instance=RequestContext(request))
+    return render_to_response('HtmlLineaBase/nuevoLB.html',{'lb':lb}, context_instance=RequestContext(request))
 
 def editar_lb(request,id):
     lb=LineaBase.objects.get(pk=id)
@@ -41,12 +42,26 @@ def listar_lb(request,id):
 
 def items(request, id):
     lb=LineaBase.objects.get(pk=id)
-    #items=Item.objects.filter().all()
     items=Item.objects.raw("select i.* from item i join fase f on f.id_fase=i.fase_id "
                            "join proyectos p on p.id_proyecto = f.proyecto_id "
-                           "where p.id_proyecto = "+str(lb.proyecto_id)+" and i.estado like 'APROBADO' ")
-    return render_to_response('HtmlLineaBase/items.html', {'lb': lb, 'items': items},
+                           "where p.id_proyecto = "+str(lb.proyecto_id))
+
+    return render_to_response('HtmlLineaBase/items.html', {'lb': lb, 'items': items,'estado':EstadosItem().ITEM_BL},
                               context_instance=RequestContext(request))
+
+def item_to_lb(request,id_item, id_lb):
+    item=Item.objects.get(pk=id_item)
+    lb=LineaBase.objects.get(pk=id_lb)
+    print 'hola1'
+    if request.method == 'POST':
+        add=request.POST.get('add','no')
+        print 'hola2'
+        if add == 'si':
+            item.linea_base_id=id_lb
+            item.estado=EstadosItem().ITEM_BL
+            item.save()
+        return  HttpResponseRedirect('/lineabase/items/'+str(lb.id_linea_base))
+    return render_to_response('HtmlLineaBase/add_to_lb.html',{}, context_instance=RequestContext(request))
 
 
 

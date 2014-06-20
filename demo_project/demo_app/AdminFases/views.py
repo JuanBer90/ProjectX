@@ -61,7 +61,7 @@ def importar(request, id_fase):
     if buscar == '':
         fases_total = Fase.objects.all().exclude(nombre=None, proyecto_id=fase.proyecto_id).count()
     else:
-        permisos_list = Fase.objects.filter(nombre__contains=buscar)
+        permisos_list = Fase.objects.filter(nombre__contains=buscar).exclude(nombre=None)
         fases_total = permisos_list.count()
 
     for i in range(fases_total):
@@ -88,7 +88,7 @@ def importar(request, id_fase):
     if buscar == '':
         fases_list = Fase.objects.order_by('nombre').all().exclude(nombre=None,proyecto_id=fase.proyecto_id)[ini:fin]
     else:
-        fases_list = Fase.objects.filter(nombre=buscar)[ini:fin]
+        fases_list = Fase.objects.filter(nombre=buscar).exclude(nombre=None)[ini:fin]
 
     return render_to_response('HtmlFases/fases.html',{'fases':fases_list,'id_fase':id_fase}, RequestContext(request, {
         'lines': items

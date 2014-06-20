@@ -52,6 +52,9 @@
         {% if estado_item == dato.estado %}
            -  <a href="{% url 'demo_app.AdminItem.views.aprobar' dato.id_item %}">Aprobar</a>
         {% endif %}
+        {% if dato.estado == aprobado %}
+            -  <a href="{% url 'demo_app.AdminItem.views.add_lb' dato.id_item %}">Linea Base</a>
+        {% endif %}
 
    
     </td>

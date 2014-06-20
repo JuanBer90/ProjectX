@@ -98,6 +98,7 @@ urlpatterns = patterns('',
      url(r'^item/aprobar/(?P<id>\d+)/$','demo_app.AdminItem.views.aprobar'),
      url(r'^item/upload/$', 'demo_app.AdminItem.views.upload'),
      url(r'^item/revivir/(?P<id>\d+)/$', 'demo_app.AdminItem.views.revivir_item'),
+     url(r'^item/add_lb/(?P<id>\d+)/$', 'demo_app.AdminItem.views.add_lb'),
 
     #RELACION
     url(r'^relacion/nuevo/$','demo_app.AdminRelacion.views.nuevoRelacion'),
@@ -107,6 +108,7 @@ urlpatterns = patterns('',
     url(r'^relacion/items/(?P<id>\d+)/$','demo_app.AdminRelacion.views.relacion_item'),
     url(r'^relacion/items/(?P<id>\d+)/(?P<tipo>\d+)/(?P<antes>\d+)$', 'demo_app.AdminRelacion.views.'),
     url(r'^relacion/padre_hijo/(?P<id>\d+)/', 'demo_app.AdminRelacion.views.padre_hijo'),
+    url(r'^relacion/antecesor/(?P<id>\d+)/', 'demo_app.AdminItem.views.antec_suc'),
 
 
     #AtributoItem
@@ -124,7 +126,8 @@ urlpatterns = patterns('',
     url(r'^lineabase/nuevo/(?P<id>\d+)/$','demo_app.AdminLineaBase.views.nuevo_lb'),
     url(r'^lineabase/editar/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.editar_lb'),
     url(r'^lineabase/listar/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.listar_lb'),
-    url(r'^lineabase/items/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.items')
+    url(r'^lineabase/items/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.items'),
+    url(r'^lineabase/add_item/(?P<id_item>\d+)/(?P<id_lb>\d+)$', 'demo_app.AdminLineaBase.views.item_to_lb')
 
 
 )

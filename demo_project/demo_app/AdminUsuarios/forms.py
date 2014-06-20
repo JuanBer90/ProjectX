@@ -13,7 +13,7 @@ class RegistrationForm(forms.ModelForm):
                                 label="Password")
     password2 = forms.CharField(widget=PasswordInput,
                                 label="Password (again)")
-    is_staff=forms.BooleanField(widget=CheckboxInput,label="Is Leader?")
+    is_staff=forms.BooleanField(widget=CheckboxInput,label="Is Leader?",required=False)
 
     class Meta:
         model = User

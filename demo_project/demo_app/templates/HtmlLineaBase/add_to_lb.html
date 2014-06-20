@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block title %}Add to Linea Base{% endblock %}
+{% block extra_head %}
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Agregar a Linea Base</h1></center>
+    <br><br>
+    <center>
+	<form  method='post' action=''>{% csrf_token %}
+		<p>Esta seguro que desea agregar a esta linea base?</p>
+        <input type="submit" class="btn btn-info" name="add" value="si"><input class="btn" type="submit" name="add" value="no">
+        	</form>
+
+    </center>
+{% endblock %}

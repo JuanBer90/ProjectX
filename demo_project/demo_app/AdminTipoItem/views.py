@@ -123,15 +123,10 @@ def TipoItemToFase(request,id):
     tipo_items=TipoItem.objects.filter(fase_id=fase.id_fase)
     if request.method=='POST':
         tipo_item=TipoItem()
-        padre=request.POST.get('padre','')
-
         tipo_item.nombre=request.POST.get('nombre','')
         tipo_item.descripcion=request.POST.get('descripcion','')
         tipo_item.proyecto=fase.proyecto
         tipo_item.fase=fase
-        if padre != '':
-            tipo_item.padre_id=padre
-
         tipo_item.save()
         return HttpResponseRedirect('/fases/tipoitems/'+str(fase.id_fase))
 
@@ -192,8 +187,9 @@ def TipoItemToItem(request,id):
         #items=Item.objects.filter(tipo_item=tipo_item,nombre=buscar)[ini:fin]
         items=Item.objects.raw("select * from item where nombre like '%%"+buscar+"%%'" )
         estado_item=EstadosItem().ITEM_NI
+
         print 'buscar: '+str(buscar)
-    return render_to_response('HtmlTipoItem/tipo_item_to_item.html',{'tipo_item':tipo_item,'datos':items,'estado_item':estado_item}, context_instance=RequestContext(request, {
-        'lines': itemspagination
-    }))
+    aprobado = EstadosItem().ITEM_AP
+    return render_to_response('HtmlTipoItem/tipo_item_to_item.html',{'tipo_item':tipo_item,'datos':items,'estado_item':estado_item, 'aprobado':aprobado},
+                              context_instance=RequestContext(request, { 'lines': itemspagination }))
 

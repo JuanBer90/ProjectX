@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminProyectos.forms import ProyectoForm
 from demo_project.demo_app.constantes import EstadoProyecto, execute_query
-from demo_project.demo_app.models import Proyecto, RolUser, Rol, Fase
+from demo_project.demo_app.models import Proyecto, RolUser, Rol, Fase, Permisos
 
 
 def nuevo_proyecto(request):
@@ -32,9 +32,12 @@ def nuevo_proyecto(request):
                 fase.proyecto = proyecto
                 fase.save()
 
-
+            aux = Rol.objects.filter(nombre='Leader').count()
+            if aux == 0:
+               rol= crearRolLeader()
+            else:
+                rol = Rol.objects.get(nombre='Leader')
             rol_user=RolUser()
-            rol = Rol.objects.get(nombre='Leader')
             rol_user.rol = rol
             rol_user.proyecto = proyecto
             rol_user.user = user
@@ -45,7 +48,20 @@ def nuevo_proyecto(request):
     return render_to_response('HtmlProyecto/nuevoproyecto.html',{'formulario':formulario,'user':user},
                               context_instance=RequestContext(request))
 
-
+def crearRolLeader():
+    permiso=Permisos()
+    permiso.AdminFase=True
+    permiso.AdminItem=True
+    permiso.AdminRol=True
+    permiso.AdminProyecto=True
+    permiso.AdminUser=True
+    permiso.save()
+    rol=Rol()
+    rol.nombre='Leader'
+    rol.permisos=permiso
+    rol.descripcion='Este rol tiene permiso absoluto sobre un proyecto'
+    rol.save()
+    return rol
 def editar_proyecto(request, id_proyecto):
 
     proyecto= Proyecto.objects.get(pk=id_proyecto)

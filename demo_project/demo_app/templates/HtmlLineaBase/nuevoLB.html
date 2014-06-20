@@ -12,10 +12,10 @@
 	<form  method='post' action=''>{% csrf_token %}
 		<label>Estado: </label>
         <input disabled type="text" value="{{ lb.estado }}">
-        <label>Nombre:</label>
-            <input type="text" maxlength="50" required="" value="{{ lb.nombre }}" name="nombre" />
+        <label>Numero:</label>
+            <input type="text" maxlength="50" required=""  style="text-align: right" readonly value="{{ lb.numero }}" name="nombre" />
         <br>
-                 <input class="btn btn-info" type='submit' value='Guardar'/>
+                 <input class="btn btn-info" type='submit' value='Crear'/>
         	</form>
 
     </center>
