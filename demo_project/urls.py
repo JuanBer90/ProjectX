@@ -36,6 +36,10 @@ urlpatterns = patterns('',
     url(r'^usuario/activar/(?P<id_user>\d+)/$','demo_app.AdminUsuarios.views.activar_usuario'),
     url(r'^usuario/editar/(?P<id_user>\d+)/$','demo_app.AdminUsuarios.views.editar_usuario'),
     url(r'^demo01/$','demo_app.views.demo'),
+    url(r'^create_admin/$', 'demo_app.views.createAdmin'),
+    url(r'^create_rol_admin/$', 'demo_app.views.createPermisos'),
+
+
 
 
     #PROYECTO
@@ -60,6 +64,9 @@ urlpatterns = patterns('',
      url(r'^rol/desasignar/(?P<id_rol_user>\d+)/$','demo_app.AdminRoles.views.desasignar_rol'),
      url(r'^sinpermiso/$','demo_app.AdminRoles.views.sinpermiso'),
      url(r'^leader/$','demo_app.AdminRoles.views.nuevo_leader'),
+     url(r'^default_leader/$', 'demo_app.createUser.create_rol'),
+
+
 
      #FASES
      url(r'^proyecto/fases/(?P<id_proyecto>\d+)$', 'demo_app.AdminFases.views.fases_proyecto'),
@@ -91,6 +98,7 @@ urlpatterns = patterns('',
      url(r'^item/aprobar/(?P<id>\d+)/$','demo_app.AdminItem.views.aprobar'),
      url(r'^item/upload/$', 'demo_app.AdminItem.views.upload'),
      url(r'^item/revivir/(?P<id>\d+)/$', 'demo_app.AdminItem.views.revivir_item'),
+     url(r'^item/add_lb/(?P<id>\d+)/$', 'demo_app.AdminItem.views.add_lb'),
 
     #RELACION
     url(r'^relacion/nuevo/$','demo_app.AdminRelacion.views.nuevoRelacion'),
@@ -99,6 +107,8 @@ urlpatterns = patterns('',
     url(r'^relacion/eliminar/(?P<id>\d+)/$','demo_app.AdminRelacion.views.eliminarrelacion'),
     url(r'^relacion/items/(?P<id>\d+)/$','demo_app.AdminRelacion.views.relacion_item'),
     url(r'^relacion/items/(?P<id>\d+)/(?P<tipo>\d+)/(?P<antes>\d+)$', 'demo_app.AdminRelacion.views.'),
+    url(r'^relacion/padre_hijo/(?P<id>\d+)/', 'demo_app.AdminRelacion.views.padre_hijo'),
+    url(r'^relacion/antecesor/(?P<id>\d+)/', 'demo_app.AdminItem.views.antec_suc'),
 
 
     #AtributoItem
@@ -111,6 +121,14 @@ urlpatterns = patterns('',
     url(r'^atributoitem/add_atributo_item/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.add_atributo_item'),
     url(r'^atributoitem/edit_atributo_item/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.edit_atributo_item'),
     url(r'^atributoitem/delete_atributo_item/(?P<id>\d+)/$','demo_app.AdminAtributosItem.views.delete_atributo_item'),
+
+    #LineaBase
+    url(r'^lineabase/nuevo/(?P<id>\d+)/$','demo_app.AdminLineaBase.views.nuevo_lb'),
+    url(r'^lineabase/editar/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.editar_lb'),
+    url(r'^lineabase/listar/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.listar_lb'),
+    url(r'^lineabase/items/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.items'),
+    url(r'^lineabase/add_item/(?P<id_item>\d+)/(?P<id_lb>\d+)$', 'demo_app.AdminLineaBase.views.item_to_lb')
+
 
 )
 

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap_toolkit %}
-{% block title %}Editar Proyecto{% endblock %}
+{% block title %} Proyecto{% endblock %}
 {% block extra_head %}
 
 {% endblock %}
@@ -13,17 +13,25 @@
    <li><a href="{% url 'demo_app.AdminRoles.views.roles' id_proyecto %}">Roles</a></li>
 </ul>
 
+    <a class="btn btn-info" href="{% url 'demo_app.AdminLineaBase.views.listar_lb' id_proyecto %}">Listar Lineas Base</a>
+    <a class="btn btn-info" href="{% url 'demo_app.AdminLineaBase.views.nuevo_lb' id_proyecto %}">Nueva Linea Base</a>
     <center>
-      Leader
-         <select>
-            <option value="volvo">{{ user.username }}</option>
-        </select>
+        <h1>Proyecto: {{ proyecto.nombre }}</h1>
 
-	<form id='formulario' method='post' action=''>{% csrf_token %}
-		<table>{{formulario}}</table>
 
-		<input class="btn btn-info" type='submit' value='Guardar'/>
+        <table class="table table-bordered table-striped" style="width: 500px">
 
-	</form>
+            <tr><th style="width: 180px" class="navbar-inner">Leader: </th><td style="text-align: center">{{ proyecto.leader.username }}</td></tr>
+            <tr><th class=  "navbar-inner">Nombre: </th><td  style="text-align: center">{{ proyecto.nombre }}</td></tr>
+            <tr><th class="navbar-inner">Fecha de Creacion: </th><td style="text-align: center">{{ proyecto.nombre }}</td></tr>
+            <tr><th class="navbar-inner">Complejidad: </th><td style="text-align: center">{{ proyecto.complejidad }}</td></tr>
+            <tr><th class="navbar-inner">Nro. Fases: </th><td style="text-align: center">{{ proyecto.nro_fases }}</td></tr>
+            <tr><th class="navbar-inner">Coste Total: </th><td style="text-align: center">{{ proyecto.coste_total }}</td></tr>
+            <tr><th class="navbar-inner">Descripcion: </th><td style="text-align: center">{{ proyecto.descripcion }}</td></tr>
+        </table>
+
+                <a class="btn btn-info" {% if proyecto.estado == 'INICIADO' %} disabled {% endif %} href="{% url 'demo_app.AdminProyectos.views.editar_proyecto' proyecto.id_proyecto %}">Editar</a>
+
+                <input type="submit" {% if proyecto.estado == 'INICIADO' %} disabled {% endif %} value="Iniciar Proyecto" class="btn btn-info">
     </center>
 {% endblock %}

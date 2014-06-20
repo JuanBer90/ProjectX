@@ -19,14 +19,14 @@ class ProyectoForm(forms.ModelForm):
     descripcion=forms.CharField(widget=forms.Textarea,max_length=300,label="Descripcion")
     #leader=forms.ModelChoiceField(queryset=User.objects.all())
     #fecha_creacion=forms.DateTimeField()
-    complejidad=forms.IntegerField(label="Complejidad")
+    # complejidad=forms.IntegerField(label="Complejidad")
     nro_fases=forms.IntegerField(label="Numero de fases")
     #estado=forms.BooleanField(label="Estado")
     #coste_total=forms.IntegerField(label="Coste Total")
 
     class Meta:
         model = Proyecto
-        fields = ['nombre','descripcion','complejidad','nro_fases']
+        fields = ['nombre','descripcion','nro_fases']
 
     def save(self, commit=True):
         proyecto = super(ProyectoForm, self).save(commit=False)

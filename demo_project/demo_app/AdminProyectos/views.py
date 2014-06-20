@@ -4,8 +4,10 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
+from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminProyectos.forms import ProyectoForm
-from demo_project.demo_app.models import Proyecto, RolUser, Rol, Fase
+from demo_project.demo_app.constantes import EstadoProyecto, execute_query
+from demo_project.demo_app.models import Proyecto, RolUser, Rol, Fase, Permisos
 
 
 def nuevo_proyecto(request):
@@ -30,20 +32,36 @@ def nuevo_proyecto(request):
                 fase.proyecto = proyecto
                 fase.save()
 
-
+            aux = Rol.objects.filter(nombre='Leader').count()
+            if aux == 0:
+               rol= crearRolLeader()
+            else:
+                rol = Rol.objects.get(nombre='Leader')
             rol_user=RolUser()
-            rol = Rol.objects.get(nombre='Leader')
             rol_user.rol = rol
             rol_user.proyecto = proyecto
             rol_user.user = user
             rol_user.save()
-            return HttpResponseRedirect('/proyectos/miproyecto/'+str(proyecto.id_proyecto))
+            return HttpResponseRedirect('/proyecto/miproyecto/'+str(proyecto.id_proyecto))
     else:
         formulario= ProyectoForm(request.POST)
     return render_to_response('HtmlProyecto/nuevoproyecto.html',{'formulario':formulario,'user':user},
                               context_instance=RequestContext(request))
 
-
+def crearRolLeader():
+    permiso=Permisos()
+    permiso.AdminFase=True
+    permiso.AdminItem=True
+    permiso.AdminRol=True
+    permiso.AdminProyecto=True
+    permiso.AdminUser=True
+    permiso.save()
+    rol=Rol()
+    rol.nombre='Leader'
+    rol.permisos=permiso
+    rol.descripcion='Este rol tiene permiso absoluto sobre un proyecto'
+    rol.save()
+    return rol
 def editar_proyecto(request, id_proyecto):
 
     proyecto= Proyecto.objects.get(pk=id_proyecto)
@@ -52,7 +70,7 @@ def editar_proyecto(request, id_proyecto):
     if get_roles.count() == 0:
         return HttpResponseRedirect('/sinpermiso')
     for r in get_roles:
-        if not r.rol.permisos.edit_project:
+        if not r.rol.permisos.AdminProyecto:
             return HttpResponseRedirect('/sinpermiso')
 
     if request.method=='POST':
@@ -125,11 +143,17 @@ def eliminar_proyecto(request, id_proyecto):
 
         return HttpResponseRedirect('/proyectos/')
 
+
     return render_to_response('HtmlProyecto/eliminarproyecto.html',{'proyecto':proyecto},
                               context_instance=RequestContext(request))
 def mis_proyectos(request):
-    query= "select p.* from proyectos p right join rol_user r on r.proyecto_id = p.id_proyecto where r.user_id ="+str(request.user.id)
-    proyectos_list= Proyecto.objects.raw(query)
+    query= "select p.nombre, p.id_proyecto from proyectos p right join rol_user r on r.proyecto_id = p.id_proyecto where r.user_id ="+str(request.user.id)
+    proyectos_list=execute_query(query)
+    print query
+    #proyectos_list= Proyecto.objects.raw(query)
+    for p in proyectos_list:
+        print p
+    print proyectos_list
     return render_to_response('HtmlProyecto/misproyectos.html',{'proyectos':proyectos_list})
 
 
@@ -142,18 +166,21 @@ def mi_proyecto(request, id_proyecto):
     if get_roles.count() == 0:
         return HttpResponseRedirect('/sinpermiso')
     for r in get_roles:
-        if not r.rol.permisos.edit_project:
+        if not r.rol.permisos.AdminProyecto:
             return HttpResponseRedirect('/sinpermiso')
 
     if request.method=='POST':
-        formulario= ProyectoForm(request.POST,instance=proyecto)
-        if formulario.is_valid():
-            proyecto= formulario.save()
-            proyecto.save()
-            return HttpResponseRedirect('/proyectos')
+        proyecto.estado=EstadoProyecto().PRO_IN
+        proyecto.save()
+        #
+        # formulario= ProyectoForm(request.POST,instance=proyecto)
+        # if formulario.is_valid():
+        #     proyecto= formulario.save()
+        #     proyecto.save()
+        #     return HttpResponseRedirect('/proyectos')
     else:
         formulario= ProyectoForm(instance=proyecto)
-    return render_to_response('HtmlProyecto/miproyecto.html',{'formulario':formulario,'id_proyecto':id_proyecto,'user':proyecto.leader},
+    return render_to_response('HtmlProyecto/miproyecto.html',{'formulario':formulario,'proyecto':proyecto,'id_proyecto':id_proyecto,'user':proyecto.leader},
                               context_instance=RequestContext(request))
 
 def colaboradores(request, id_proyecto):

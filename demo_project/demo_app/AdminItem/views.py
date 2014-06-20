@@ -7,8 +7,8 @@ from django.http import HttpResponseRedirect
 from django.views.generic.dates import timezone_today
 from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminItem.forms import ItemForm
-from demo_project.demo_app.constantes import EstadosItem
-from demo_project.demo_app.models import TipoItem, Item, Fase, HistorialItem
+from demo_project.demo_app.constantes import EstadosItem, execute_query, RelacionEstados
+from demo_project.demo_app.models import TipoItem, Item, Fase, HistorialItem, LineaBase, Relacion
 
 
 def nuevo_item(request,id=0):
@@ -47,14 +47,14 @@ def TipoItem_nuevo_item(request,id):
     if request.method=='POST':
         item=Item()
         item.nombre=request.POST.get('nombre','')
-        item.numero =request.POST.get('numero','')
         item.descripcion =request.POST.get('descripcion','')
         item.tipo_item=tipo_item
+        item.fase_id=tipo_item.fase_id
         item.save()
         historial=HistorialItem()
         historial.fecha_modificacion=timezone_today()
         historial.item=item
-        historial.tipo_modificacion="Creacion"
+        historial.tipo_modificacion=EstadosItem().ITEM_NI
         historial.user=request.user
         historial.save()
         return HttpResponseRedirect('/tipoitem/items/'+str(tipo_item.id_tipo_item))
@@ -231,8 +231,37 @@ def upload(request):
         arch=request.FILES.get('file')
         if(arch != None):
             print 'SIZE: '+str(arch)
-
-
     return render_to_response('HtmlItem/upload.html', context_instance=RequestContext(request))
 
+def add_lb(request,id):
+    item=Item.objects.get(pk=id)
+    fase=Fase.objects.get(pk=item.fase_id)
+    lbs=LineaBase.objects.filter(proyecto_id=fase.proyecto_id)
+    if request.method == 'POST':
+        id_lb=int(request.POST.get('lb',0))
+        if id_lb != 0:
+            item.linea_base_id=id_lb
+            item.estado=EstadosItem().ITEM_BL
+            item.save()
+        return HttpResponseRedirect('/tipoitem/items/' + str(item.tipo_item_id))
 
+    return render_to_response('HtmlItem/add_lb.html', {'item': item,'lbs':lbs,'fase':fase}, context_instance=RequestContext(request))
+
+def antec_suc(request,id):
+    actual=Item.objects.get(pk=id)
+    fase=Fase.objects.get(pk=actual.fase_id)
+    query = "select i.*,f.nombre,p.nombre,p.id_proyecto from item i join fase f on f.id_fase=i.fase_id " \
+            " join proyectos p on p.id_proyecto = f.proyecto_id where p.id_proyecto = 1 and i.estado " \
+            "like '" + EstadosItem().ITEM_BL + "' and f.numero <= " + str(fase.numero) + "  and i.id_item != " + str(id)+""\
+            "and not exists (select r.actual_id from relacion r where r.actual_id = "+str(id)
+    lbs = execute_query(query)
+    if request.method == 'POST':
+        relacion=Relacion()
+        relacion.actual = actual
+        antes=int(request.POST.get('antes',0))
+        if antes !=0:
+            relacion.antes_id=antes
+        relacion.tipo_relacion=RelacionEstados().A_S
+        relacion.save()
+    return render_to_response('HtmlItem/antec_suc.html', {'actual': actual, 'lbs': lbs, 'fase': fase},
+                              context_instance=RequestContext(request))

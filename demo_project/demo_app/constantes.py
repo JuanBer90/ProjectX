@@ -1,3 +1,6 @@
+from django.db import connection
+
+
 class EstadosFase:
     FASE_NI = 'NO-INICIADA'
     FASE_DE= 'DESARROLLO'
@@ -9,6 +12,7 @@ class EstadosFase:
         estados.append(self.FASE_DE)
         estados.append(self.FASE_FI)
         return estados
+
 
 
 class EstadosItem:
@@ -25,6 +29,13 @@ class EstadosItem:
         estados.append(self.ITEM_EL)
         return estados
 
+class EstadoProyecto:
+    PRO_IN='INICIADO'
+    PRO_NI='NO-INICIADO'
+    PRO_FI='FINALIZADO'
+
+
+
 class RelacionEstados:
     A_S='ANTECESOR/SUCESOR'
     P_H='PADRE/HIJO'
@@ -37,7 +48,20 @@ class RelacionEstados:
 
 class EstadosLB:
     ABIERTO='ABIERTO'
+    CERRADO = 'CERRADO'
 
+class OperacionLB:
+    CREACION='CREACION'
+    ADD_ITEM='AGREGAR ITEM A LINEA BASE'
+    CIERRE='CERRAR LINEA BASE'
 
+def execute_query(query):
+   cursor = connection.cursor()
+   cursor.execute(query)
+   rows = cursor.fetchall()
+   return rows
 
-
+def execute_one(query):
+    cursor = connection.cursor()
+    cursor.execute(query)
+    return cursor.fetchone()

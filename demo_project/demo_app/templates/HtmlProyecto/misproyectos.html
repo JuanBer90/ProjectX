@@ -12,17 +12,18 @@
     <br><br>
     <center>
 
-        <table class="">
-        {% for dato in proyectos %}
+        <table class="table" style="width: 500px">
+        {% for x,y in proyectos %}
                     <tr>
                       <td>
-                         <a href="{% url 'demo_app.AdminProyectos.views.mi_proyecto' dato.id_proyecto %}">{{ dato.nombre }}</a>
-                        <hr>
+                      <li>   <a href="{% url 'demo_app.AdminProyectos.views.mi_proyecto' y %}">  {{ x }}</a></li>
+
                       </td>
 
                     </tr>
 
         {% endfor %}
+
     </table>
         </center>
 {% endblock %}

@@ -19,7 +19,7 @@ def nuevoTipoItem(request,id):
         tipo_item=TipoItem()
         proyecto=request.POST.get('proyecto', None)
         fase=request.POST.get('fase', None)
-        padre=request.POST.get('padre','')
+       # padre=request.POST.get('padre','')
 
         tipo_item.nombre=request.POST.get('nombre','')
         tipo_item.descripcion=request.POST.get('descripcion','')
@@ -27,8 +27,8 @@ def nuevoTipoItem(request,id):
             tipo_item.proyecto_id=proyecto
         if fase != None:
             tipo_item.fase_id=fase
-        if padre != '':
-            tipo_item.padre_id=padre
+        # if padre != '':
+        #     tipo_item.padre_id=padre
 
         tipo_item.save()
         return HttpResponseRedirect('/tipoitem/editar/'+str(tipo_item.id_tipo_item))
@@ -120,18 +120,13 @@ def TipoItemToFase(request,id):
     usuario y el Sistema autogenera los demas atributos
     """
     fase=Fase.objects.get(pk=id)
-    tipo_items=TipoItem.objects.all()
+    tipo_items=TipoItem.objects.filter(fase_id=fase.id_fase)
     if request.method=='POST':
         tipo_item=TipoItem()
-        padre=request.POST.get('padre','')
-
         tipo_item.nombre=request.POST.get('nombre','')
         tipo_item.descripcion=request.POST.get('descripcion','')
         tipo_item.proyecto=fase.proyecto
         tipo_item.fase=fase
-        if padre != '':
-            tipo_item.padre_id=padre
-
         tipo_item.save()
         return HttpResponseRedirect('/fases/tipoitems/'+str(fase.id_fase))
 
@@ -153,7 +148,7 @@ def TipoItemToItem(request,id):
 
     if buscar == '':
         tipo_item=TipoItem.objects.get(pk=id)
-        items=Item.objects.filter(tipo_item=tipo_item)
+        items=Item.objects.filter(tipo_item=tipo_item,fase_id=tipo_item.fase_id)
         items_total = items.count()
     else:
         tipo_item=TipoItem.objects.get(pk=id)
@@ -192,8 +187,9 @@ def TipoItemToItem(request,id):
         #items=Item.objects.filter(tipo_item=tipo_item,nombre=buscar)[ini:fin]
         items=Item.objects.raw("select * from item where nombre like '%%"+buscar+"%%'" )
         estado_item=EstadosItem().ITEM_NI
+
         print 'buscar: '+str(buscar)
-    return render_to_response('HtmlTipoItem/tipo_item_to_item.html',{'tipo_item':tipo_item,'datos':items,'estado_item':estado_item}, context_instance=RequestContext(request, {
-        'lines': itemspagination
-    }))
+    aprobado = EstadosItem().ITEM_AP
+    return render_to_response('HtmlTipoItem/tipo_item_to_item.html',{'tipo_item':tipo_item,'datos':items,'estado_item':estado_item, 'aprobado':aprobado},
+                              context_instance=RequestContext(request, { 'lines': itemspagination }))
 

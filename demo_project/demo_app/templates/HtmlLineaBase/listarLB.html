@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block title %}Listar Linea Base{% endblock %}
+{% block extra_head %}
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Lineas Base</h1>
+    <h2>Proyecto: {{ proyecto.nombre }}</h2>
+    </center>
+
+    <br><br>
+    <center>
+    <a class="btn btn-info" style="margin-left: -300px" href="{% url 'demo_app.AdminProyectos.views.mi_proyecto' proyecto.id_proyecto %}">Volver</a>
+
+	<form  method='post' action=''>{% csrf_token %}
+		<table class="table" style="width: 400px">
+            <tr>
+            <th class="navbar-inner">Numero</th>
+            <th class="navbar-inner">Estado</th>
+
+            </tr>
+            {% for lb in lbs %}
+            <tr>
+                <td><a href="{% url 'demo_app.AdminLineaBase.views.items' lb.id_linea_base %}">{{ lb.numero }}</a></td>
+                <td>{{ lb.estado }}</td>
+
+            </tr>
+            {% endfor %}
+
+
+		</table>
+
+        	</form>
+
+    </center>
+{% endblock %}

@@ -5,7 +5,6 @@ from django.forms.fields import CheckboxInput
 
 
 class RegistrationForm(forms.ModelForm):
-
     username=forms.CharField(widget=TextInput, label="username")
     first_name= forms.CharField(widget=TextInput,label="Nombre")
     last_name=forms.CharField(widget=TextInput,label="Apellido")
@@ -14,10 +13,11 @@ class RegistrationForm(forms.ModelForm):
                                 label="Password")
     password2 = forms.CharField(widget=PasswordInput,
                                 label="Password (again)")
+    is_staff=forms.BooleanField(widget=CheckboxInput,label="Is Leader?",required=False)
 
     class Meta:
         model = User
-        fields = ['username','first_name','last_name','email', 'password1', 'password2']
+        fields = ['username','first_name','last_name','email', 'password1', 'password2','is_staff']
 
     def clean(self):
         cleaned_data = super(RegistrationForm, self).clean()

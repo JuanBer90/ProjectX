@@ -21,7 +21,6 @@
         <th class="navbar-inner">Descripcion</th>
         <th class="navbar-inner">Proyecto</th>
         <th class="navbar-inner">Fase</th>
-        <th class="navbar-inner">Padre</th>
         <th class="navbar-inner">Accion</th>
     </tr>
     {% for dato in datos %}
@@ -30,7 +29,6 @@
         <td>{{ dato.descripcion }}</td>
         <td>{{ dato.proyecto.nombre }}</td>
         <td>{{ dato.fase.nombre }}</td>
-        <td>{{ dato.padre.nombre }}</td>
         <td> <a href="{% url 'demo_app.AdminTipoItem.views.editartipoitem' dato.id_tipo_item %}">Editar</a>
             -<a href="{% url 'demo_app.AdminTipoItem.views.eliminartipoitem' dato.id_tipo_item %}">Eliminar</a></td>
 
