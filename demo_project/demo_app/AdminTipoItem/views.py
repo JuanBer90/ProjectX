@@ -19,7 +19,7 @@ def nuevoTipoItem(request,id):
         tipo_item=TipoItem()
         proyecto=request.POST.get('proyecto', None)
         fase=request.POST.get('fase', None)
-        padre=request.POST.get('padre','')
+       # padre=request.POST.get('padre','')
 
         tipo_item.nombre=request.POST.get('nombre','')
         tipo_item.descripcion=request.POST.get('descripcion','')
@@ -27,8 +27,8 @@ def nuevoTipoItem(request,id):
             tipo_item.proyecto_id=proyecto
         if fase != None:
             tipo_item.fase_id=fase
-        if padre != '':
-            tipo_item.padre_id=padre
+        # if padre != '':
+        #     tipo_item.padre_id=padre
 
         tipo_item.save()
         return HttpResponseRedirect('/tipoitem/editar/'+str(tipo_item.id_tipo_item))
