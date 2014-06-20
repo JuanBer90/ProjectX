@@ -50,7 +50,10 @@ class EstadosLB:
     ABIERTO='ABIERTO'
     CERRADO = 'CERRADO'
 
-
+class OperacionLB:
+    CREACION='CREACION'
+    ADD_ITEM='AGREGAR ITEM A LINEA BASE'
+    CIERRE='CERRAR LINEA BASE'
 
 def execute_query(query):
    cursor = connection.cursor()
@@ -62,5 +65,3 @@ def execute_one(query):
     cursor = connection.cursor()
     cursor.execute(query)
     return cursor.fetchone()
-
-

@@ -1,11 +1,12 @@
+from django.views.generic.dates import timezone_today
 from demo_project.demo_app import constantes
-from demo_project.demo_app.constantes import EstadosLB, execute_query, execute_one, EstadosItem
+from demo_project.demo_app.constantes import EstadosLB, execute_query, execute_one, EstadosItem, OperacionLB
 
 __author__ = 'carlos'
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
-from demo_project.demo_app.models import  LineaBase, Proyecto, Item
+from demo_project.demo_app.models import  LineaBase, Proyecto, Item, HistorialLineaBase
 
 
 def nuevo_lb(request,id):
@@ -21,6 +22,11 @@ def nuevo_lb(request,id):
     if request.method=='POST':
         lb.proyecto_id=id
         lb.save()
+        historial=HistorialLineaBase()
+        historial.fecha_modificacion=timezone_today()
+        historial.linea_base=lb
+        historial.tipo_operacion=OperacionLB().CREACION
+        historial.save()
         return HttpResponseRedirect ('/proyecto/miproyecto/'+str(id))
     return render_to_response('HtmlLineaBase/nuevoLB.html',{'lb':lb}, context_instance=RequestContext(request))
 
@@ -55,11 +61,15 @@ def item_to_lb(request,id_item, id_lb):
     print 'hola1'
     if request.method == 'POST':
         add=request.POST.get('add','no')
-        print 'hola2'
         if add == 'si':
             item.linea_base_id=id_lb
             item.estado=EstadosItem().ITEM_BL
             item.save()
+            historial = HistorialLineaBase()
+            historial.fecha_modificacion = timezone_today()
+            historial.linea_base = lb
+            historial.tipo_operacion = OperacionLB().ADD_ITEM
+            historial.save()
         return  HttpResponseRedirect('/lineabase/items/'+str(lb.id_linea_base))
     return render_to_response('HtmlLineaBase/add_to_lb.html',{}, context_instance=RequestContext(request))
 

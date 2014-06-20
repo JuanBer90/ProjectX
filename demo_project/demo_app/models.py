@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.views.generic.dates import timezone_today
 
 import constantes
 from demo_project.demo_app.constantes import EstadoProyecto, EstadosLB
@@ -126,3 +127,12 @@ class Relacion(models.Model):
     antes=models.ForeignKey(Item, related_name='antes')
     actual=models.OneToOneField(Item,related_name='despues')
     tipo_relacion=models.CharField(max_length=20)
+
+class HistorialLineaBase(models.Model):
+    class Meta:
+        db_table='historial_lb'
+    id_historial=models.AutoField(primary_key=True)
+    tipo_operacion=models.CharField(max_length=50)
+    fecha_modificacion=models.DateField(default=timezone_today())
+    usuario=models.ForeignKey(User)
+    linea_base=models.ForeignKey(LineaBase)
