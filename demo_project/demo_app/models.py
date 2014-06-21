@@ -136,3 +136,16 @@ class HistorialLineaBase(models.Model):
     fecha_modificacion=models.DateField(default=timezone_today())
     usuario=models.ForeignKey(User)
     linea_base=models.ForeignKey(LineaBase)
+
+class ComiteDeCambios(models.Model):
+    class Meta:
+        db_table='comite_cambio'
+    id_comite=models.AutoField(primary_key=True)
+    proyecto=models.ForeignKey(Proyecto, unique=True )
+
+class ComiteUser(models.Model):
+    class Meta:
+        db_table='comite_user'
+    id_comite_user=models.AutoField(primary_key=True)
+    comite=models.ForeignKey(ComiteDeCambios)
+    user=models.ForeignKey(User)
