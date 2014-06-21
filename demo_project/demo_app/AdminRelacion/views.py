@@ -2,10 +2,11 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
+from django.views.generic.dates import timezone_today
 from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminRelacion.forms import RelacionForm
-from demo_project.demo_app.constantes import  RelacionEstados, EstadosItem
-from demo_project.demo_app.models import Relacion, Item
+from demo_project.demo_app.constantes import  RelacionEstados, EstadosItem, OperacionItem, execute_one
+from demo_project.demo_app.models import Relacion, Item, HistorialItem, Proyecto
 
 
 def nuevoRelacion(request):
@@ -202,11 +203,19 @@ def padre_hijo(request,id):
     if request.method == 'POST':
         antes=int(request.POST.get('padre',0))
         if antes != 0:
+            item_antes=Item.objects.get(pk=antes)
             relacion=Relacion()
             relacion.actual=actual
             relacion.tipo_relacion=tipo
             relacion.antes_id=antes
             relacion.save()
+            historial=HistorialItem()
+            historial.user=request.user
+            historial.fecha_modificacion=timezone_today()
+            historial.item=actual
+            historial.tipo_modificacion = OperacionItem().RELACIONAR+str(item_antes.nombre)+' DE LA FASE '+str(item_antes.fase.nombre)
+            historial.save()
+
             return HttpResponseRedirect('/tipoitem/items/'+str(id))
 
 
@@ -226,3 +235,56 @@ def get_query(nro_fase,id_item,rel=''):
     print query
     return query
 
+def relacion_proyecto(request,id):
+    proyecto=Proyecto.objects.get(pk=id)
+    nro_lineas=10
+    lines = []
+    page = request.GET.get('page')
+    query="select distinct r.* from relacion r join item i on i.id_item = r.antes_id or i.id_item = r.actual_id " \
+          "join fase f on f.id_fase = i.fase_id join proyectos p on p.id_proyecto = f.proyecto_id where p.id_proyecto = "+str(id)
+    print query
+    query_cont="select (count(t.*) :: int) from ( "+query+" ) as t "
+    print query_cont
+    objetos_total = execute_one(query_cont)[0]
+
+    for i in range(objetos_total):
+        lines.append(u'Line %s' % (i + 1))
+    paginator = Paginator(lines, nro_lineas)
+    try:
+        page=int(page)
+    except:
+        page=1
+
+    if int(page)*nro_lineas>objetos_total or int(page)>0:
+        try:
+            items = paginator.page(page)
+            fin=int(page)*nro_lineas
+            ini =fin-nro_lineas
+        except PageNotAnInteger or EmptyPage:
+            fin=nro_lineas
+            ini=0
+            items = paginator.page(1)
+    else:
+        fin=nro_lineas
+        ini=0
+        items = paginator.page(1)
+
+    objetos_list = Relacion.objects.raw(query)[ini:fin]
+    return render_to_response('HtmlRelacion/relacion_proyecto.html',{'relacion':objetos_list,'id_proyecto':id}, RequestContext(request, {
+        'lines': items
+    }))
+
+
+def eliminar_relacion_proyecto(request, id,id_proyecto):
+    proyecto= Relacion.objects.get(pk=id)
+    if request.method=='POST':
+        delete= request.POST['delete']
+        if delete == 'si':
+            try:
+                proyecto.delete()
+            except ValueError:
+                print ValueError.message
+        return HttpResponseRedirect('/proyecto/relaciones/'+str(id_proyecto))
+
+    return render_to_response('HtmlRelacion/eliminarrelacion.html',{'proyecto':proyecto},
+                              context_instance=RequestContext(request))
