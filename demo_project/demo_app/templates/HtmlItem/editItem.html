@@ -22,15 +22,10 @@
          <input type="text" name="nombre" required="" maxlength="30" value="{{ item.nombre }}"/>
          <label>Descripcion:</label>
          <input type="text" name="descripcion" required="" maxlength="100" value="{{ item.descripcion }}"/>
-         <label>Numero:</label>
-         <input type="number" name="numero" required="" value="{{ item.numero }}"/>
+
          <label>Tipo Item: </label>
-            <select name="tipo_item" required="required" >
-                    <option value="0">Seleccionar..</option>
-                {% for dato in datos %}
-                    <option value="{{ dato.id_tipo_item }}"  {% if item.tipo_item_id == dato.id_tipo_item %} selected="selected" {% endif %}> {{ dato.nombre }}</option>
-                {% endfor %}
-            </select>
+            <input type="text" readonly value="{{ item.tipo_item.nombre }}">
+
           <br>
 		<input class="btn btn-info" type='submit' value='Guardar'/>
     </center>

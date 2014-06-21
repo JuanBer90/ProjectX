@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic.dates import timezone_today
 from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminItem.forms import ItemForm
-from demo_project.demo_app.constantes import EstadosItem, execute_query, RelacionEstados
+from demo_project.demo_app.constantes import EstadosItem, execute_query, RelacionEstados, execute_one, OperacionItem
 from demo_project.demo_app.models import TipoItem, Item, Fase, HistorialItem, LineaBase, Relacion
 
 
@@ -94,42 +94,40 @@ def editar_item(request,id):
     fases=Fase.objects.all()
     tipo_items=TipoItem.objects.all()
     if request.method=='POST':
+        historial = HistorialItem()
+        historial.tipo_modificacion = "Modificacion nombre anterior: "+str(item.nombre)+' descripcion: '+str(item.descripcion)
         item.nombre=request.POST.get('nombre','')
-        item.numero =request.POST.get('numero','')
         item.descripcion =request.POST.get('descripcion','')
-        id_ti=request.POST.get('tipo_item',0)
-        if int(id_ti) != 0:
-            item.tipo_item_id = int(id_ti)
-            item.save()
-            historial=HistorialItem()
-            historial.fecha_modificacion=timezone_today()
-            historial.item=item
-            historial.tipo_modificacion="Modificacion"
-            historial.user=request.user
-            historial.save()
-            return HttpResponseRedirect('/item/listar')
+        item.save()
+        historial.fecha_modificacion=timezone_today()
+        historial.item=item
+        historial.user=request.user
+        historial.save()
+        return HttpResponseRedirect('/item/listar')
 
     return render_to_response('HtmlItem/editItem.html',{'fases':fases,'datos':tipo_items,'item':item}, context_instance=RequestContext(request))
 def eliminar_item(request, id):
     objeto= Item.objects.get(pk=id)
+    fase=Fase.objects.get(pk=objeto.fase_id)
     if request.method=='POST':
         delete= request.POST['delete']
         if delete == 'si':
             objeto.estado=constantes.EstadosItem().ITEM_EL
             objeto.save()
-        return HttpResponseRedirect('/items/listar')
+        return HttpResponseRedirect('/proyecto/items/'+str(fase.proyecto_id))
 
     return render_to_response('HtmlItem/eliminaritem.html',{'item':objeto},
                               context_instance=RequestContext(request))
 
 def revivir_item(request, id):
     objeto= Item.objects.get(pk=id)
+    fase=Fase.objects.get(pk=objeto.fase_id)
     if request.method=='POST':
         delete= request.POST['revivir']
         if delete == 'si':
             objeto.estado=constantes.EstadosItem().ITEM_NI
             objeto.save()
-        return HttpResponseRedirect('/items/listar')
+        return HttpResponseRedirect('/proyecto/items/'+str(fase.proyecto_id))
 
     return render_to_response('HtmlItem/revivir.html',{'item':objeto},
                               context_instance=RequestContext(request))
@@ -225,6 +223,31 @@ def aprobar(request,id):
 
     return render_to_response('HtmlItem/aprobar.html',{'item':item}, context_instance=RequestContext(request))
 
+def aprobar_principal(request,id):
+    """
+    Edita un nuevo Item con sus atributos proveidos por el
+    usuario y el Sistema autogenera los demas atributos
+    """
+    item=Item.objects.get(pk=id)
+    fase=Fase.objects.get(pk=item.fase_id)
+
+    if request.method=='POST':
+        aprobar=request.POST.get('aprobar','si')
+
+        if aprobar== 'si':
+            item.estado=EstadosItem().ITEM_AP
+            item.save()
+            historial=HistorialItem()
+            historial.fecha_modificacion=timezone_today()
+            historial.item=item
+            historial.tipo_modificacion="APROBACION"
+            historial.user=request.user
+            historial.save()
+
+        return HttpResponseRedirect('/proyecto/items/'+str(fase.proyecto_id))
+
+    return render_to_response('HtmlItem/aprobar.html',{'item':item}, context_instance=RequestContext(request))
+
 
 def upload(request):
     if(request.method == 'POST'):
@@ -250,18 +273,62 @@ def add_lb(request,id):
 def antec_suc(request,id):
     actual=Item.objects.get(pk=id)
     fase=Fase.objects.get(pk=actual.fase_id)
-    query = "select i.*,f.nombre,p.nombre,p.id_proyecto from item i join fase f on f.id_fase=i.fase_id " \
+    query = "select i.id_item, i.nombre from item i join fase f on f.id_fase=i.fase_id " \
             " join proyectos p on p.id_proyecto = f.proyecto_id where p.id_proyecto = 1 and i.estado " \
             "like '" + EstadosItem().ITEM_BL + "' and f.numero <= " + str(fase.numero) + "  and i.id_item != " + str(id)+""\
-            "and not exists (select r.actual_id from relacion r where r.actual_id = "+str(id)
+            "and not exists (select r.actual_id from relacion r where r.actual_id = "+str(id)+") "
+    print query
     lbs = execute_query(query)
+    relacion=Relacion()
+    relacion.nombre=''
+    relacion.tipo_relacion=RelacionEstados().A_S
+
     if request.method == 'POST':
-        relacion=Relacion()
-        relacion.actual = actual
         antes=int(request.POST.get('antes',0))
+        nombre=request.POST.get('nombre','')
         if antes !=0:
+            item_antes=Item.objects.get(pk=antes)
             relacion.antes_id=antes
-        relacion.tipo_relacion=RelacionEstados().A_S
-        relacion.save()
-    return render_to_response('HtmlItem/antec_suc.html', {'actual': actual, 'lbs': lbs, 'fase': fase},
+            relacion.nombre=nombre
+            relacion.save()
+            historial=HistorialItem()
+            historial.tipo_modificacion=OperacionItem.RELACIONAR+' '+str(item_antes.nombre)
+            historial.fecha_modificacion=timezone_today()
+            historial.user=request.user
+            historial.save()
+    return render_to_response('HtmlRelacion/antecesor_sucesor.html', {'relacion': relacion,'lbs':lbs,'nombre':actual.nombre,},
                               context_instance=RequestContext(request))
+
+def item_proyecto(request,id):
+    nro_lineas=10
+    lines = []
+    page = request.GET.get('page')
+    query = "select i.* from item i join fase f on f.id_fase = i.fase_id " \
+            "join proyectos p on p.id_proyecto=f.proyecto_id where p.id_proyecto = " + str(id)
+    objetos_total = execute_one("select count(t.*) as cantidad from ("+query+") as t")[0]
+
+    for i in range(objetos_total):
+        lines.append(u'Line %s' % (i + 1))
+    paginator = Paginator(lines, nro_lineas)
+    try:
+        page=int(page)
+    except:
+        page=1
+
+    if int(page)*nro_lineas>objetos_total or int(page)>0:
+        try:
+            items = paginator.page(page)
+            fin=int(page)*nro_lineas
+            ini =fin-nro_lineas
+        except PageNotAnInteger or EmptyPage:
+            fin=nro_lineas
+            ini=0
+            items = paginator.page(1)
+    else:
+        fin=nro_lineas
+        ini=0
+        items = paginator.page(1)
+    objetos_list = Item.objects.raw(query)[ini:fin]
+    return render_to_response('HtmlItem/items_proyecto.html',{'datos':objetos_list,'id_proyecto':id}, RequestContext(request, {
+        'lines': items
+    }))

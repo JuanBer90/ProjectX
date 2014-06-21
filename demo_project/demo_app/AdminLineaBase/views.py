@@ -68,6 +68,7 @@ def item_to_lb(request,id_item, id_lb):
             historial = HistorialLineaBase()
             historial.fecha_modificacion = timezone_today()
             historial.linea_base = lb
+            historial.usuario=request.user
             historial.tipo_operacion = OperacionLB().ADD_ITEM
             historial.save()
         return  HttpResponseRedirect('/lineabase/items/'+str(lb.id_linea_base))
