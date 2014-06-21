@@ -26,7 +26,10 @@
             <tr>
                 <td><a href="{% url 'demo_app.AdminLineaBase.views.items' lb.id_linea_base %}">{{ lb.numero }}</a></td>
                 <td>{{ lb.estado }}</td>
-                <td><a href="{% url 'demo_app.AdminLineaBase.views.cerrar' proyecto.id_proyecto %}">Cerrar</a></td>
+                <td><a href="{% url 'demo_app.AdminLineaBase.views.cerrar' proyecto.id_proyecto %}">Cerrar</a>
+
+                - <a href="{% url 'demo_app.AdminLineaBase.views.historial' lb.id_linea_base %}">Historial</a>
+                </td>
 
             </tr>
             {% endfor %}

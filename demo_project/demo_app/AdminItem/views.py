@@ -1,10 +1,13 @@
 import cgi
+from datetime import datetime, date
 import os
+from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, response
 from django.views.generic.dates import timezone_today
+import xlwt
 from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminItem.forms import ItemForm
 from demo_project.demo_app.constantes import EstadosItem, execute_query, RelacionEstados, execute_one, OperacionItem
@@ -178,6 +181,7 @@ def historial(request,id):
     lines = []
     page = request.GET.get('page')
     objetos_total = HistorialItem.objects.filter(item_id=id).count()
+    item=Item.objects.get(pk=id)
     for i in range(objetos_total):
         lines.append(u'Line %s' % (i + 1))
     paginator = Paginator(lines, nro_lineas)
@@ -203,7 +207,7 @@ def historial(request,id):
     objetos_list = HistorialItem.objects.filter(item_id=id)[ini:fin]
     id_proyecto = execute_one( "select p.id_proyecto from proyectos p join fase f on f.proyecto_id = p.id_proyecto "
                                "join item i on i.fase_id = f.id_fase where i.id_item = " + str(id))[0]
-    return render_to_response('HtmlItem/historial.html',{'datos':objetos_list,'id_proyecto':id_proyecto}, RequestContext(request, {
+    return render_to_response('HtmlItem/historial.html',{'datos':objetos_list,'id_proyecto':id_proyecto,'id_item':id,'item':item}, RequestContext(request, {
         'lines': items
     }))
 
@@ -367,3 +371,35 @@ def finalizar(request,id):
         return HttpResponseRedirect('/proyecto/items/'+str(fase.proyecto_id))
     return render_to_response('HtmlItem/finalizar.html', {'item': item},
                           context_instance=RequestContext(request))
+
+
+
+def item_reporte(request,id):
+    item=Item.objects.get(pk=id)
+    book = xlwt.Workbook(encoding='utf8')
+    sheet = book.add_sheet('Libro1')
+    default_style = xlwt.Style.default_style
+    negrita= xlwt.easyxf('pattern: pattern solid, fore_colour light_blue;'
+                        'font: colour white, bold True;')
+    titulos=['Nro','Nombre','Operacion','Usuario','Fecha']
+    for col, datos in enumerate(titulos):
+         sheet.write(0, col, datos, style=negrita)
+
+    values_list=execute_query("select i.nombre, h.tipo_modificacion,u.username,h.fecha_modificacion from historial_item h "
+                              "join auth_user u on u.id = h.user_id join item i on i.id_item=h.item_id  where h.item_id = "+str(id))
+
+    id_proyecto = execute_one("select p.id_proyecto from proyectos p join fase f on f.proyecto_id = p.id_proyecto "
+                              "join item i on i.fase_id = f.id_fase where i.id_item = " + str(id))[0]
+    proyecto=Proyecto.objects.get(pk=id_proyecto)
+    for row,rowdata in enumerate(values_list):
+        cont=0
+        for col, val in enumerate(rowdata):
+            style = default_style
+            cont+=1
+            sheet.write(row+1, col+1, str(val), style=style)
+        sheet.write(row+1, 0, str(row+1), style=style)
+    response = HttpResponse(mimetype='application/vnd.ms-excel')
+    name = 'Historial_item_'+str(item.nombre)
+    response['Content-Disposition'] = 'attachment; filename='+name+'.xls'
+    book.save(response)
+    return response

@@ -34,3 +34,30 @@ class ProyectoForm(forms.ModelForm):
         #    proyecto.save()
         return proyecto
 
+
+
+class ProyectoFormEdit(forms.ModelForm):
+    """
+    Atributos que el usuario deber completar para la creacion
+    de un nuevo proyecto
+    """
+
+    #leader=forms.CharField(widget=TextInput(attrs={'readonly':'readonly'}),required=False)
+    nombre=forms.CharField(widget=TextInput,max_length=30, label="Nombre del Proyecto")
+    descripcion=forms.CharField(widget=forms.Textarea,max_length=300,label="Descripcion")
+    #leader=forms.ModelChoiceField(queryset=User.objects.all())
+    #fecha_creacion=forms.DateTimeField()
+    # complejidad=forms.IntegerField(label="Complejidad")
+
+    #estado=forms.BooleanField(label="Estado")
+    #coste_total=forms.IntegerField(label="Coste Total")
+
+    class Meta:
+        model = Proyecto
+        fields = ['nombre','descripcion']
+
+    def save(self, commit=True):
+        proyecto = super(ProyectoFormEdit, self).save(commit=False)
+        # if commit:
+        #    proyecto.save()
+        return proyecto

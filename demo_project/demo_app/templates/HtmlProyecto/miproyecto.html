@@ -6,6 +6,7 @@
 {% endblock %}
 {% block content %}
 
+<center>
 <ul class="nav nav-tabs">
   <li class="active"><a href="{% url 'demo_app.AdminProyectos.views.mi_proyecto' id_proyecto %}">Mi Proyecto</a></li>
  <li><a href="{% url 'demo_app.AdminFases.views.fases_proyecto' id_proyecto %}">Fases</a></li>
@@ -13,8 +14,8 @@
    <li><a href="{% url 'demo_app.AdminRoles.views.roles' id_proyecto %}">Roles</a></li>
 <li><a href="{% url 'demo_app.AdminItem.views.item_proyecto' id_proyecto %}">Items</a></li>
 <li ><a href="{% url 'demo_app.AdminRelacion.views.relacion_proyecto' id_proyecto %}">Relaciones</a></li>
-
-</ul>
+<li  ><a href="{% url 'demo_app.AdminComite.views.ver_comite' id_proyecto %}">Comite</a></li>
+</ul></center>
 
     <a class="btn btn-info" href="{% url 'demo_app.AdminLineaBase.views.listar_lb' id_proyecto %}">Listar Lineas Base</a>
     <a class="btn btn-info" href="{% url 'demo_app.AdminLineaBase.views.nuevo_lb' id_proyecto %}">Nueva Linea Base</a>
@@ -27,15 +28,15 @@
 
             <tr><th style="width: 180px" class="navbar-inner">Leader: </th><td style="text-align: center">{{ proyecto.leader.username }}</td></tr>
             <tr><th class=  "navbar-inner">Nombre: </th><td  style="text-align: center">{{ proyecto.nombre }}</td></tr>
-            <tr><th class="navbar-inner">Fecha de Creacion: </th><td style="text-align: center">{{ proyecto.nombre }}</td></tr>
+            <tr><th class="navbar-inner">Fecha de Creacion: </th><td style="text-align: center">{{ proyecto.fecha_creacion }}</td></tr>
             <tr><th class="navbar-inner">Complejidad: </th><td style="text-align: center">{{ proyecto.complejidad }}</td></tr>
             <tr><th class="navbar-inner">Nro. Fases: </th><td style="text-align: center">{{ proyecto.nro_fases }}</td></tr>
             <tr><th class="navbar-inner">Coste Total: </th><td style="text-align: center">{{ proyecto.coste_total }}</td></tr>
             <tr><th class="navbar-inner">Descripcion: </th><td style="text-align: center">{{ proyecto.descripcion }}</td></tr>
         </table>
-
-                <a class="btn btn-info" {% if proyecto.estado == 'INICIADO' %} disabled {% endif %} href="{% url 'demo_app.AdminProyectos.views.editar_proyecto' proyecto.id_proyecto %}">Editar</a>
-
-                <input type="submit" {% if proyecto.estado == 'INICIADO' %} disabled {% endif %} value="Iniciar Proyecto" class="btn btn-info">
+{##}
+{#                <a class="btn btn-info" {% if not proyecto.estado %} disabled {% endif %} href="{% url 'demo_app.AdminProyectos.views.editar_proyecto' proyecto.id_proyecto %}">Editar</a>#}
+{##}
+{#                <input type="submit" {% if not proyecto.estado %} disabled {% endif %} value="Iniciar Proyecto" class="btn btn-info">#}
     </center>
 {% endblock %}

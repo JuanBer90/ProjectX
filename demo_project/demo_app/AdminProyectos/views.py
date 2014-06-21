@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
 from demo_project.demo_app import constantes
-from demo_project.demo_app.AdminProyectos.forms import ProyectoForm
+from demo_project.demo_app.AdminProyectos.forms import ProyectoForm, ProyectoFormEdit
 from demo_project.demo_app.constantes import EstadoProyecto, execute_query
 from demo_project.demo_app.models import Proyecto, RolUser, Rol, Fase, Permisos
 
@@ -74,13 +74,13 @@ def editar_proyecto(request, id_proyecto):
             return HttpResponseRedirect('/sinpermiso')
 
     if request.method=='POST':
-        formulario= ProyectoForm(request.POST,instance=proyecto)
+        formulario= ProyectoFormEdit(request.POST,instance=proyecto)
         if formulario.is_valid():
             proyecto= formulario.save()
             proyecto.save()
-            return HttpResponseRedirect('/proyectos')
+            return HttpResponseRedirect('/proyecto/miproyecto/'+str(id_proyecto))
     else:
-        formulario= ProyectoForm(instance=proyecto)
+        formulario= ProyectoFormEdit(instance=proyecto)
     return render_to_response('HtmlProyecto/editarproyecto.html',{'formulario':formulario,'id_proyecto':id_proyecto,'user':proyecto.leader},
                               context_instance=RequestContext(request))
 

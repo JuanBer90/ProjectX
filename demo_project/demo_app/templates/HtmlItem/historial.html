@@ -11,9 +11,10 @@
 
 
 
-    <center><H2>Historial</H2></center>
+    <center><H2>Historial Item: {{ item.nombre }}</H2></center>
    <table>
 <td><a  class="btn btn-info" href="{% url 'demo_app.AdminItem.views.item_proyecto' id_proyecto %}">Volver</a></td>
+       <td><a  class="btn btn-info" href="{% url 'demo_app.AdminItem.views.item_reporte' id_item %}">Descargar</a></td>
    <td style="width: 70%;margin-right: 0px; margin-left: 100%; ">
         {{ lines|pagination }}
    </td>

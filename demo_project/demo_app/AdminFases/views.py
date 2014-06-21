@@ -4,7 +4,9 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http import HttpResponseRedirect
+from django.views.generic.dates import timezone_today
 from demo_project.demo_app import constantes
+from demo_project.demo_app.constantes import execute_one, EstadosFase
 
 from demo_project.demo_app.models import Rol, Permisos, RolUser, Fase, TipoItem
 
@@ -31,7 +33,7 @@ def fase(request, id_fase,id_proyecto):
             msg='Ya existe una Fase con el mismo nombre'
             return render_to_response('HtmlFases/editfase.html',{'fase':fase,'modo':modo,'msg':msg,'id_proyecto':id_proyecto},context_instance=RequestContext(request))
          descripcion=request.POST.get('descripcion','')
-         fecha=today()
+         fecha=timezone_today()
          fase.nombre=nombre
          fase.descripcion=descripcion
          fase.estado=constantes.EstadosFase().FASE_NI
@@ -107,3 +109,24 @@ def fase_tipo_item(request,id):
     fase=Fase.objects.get(pk=id)
     tipo_items=TipoItem.objects.filter(fase=fase)
     return render_to_response('HtmlFases/fases_tipo_item.html',{'fase':fase,'datos':tipo_items}, RequestContext(request))
+
+def cerrar(request, id):
+    fase=Fase.objects.get(pk=id)
+    query="WITH Q1 AS (select count(f.*) from fase f "\
+         "join item i on i.fase_id =f.id_fase "\
+         "where f.id_fase="+str(fase.id_fase)+" ), "\
+         "Q2 AS (select count(f.*) from fase f "\
+         "join item i on i.fase_id = f.id_fase "\
+         "where f.id_fase ="+str(fase.id_fase)+" and i.estado like 'FINALIZADO') "\
+         "SELECT CASE WHEN (COUNT(Q1.*) - COUNT(Q2.*)) = 0 THEN TRUE ELSE FALSE END FROM Q1,Q2"
+    se_puede=execute_one(query)[0]
+    print query
+
+    if request.method == 'POST':
+        cerrar=request.POST.get('cerrar','no')
+        if cerrar == 'si':
+            fase.estado = EstadosFase().FASE_FI
+            fase.save()
+        return HttpResponseRedirect('/proyecto/fases/'+str(fase.proyecto_id))
+    return render_to_response('HtmlFases/cerrar.html', {'se_puede': se_puede},
+                              RequestContext(request))

@@ -47,7 +47,6 @@ urlpatterns = patterns('',
      url(r'^proyectos/$', 'demo_app.AdminProyectos.views.proyectos'),
      url(r'^proyecto/editar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.editar_proyecto'),
      url(r'^proyecto/eliminar/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.eliminar_proyecto'),
-
      url(r'^proyecto/misproyectos/$','demo_app.AdminProyectos.views.mis_proyectos'),
      url(r'^proyecto/miproyecto/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.mi_proyecto'),
      url(r'^proyecto/colaboradores/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.colaboradores'),
@@ -75,6 +74,7 @@ urlpatterns = patterns('',
      #FASES
      url(r'^proyecto/fases/(?P<id_proyecto>\d+)$', 'demo_app.AdminFases.views.fases_proyecto'),
      url(r'^fases/crear/(?P<id_fase>\d+)/(?P<id_proyecto>\d+)$', 'demo_app.AdminFases.views.fase'),
+     url(r'^fases/cerrar/(?P<id>\d+)/$', 'demo_app.AdminFases.views.cerrar'),
      url(r'^fases/edit/(?P<id_fase>\d+)/(?P<id_proyecto>\d+)$', 'demo_app.AdminFases.views.fase'),
      url(r'^fases/import/(?P<id_fase>\d+)/$', 'demo_app.AdminFases.views.importar'),
      url(r'^fases/import/(?P<id_fase>\d+)/(?P<id_import>\d+)$', 'demo_app.AdminFases.views.procesar_import'),
@@ -133,7 +133,19 @@ urlpatterns = patterns('',
     url(r'^lineabase/cerrar/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.cerrar'),
     url(r'^lineabase/listar/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.listar_lb'),
     url(r'^lineabase/items/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.items'),
-    url(r'^lineabase/add_item/(?P<id_item>\d+)/(?P<id_lb>\d+)$', 'demo_app.AdminLineaBase.views.item_to_lb')
+    url(r'^lineabase/add_item/(?P<id_item>\d+)/(?P<id_lb>\d+)$', 'demo_app.AdminLineaBase.views.item_to_lb'),
+
+    #COMITE
+    url(r'^comite/nuevo/(?P<id>\d+)/$', 'demo_app.AdminComite.views.nuevo'),
+    url(r'^comite/ver/(?P<id>\d+)/$', 'demo_app.AdminComite.views.ver_comite'),
+    url(r'^comite/editar/(?P<id>\d+)/$', 'demo_app.AdminComite.views.editar_comite'),
+    url(r'^comite/eliminar/(?P<id>\d+)/$', 'demo_app.AdminComite.views.eliminar'),
+
+    url(r'^item/reporte/(?P<id>\d+)/$', 'demo_app.AdminItem.views.item_reporte'),
+    url(r'^lineabase/reporte/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.lb_reporte'),
+
+    url(r'^lineabase/historial/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.historial')
+
 
 
 )

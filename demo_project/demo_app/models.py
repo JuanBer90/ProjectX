@@ -137,9 +137,9 @@ class HistorialLineaBase(models.Model):
     usuario=models.ForeignKey(User)
     linea_base=models.ForeignKey(LineaBase)
 
-class ComiteDeCambios(models.Model):
+class Comite(models.Model):
     class Meta:
-        db_table='comite_cambio'
+        db_table='comite'
     id_comite=models.AutoField(primary_key=True)
     proyecto=models.ForeignKey(Proyecto, unique=True )
 
@@ -147,5 +147,5 @@ class ComiteUser(models.Model):
     class Meta:
         db_table='comite_user'
     id_comite_user=models.AutoField(primary_key=True)
-    comite=models.ForeignKey(ComiteDeCambios)
+    comite=models.ForeignKey(Comite)
     user=models.ForeignKey(User)

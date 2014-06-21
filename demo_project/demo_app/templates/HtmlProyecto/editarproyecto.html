@@ -11,10 +11,10 @@
     <center><h1>Editar Proyecto</h1></center>
     <br><br>
     <center>
-      Leader
-         <select>
-            <option value="volvo">{{ user.username }}</option>
-        </select>
+
+            <labe>Leader</labe>
+            <input value="{{ user.username }}" readonly type="text">
+
 
 	<form id='formulario' method='post' action=''>{% csrf_token %}
 		<table>{{formulario}}</table>
