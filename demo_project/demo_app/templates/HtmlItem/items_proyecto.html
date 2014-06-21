@@ -15,6 +15,7 @@
    <li><a href="{% url 'demo_app.AdminRoles.views.roles' id_proyecto %}">Roles</a></li>
 <li class="active"><a href="{% url 'demo_app.AdminItem.views.item_proyecto' id_proyecto %}">Items</a></li>
     <li ><a href="{% url 'demo_app.AdminRelacion.views.relacion_proyecto' id_proyecto %}">Relaciones</a></li>
+
 </ul>
     <center><H2>Items</H2></center>
    <table>
@@ -40,7 +41,7 @@
     <td>{{ dato.estado }}</td>
         <td>{{ dato.descripcion }}</td>
     <td><a href="{% url 'demo_app.AdminItem.views.editar_item' dato.id_item %}">Editar</a>
-        {% if dato.estado  == 'BLOQUEADO' %}
+        {% if dato.estado  == 'BLOQUEADO' and dato.linea_base_id != None%}
     - <a href="{% url 'demo_app.AdminItem.views.antec_suc' dato.id_item %}">Relacion (Ant/Suc)</a>
         {% endif %}
         {% if dato.estado == 'ELIMINADO' %}
@@ -51,9 +52,13 @@
         {% endif %}
 
      {% if dato.estado == 'INICIADO' %}
-        - <a href="{% url 'demo_app.AdminItem.views.aprobar_principal' dato.id_item %}">Aprobar</a></td>
+        - <a href="{% url 'demo_app.AdminItem.views.aprobar_principal' dato.id_item %}">Aprobar</a>
+      {% endif %}
+        {% if dato.estado == 'APROBADO' or dato.estado == 'BLOQUEADO' %}
+        - <a href="{% url 'demo_app.AdminItem.views.finalizar' dato.id_item %}">Finalizar</a>
         {% endif %}
-
+     - <a href="{% url 'demo_app.AdminItem.views.historial' dato.id_item %}">Historial</a>
+    </td>
 
 
 	</tr>

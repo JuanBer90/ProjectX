@@ -56,7 +56,7 @@ def ver_atributo(request,id):
     atributo=AtributosPorItem.objects.get(pk=id)
     item=atributo.item
     if request.method=='POST':
-        return HttpResponseRedirect('/tipoitem/items/'+str(item.tipo_item_id))
+        return HttpResponseRedirect('/atributoitem/atributos/'+str(item.id_item))
 
 
     return render_to_response('HtmlAtributoItem/veratributo.html',{'item':item,'atributo':atributo}, context_instance=RequestContext(request))

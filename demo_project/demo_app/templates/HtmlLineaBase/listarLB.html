@@ -19,12 +19,14 @@
             <tr>
             <th class="navbar-inner">Numero</th>
             <th class="navbar-inner">Estado</th>
+                <th class="navbar-inner">Accion</th>
 
             </tr>
             {% for lb in lbs %}
             <tr>
                 <td><a href="{% url 'demo_app.AdminLineaBase.views.items' lb.id_linea_base %}">{{ lb.numero }}</a></td>
                 <td>{{ lb.estado }}</td>
+                <td><a href="{% url 'demo_app.AdminLineaBase.views.cerrar' proyecto.id_proyecto %}">Cerrar</a></td>
 
             </tr>
             {% endfor %}

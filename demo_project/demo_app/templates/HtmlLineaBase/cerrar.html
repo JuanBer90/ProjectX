@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block titulo %}Cerrar Linea Base{% endblock %}
+{% block encabezado %} 
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Cerrar Linea Base</h1></center>
+    <br><br>
+
+    <form  method='post' action=''>{% csrf_token %}
+        <center>
+    {% if se_puede %}
+    <p>Esta seguro que desea Cerrar esta Linea Base<p>
+
+		<input class="btn btn-info" type='submit' name="fin" value='si'/>
+        <input class="btn" type='submit' name="fin" value='no'/>
+    {% else %}
+            <p>No se puede cerrar esta linea base debido a que uno o mas items faltan finalizar<p>
+           <input class="btn btn-info" type='submit' name="fin" value='Volver'/>
+      {% endif %}
+	</form>
+    </center>
+{% endblock %}

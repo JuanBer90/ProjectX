@@ -125,7 +125,7 @@ class Relacion(models.Model):
     id_relacion=models.AutoField(primary_key=True)
     nombre=models.CharField(max_length=40,null=True)
     antes=models.ForeignKey(Item, related_name='antes')
-    actual=models.OneToOneField(Item,related_name='despues')
+    actual=models.ForeignKey(Item,related_name='despues')
     tipo_relacion=models.CharField(max_length=20)
 
 class HistorialLineaBase(models.Model):
