@@ -51,6 +51,10 @@ urlpatterns = patterns('',
      url(r'^proyecto/misproyectos/$','demo_app.AdminProyectos.views.mis_proyectos'),
      url(r'^proyecto/miproyecto/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.mi_proyecto'),
      url(r'^proyecto/colaboradores/(?P<id_proyecto>\d+)/$','demo_app.AdminProyectos.views.colaboradores'),
+     url(r'^proyecto/items/(?P<id>\d+)/$', 'demo_app.AdminItem.views.item_proyecto'),
+     url(r'^proyecto/relaciones/(?P<id>\d+)/$', 'demo_app.AdminRelacion.views.relacion_proyecto'),
+     url(r'^proyecto/relacion_delete/(?P<id>\d+)/(?P<id_proyecto>\d+)/$', 'demo_app.AdminRelacion.views.eliminarrelacion'),
+     url(r'^proyecto/aprobar/(?P<id>\d+)/$', 'demo_app.AdminItem.views.aprobar_principal'),
 
 
 
@@ -98,6 +102,7 @@ urlpatterns = patterns('',
      url(r'^item/aprobar/(?P<id>\d+)/$','demo_app.AdminItem.views.aprobar'),
      url(r'^item/upload/$', 'demo_app.AdminItem.views.upload'),
      url(r'^item/revivir/(?P<id>\d+)/$', 'demo_app.AdminItem.views.revivir_item'),
+     url(r'^item/finalizar/(?P<id>\d+)/$', 'demo_app.AdminItem.views.finalizar'),
      url(r'^item/add_lb/(?P<id>\d+)/$', 'demo_app.AdminItem.views.add_lb'),
 
     #RELACION
@@ -125,6 +130,7 @@ urlpatterns = patterns('',
     #LineaBase
     url(r'^lineabase/nuevo/(?P<id>\d+)/$','demo_app.AdminLineaBase.views.nuevo_lb'),
     url(r'^lineabase/editar/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.editar_lb'),
+    url(r'^lineabase/cerrar/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.cerrar'),
     url(r'^lineabase/listar/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.listar_lb'),
     url(r'^lineabase/items/(?P<id>\d+)/$', 'demo_app.AdminLineaBase.views.items'),
     url(r'^lineabase/add_item/(?P<id_item>\d+)/(?P<id_lb>\d+)$', 'demo_app.AdminLineaBase.views.item_to_lb')

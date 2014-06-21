@@ -6,7 +6,7 @@ from django.views.generic.dates import timezone_today
 from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminRelacion.forms import RelacionForm
 from demo_project.demo_app.constantes import  RelacionEstados, EstadosItem, OperacionItem, execute_one
-from demo_project.demo_app.models import Relacion, Item, HistorialItem, Proyecto
+from demo_project.demo_app.models import Relacion, Item, HistorialItem, Proyecto, Fase
 
 
 def nuevoRelacion(request):
@@ -38,21 +38,15 @@ def editarrelacion(request,id):
     usuario y el Sistema autogenera los demas atributos
 
     """
-    items=Item.objects.all()
     relac=Relacion.objects.get(pk=id)
+    fase=Fase.objects.get(pk=relac.actual.fase_id)
     if request.method=='POST':
         relac.tipo=request.POST.get('tipo','')
         relac.nombre=request.POST.get('nombre','')
-        anterior=int(request.POST.get('anterior',''))
-        posterior=int(request.POST.get('posterior',''))
-        if(anterior != '' and posterior !=''):
-            relac.anterior_id=int(anterior)
-            relac.posterior_id=int(posterior)
-            relac.save()
+        relac.save()
+        return HttpResponseRedirect('/proyecto/relaciones/'+str(fase.proyecto_id))
 
-        return HttpResponseRedirect('/relacion')
-
-    return render_to_response('HtmlRelacion/editarrelacion.html',{'items':items,'relacion':relac}, context_instance=RequestContext(request))
+    return render_to_response('HtmlRelacion/editar_relacion_proyecto.html',{'relacion':relac}, context_instance=RequestContext(request))
 
 
 def questions(request):
@@ -200,14 +194,18 @@ def padre_hijo(request,id):
     actual=Item.objects.get(pk=id)
     tipo=RelacionEstados().P_H
     items=Item.objects.filter(fase_id=actual.fase_id, estado=EstadosItem().ITEM_NI).exclude(id_item=id)
+
     if request.method == 'POST':
+        print 'HOLAAAA'
         antes=int(request.POST.get('padre',0))
+
         if antes != 0:
+
             item_antes=Item.objects.get(pk=antes)
             relacion=Relacion()
             relacion.actual=actual
             relacion.tipo_relacion=tipo
-            relacion.antes_id=antes
+            relacion.antes=item_antes
             relacion.save()
             historial=HistorialItem()
             historial.user=request.user
@@ -215,8 +213,7 @@ def padre_hijo(request,id):
             historial.item=actual
             historial.tipo_modificacion = OperacionItem().RELACIONAR+str(item_antes.nombre)+' DE LA FASE '+str(item_antes.fase.nombre)
             historial.save()
-
-            return HttpResponseRedirect('/tipoitem/items/'+str(id))
+            return HttpResponseRedirect('/tipoitem/items/'+str(actual.tipo_item_id))
 
 
     return render_to_response('HtmlRelacion/padrehijo.html', {'actual': actual,'tipo':tipo,'items':items},

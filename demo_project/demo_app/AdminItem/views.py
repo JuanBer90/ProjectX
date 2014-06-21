@@ -8,7 +8,7 @@ from django.views.generic.dates import timezone_today
 from demo_project.demo_app import constantes
 from demo_project.demo_app.AdminItem.forms import ItemForm
 from demo_project.demo_app.constantes import EstadosItem, execute_query, RelacionEstados, execute_one, OperacionItem
-from demo_project.demo_app.models import TipoItem, Item, Fase, HistorialItem, LineaBase, Relacion
+from demo_project.demo_app.models import TipoItem, Item, Fase, HistorialItem, LineaBase, Relacion, Proyecto
 
 
 def nuevo_item(request,id=0):
@@ -92,6 +92,7 @@ def editar_item(request,id):
     """
     item=Item.objects.get(pk=id)
     fases=Fase.objects.all()
+    fase=Fase.objects.get(pk=item.fase_id)
     tipo_items=TipoItem.objects.all()
     if request.method=='POST':
         historial = HistorialItem()
@@ -103,9 +104,9 @@ def editar_item(request,id):
         historial.item=item
         historial.user=request.user
         historial.save()
-        return HttpResponseRedirect('/item/listar')
+        return HttpResponseRedirect('/proyecto/items/'+str(fase.proyecto_id))
 
-    return render_to_response('HtmlItem/editItem.html',{'fases':fases,'datos':tipo_items,'item':item}, context_instance=RequestContext(request))
+    return render_to_response('HtmlItem/editItem.html',{'datos':tipo_items,'item':item}, context_instance=RequestContext(request))
 def eliminar_item(request, id):
     objeto= Item.objects.get(pk=id)
     fase=Fase.objects.get(pk=objeto.fase_id)
@@ -127,6 +128,12 @@ def revivir_item(request, id):
         if delete == 'si':
             objeto.estado=constantes.EstadosItem().ITEM_NI
             objeto.save()
+            historial=HistorialItem()
+            historial.user=request.user
+            historial.tipo_modificacion=OperacionItem.REVIVIR
+            historial.fecha_modificacion=timezone_today()
+            historial.item=objeto
+            historial.save()
         return HttpResponseRedirect('/proyecto/items/'+str(fase.proyecto_id))
 
     return render_to_response('HtmlItem/revivir.html',{'item':objeto},
@@ -194,7 +201,9 @@ def historial(request,id):
         items = paginator.page(1)
 
     objetos_list = HistorialItem.objects.filter(item_id=id)[ini:fin]
-    return render_to_response('HtmlItem/historial.html',{'datos':objetos_list}, RequestContext(request, {
+    id_proyecto = execute_one( "select p.id_proyecto from proyectos p join fase f on f.proyecto_id = p.id_proyecto "
+                               "join item i on i.fase_id = f.id_fase where i.id_item = " + str(id))[0]
+    return render_to_response('HtmlItem/historial.html',{'datos':objetos_list,'id_proyecto':id_proyecto}, RequestContext(request, {
         'lines': items
     }))
 
@@ -271,12 +280,14 @@ def add_lb(request,id):
     return render_to_response('HtmlItem/add_lb.html', {'item': item,'lbs':lbs,'fase':fase}, context_instance=RequestContext(request))
 
 def antec_suc(request,id):
+
     actual=Item.objects.get(pk=id)
     fase=Fase.objects.get(pk=actual.fase_id)
     query = "select i.id_item, i.nombre from item i join fase f on f.id_fase=i.fase_id " \
+            "join linea_base lb on lb.id_linea_base = i.linea_base_id "\
             " join proyectos p on p.id_proyecto = f.proyecto_id where p.id_proyecto = 1 and i.estado " \
             "like '" + EstadosItem().ITEM_BL + "' and f.numero <= " + str(fase.numero) + "  and i.id_item != " + str(id)+""\
-            "and not exists (select r.actual_id from relacion r where r.actual_id = "+str(id)+") "
+            "and lb.id_linea_base = "+str(actual.linea_base_id)+" and not exists (select r.actual_id from relacion r where r.actual_id = "+str(id)+") "
     print query
     lbs = execute_query(query)
     relacion=Relacion()
@@ -293,6 +304,7 @@ def antec_suc(request,id):
             relacion.save()
             historial=HistorialItem()
             historial.tipo_modificacion=OperacionItem.RELACIONAR+' '+str(item_antes.nombre)
+            historial.item=actual
             historial.fecha_modificacion=timezone_today()
             historial.user=request.user
             historial.save()
@@ -329,6 +341,29 @@ def item_proyecto(request,id):
         ini=0
         items = paginator.page(1)
     objetos_list = Item.objects.raw(query)[ini:fin]
+
+
     return render_to_response('HtmlItem/items_proyecto.html',{'datos':objetos_list,'id_proyecto':id}, RequestContext(request, {
         'lines': items
     }))
+
+def finalizar(request,id):
+    item=Item.objects.get(pk=id)
+    print 'asdfasdf'
+    if request.method == 'POST':
+
+        fin=request.POST.get('fin','no')
+        if fin == 'si':
+            item.estado=EstadosItem().ITEM_FI
+            item.save()
+            historial=HistorialItem()
+            historial.item=item
+            historial.tipo_modificacion=OperacionItem().FINALIZAR
+            historial.fecha_modificacion=timezone_today()
+            historial.user=request.user
+            historial.save()
+
+        fase=Fase.objects.get(pk=item.fase_id)
+        return HttpResponseRedirect('/proyecto/items/'+str(fase.proyecto_id))
+    return render_to_response('HtmlItem/finalizar.html', {'item': item},
+                          context_instance=RequestContext(request))

@@ -20,6 +20,7 @@ class EstadosItem:
     ITEM_AP='APROBADO'
     ITEM_BL='BLOQUEADO'
     ITEM_EL='ELIMINADO'
+    ITEM_FI='FINALIZADO'
 
     def estados_item(self):
         estados=[]
@@ -58,6 +59,8 @@ class OperacionLB:
 
 class OperacionItem:
     RELACIONAR='RELACIONAR CON ITEM'
+    REVIVIR='REVIVIR ITEM'
+    FINALIZAR='FINALIZAR ITEM'
 
 def execute_query(query):
    cursor = connection.cursor()

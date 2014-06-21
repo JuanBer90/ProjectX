@@ -172,12 +172,7 @@ def mi_proyecto(request, id_proyecto):
     if request.method=='POST':
         proyecto.estado=EstadoProyecto().PRO_IN
         proyecto.save()
-        #
-        # formulario= ProyectoForm(request.POST,instance=proyecto)
-        # if formulario.is_valid():
-        #     proyecto= formulario.save()
-        #     proyecto.save()
-        #     return HttpResponseRedirect('/proyectos')
+
     else:
         formulario= ProyectoForm(instance=proyecto)
     return render_to_response('HtmlProyecto/miproyecto.html',{'formulario':formulario,'proyecto':proyecto,'id_proyecto':id_proyecto,'user':proyecto.leader},

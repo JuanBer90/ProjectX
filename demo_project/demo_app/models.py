@@ -125,7 +125,7 @@ class Relacion(models.Model):
     id_relacion=models.AutoField(primary_key=True)
     nombre=models.CharField(max_length=40,null=True)
     antes=models.ForeignKey(Item, related_name='antes')
-    actual=models.OneToOneField(Item,related_name='despues')
+    actual=models.ForeignKey(Item,related_name='despues')
     tipo_relacion=models.CharField(max_length=20)
 
 class HistorialLineaBase(models.Model):
@@ -136,3 +136,16 @@ class HistorialLineaBase(models.Model):
     fecha_modificacion=models.DateField(default=timezone_today())
     usuario=models.ForeignKey(User)
     linea_base=models.ForeignKey(LineaBase)
+
+class ComiteDeCambios(models.Model):
+    class Meta:
+        db_table='comite_cambio'
+    id_comite=models.AutoField(primary_key=True)
+    proyecto=models.ForeignKey(Proyecto, unique=True )
+
+class ComiteUser(models.Model):
+    class Meta:
+        db_table='comite_user'
+    id_comite_user=models.AutoField(primary_key=True)
+    comite=models.ForeignKey(ComiteDeCambios)
+    user=models.ForeignKey(User)

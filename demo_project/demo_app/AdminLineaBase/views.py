@@ -74,8 +74,31 @@ def item_to_lb(request,id_item, id_lb):
         return  HttpResponseRedirect('/lineabase/items/'+str(lb.id_linea_base))
     return render_to_response('HtmlLineaBase/add_to_lb.html',{}, context_instance=RequestContext(request))
 
+def cerrar(request, id):
+    lb=LineaBase.objects.get(pk=id)
+    query="WITH Q1 AS (select count(lb.*) from linea_base lb "\
+          "join item i on i.linea_base_id = lb.id_linea_base "\
+          "where lb.id_linea_base=1 ), "\
+          "Q2 AS (select count(lb.*) from linea_base lb "\
+          "join item i on i.linea_base_id = lb.id_linea_base "\
+          "where lb.id_linea_base=2 and i.estado like 'FINALIZADO') "\
+          "SELECT CASE WHEN (COUNT(Q1.*) - COUNT(Q2.*)) = 0 THEN TRUE ELSE FALSE END FROM Q1,Q2"
+    se_puede=execute_one(query)[0]
+    if request.method == 'POST':
+        fin=request.POST.get('fin','no')
+        if fin == 'si':
+            lb.estado=EstadosLB().CERRADO
+            lb.save()
+            historial=HistorialLineaBase()
+            historial.fecha_modificacion=timezone_today()
+            historial.usuario=request.user
+            historial.tipo_operacion='CIERRE DE UNA LINEA BASE'
+            historial.linea_base=lb
+            historial.save()
+        return HttpResponseRedirect('/lineabase/listar/'+str(lb.proyecto_id))
 
 
+    return render_to_response('HtmlLineaBase/cerrar.html', {'se_puede':se_puede}, context_instance=RequestContext(request))
 
 
 
