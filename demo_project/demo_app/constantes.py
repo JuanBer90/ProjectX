@@ -54,6 +54,10 @@ class OperacionLB:
     CREACION='CREACION'
     ADD_ITEM='AGREGAR ITEM A LINEA BASE'
     CIERRE='CERRAR LINEA BASE'
+    ROMPER='ROMPER'
+
+class OperacionItem:
+    RELACIONAR='RELACIONAR CON ITEM'
 
 def execute_query(query):
    cursor = connection.cursor()

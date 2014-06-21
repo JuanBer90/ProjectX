@@ -190,6 +190,7 @@ def TipoItemToItem(request,id):
 
         print 'buscar: '+str(buscar)
     aprobado = EstadosItem().ITEM_AP
-    return render_to_response('HtmlTipoItem/tipo_item_to_item.html',{'tipo_item':tipo_item,'datos':items,'estado_item':estado_item, 'aprobado':aprobado},
+    estado_iniciado=EstadosItem().ITEM_NI
+    return render_to_response('HtmlTipoItem/tipo_item_to_item.html',{'tipo_item':tipo_item,'estado_iniciado':estado_iniciado,'datos':items,'estado_item':estado_item, 'aprobado':aprobado},
                               context_instance=RequestContext(request, { 'lines': itemspagination }))
 
