@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load dajaxice_templatetags %}
+{% block extrahead %}
+
+<script src="/static/dajaxice/dajaxice.core.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript"     src="/static/dajax/jquery.dajax.core.js"></script>
+{% endblock %}
+{% block header %}
+{{ proyecto.nombre }}
+{% endblock %}
+<body onload="abrir()">
+{% block content %}
+
+<script>
+function buscar(){
+alert("asdf")
+Dajaxice.AdminFases.search_fases(fases,{'buscar':"ASDF"}) 
+}
+function fases(fases){ 
+alert("hola mundo")
+}
+function my_js_callback(data){
+    alert(data.message);
+}
+
+</script>
+
+<ul class="nav nav-tabs">
+  <li ><a href="{% url 'AdminProyectos.views.mi_proyecto' proyecto.id %}">Mi Proyecto</a></li>
+  <li class="active"><a href="{% url 'AdminFases.views.fases_proyecto' proyecto.id %}">Fases</a></li>
+    {% comment %}  
+    <li ><a href="{% url 'AdminProyectos.views.colaboradores' proyecto.id %}" >Colaboradores</a></li>
+   <li ><a href="{% url 'AdminRoles.views.roles' proyecto.id %}">Roles</a></li>
+<li><a href="{% url 'AdminItem.views.item_proyecto' proyecto.id %}">Items</a></li>
+<li ><a href="{% url 'AdminRelacion.views.relacion_proyecto' proyecto.id %}">Relaciones</a></li>
+<li ><a href="{% url 'AdminComite.views.ver_comite' proyecto.id %}">Comite</a></li>
+{% endcomment %}
+</ul>
+
+<button onclick="Dajaxice.AdminFases.sayhello('my_js_callback');" class="btn btn-lg btn-primary" >BUSCAR</button>
+<form method='post'>{% csrf_token %}
+<br>
+<div class="span6" style="text-align:right;margin-right:5%">
+
+</div>	
+
+ <table class=" table-bordered table-condensed" >
+    <thead>
+        <th style="width: 300px" >Nombre</th>
+        <th style="width: 300px" >Estado</th>
+        <th >Accion</th>
+    </thead>
+    {% for fase in fases %}
+    
+    <tr>
+	    <td>{% if fase.nombre != None %} <a href="#">
+	    <p >{{ fase.nombre }}</a> {% else %}  Fase{{ fase.numero_items}} {% endif %}</p></td>
+        <td>
+            {% if fase.estado != None %} {{ fase.estado }} {% else %} Ninguno {% endif %}
+        </td>
+		<td> 
+        {% if fase.nombre == None %}<a href="{% url 'AdminFases.views.importar' fase.id %}" class="btn btn-success	">Importar <i class="fa fa-external-link"></i></a> 
+        <a href="{% url 'AdminFases.views.fase' fase.id proyecto.id %}" class="btn btn-primary">Crear <i class="fa fa-arrow-right"></i></a>
+        {% else %} <a href="{% url 'AdminFases.views.fase' fase.id proyecto.id %}">Modificar</a>
+
+
+        {% endif %}
+        {% if fase.estado != 'FINALIZADO' %}
+         <a href="{% url 'AdminFases.views.cerrar' fase.id %}" class="btn btn-danger" >Cerrar <i class="fa fa-times"></i></a></td>
+        {% endif %}
+        </td>
+	</tr>
+	{% endfor %}
+ </table>
+
+
+ <a class="btn btn-success"   data-toggle="modal" data-target="#importarFase"  href="#importarFase">
+       Iniciar&nbsp;<i class="fa fa-retweet"></i></a>
+   
+  <!-- Modal -->
+	<div class="modal fade" id="importarFase" tabindex="-1"  style="top: 30%" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel"><b>Importar Fase</b></h4>
+	      </div>
+	      <div class="modal-body">
+	      <p>Primeros 10 resultados:</p>
+	         	<input type="text" placeholder="Buscar" class="form-control" maxlength="20">
+	      </div>
+	      <table class="table table-striped">
+	      <thead>
+	      <th> Nombre</th>
+	      <th> Descripcion</th>
+		<th></th>
+	      </thead>
+	      {% for fase in lista_fases %}
+	      <tr>
+	      <td>{{ fase.nombre }}</td>
+	      <td>{{ fase.descripcion }}</td>
+	      <td><a>Importar</a> </td>
+	      </tr>
+	      {% endfor %}
+	      </table>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="fa fa-times"></i> Close</button>
+	        <a href="/proyecto/iniciar/{{proyecto.id}}" class="btn btn-primary">Iniciar <i class="fa fa-check"></i></a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+
+
+</form>
+{% endblock %}

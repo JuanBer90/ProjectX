@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block title %}Nuevo Tipo Item{% endblock %}
+{% block extra_head %}
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Linea Base</h1></center>
+    <br><br>
+    <center>
+	<form  method='post' action=''>{% csrf_token %}
+		<label>Estado: </label>
+        <input disabled type="text" value="{{ lb.estado }}">
+        <label>Numero:</label>
+            <input type="text" maxlength="50" required=""  style="text-align: right" readonly value="{{ lb.numero }}" name="nombre" />
+        <br>
+                 <input class="btn btn-info" type='submit' value='Crear'/>
+        	</form>
+
+    </center>
+{% endblock %}

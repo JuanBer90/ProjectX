@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+
+{% block extra_head %}
+
+
+{% endblock %}
+<body >
+{% block content %}
+    <ul class="nav nav-tabs">
+  <li><a href="{% url 'demo_app.AdminProyectos.views.mi_proyecto' id_proyecto %}">Mi Proyecto</a></li>
+ <li><a href="{% url 'demo_app.AdminFases.views.fases_proyecto' id_proyecto %}">Fases</a></li>
+  <li ><a href="{% url 'demo_app.AdminProyectos.views.colaboradores' id_proyecto %}" >Colaboradores</a></li>
+   <li><a href="{% url 'demo_app.AdminRoles.views.roles' id_proyecto %}">Roles</a></li>
+<li class="active"><a href="{% url 'demo_app.AdminItem.views.item_proyecto' id_proyecto %}">Items</a></li>
+    <li ><a href="{% url 'demo_app.AdminRelacion.views.relacion_proyecto' id_proyecto %}">Relaciones</a></li>
+    <li ><a href="{% url 'demo_app.AdminComite.views.ver_comite' id_proyecto %}">Comite</a></li>
+
+</ul>
+    <center><H2>Items</H2></center>
+   <table>
+   <td style="width: 70%;margin-right: 0px; margin-left: 100%; ">
+        {{ lines|pagination }}
+   </td>
+   </table>
+
+
+
+ <table class="table table-bordered table-condensed" >
+    <tr>
+        <th class="navbar-inner">Nombre</th>
+        <th class="navbar-inner">Fase</th>
+        <th class="navbar-inner">Estado</th>
+        <th class="navbar-inner">Descripcion</th>
+        <th class="navbar-inner">Accion</th>
+    </tr>
+    {% for dato in datos %}
+    <tr>
+	    <td><em>{{dato.nombre}}</em></td>
+<td>{{ dato.fase.nombre }}</td>
+    <td>{{ dato.estado }}</td>
+        <td>{{ dato.descripcion }}</td>
+    <td><a href="{% url 'demo_app.AdminItem.views.editar_item' dato.id_item %}">Editar</a>
+        {% if dato.estado  == 'BLOQUEADO' and dato.linea_base_id != None%}
+    - <a href="{% url 'demo_app.AdminItem.views.antec_suc' dato.id_item %}">Relacion (Ant/Suc)</a>
+        {% endif %}
+        {% if dato.estado == 'ELIMINADO' %}
+        - <a href="{% url 'demo_app.AdminItem.views.revivir_item' dato.id_item %}">Revivir</a>
+        {% endif %}
+    {% if dato.estado != 'ELIMINADO' %}
+        - <a href="{% url 'demo_app.AdminItem.views.eliminar_item' dato.id_item %}">Eliminar</a>
+        {% endif %}
+
+     {% if dato.estado == 'INICIADO' %}
+        - <a href="{% url 'demo_app.AdminItem.views.aprobar_principal' dato.id_item %}">Aprobar</a>
+      {% endif %}
+        {% if dato.estado == 'APROBADO' or dato.estado == 'BLOQUEADO' %}
+        - <a href="{% url 'demo_app.AdminItem.views.finalizar' dato.id_item %}">Finalizar</a>
+        {% endif %}
+     - <a href="{% url 'demo_app.AdminItem.views.historial' dato.id_item %}">Historial</a>
+    </td>
+
+
+	</tr>
+	{% endfor %}
+ </table>
+
+
+<br><br><br>
+
+
+
+{% endblock %}
+</body>
+

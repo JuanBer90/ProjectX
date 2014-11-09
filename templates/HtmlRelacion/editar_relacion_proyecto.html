@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block title %}Editar Relacion{% endblock %}
+{% block extra_head %}
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Relacionar</h1></center>
+    <br><br>
+    <center>
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+
+        	<label>Tipo: </label>
+        <input type="text" maxlength="45" required="" value="{{ relacion.tipo_relacion }}" readonly />
+        <label>Nombre: </label>
+        <input type="text" maxlength="50" required="" value="{{ relacion.nombre }}" name="nombre"/>
+
+         <label>Item Actual: </label>
+       <input type="text" maxlength="50" readonly value="{{ relacion.actual.nombre }}" />
+
+         <label>Item Anterior: </label>
+    <input type="text" maxlength="50" readonly value="{{ relacion.antes.nombre }}" />
+
+        <br>
+		<input class="btn btn-info" type='submit' value='Actualizar'/>
+
+	</form>
+    </center>
+{% endblock %}

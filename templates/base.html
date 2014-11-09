@@ -1,0 +1,174 @@
+{% load admin_static bootstrapped_goodies_tags %}
+{% load my_tags %}
+{% load url from future %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ LANGUAGE_CODE|default:"es-es" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="{% static "js/bootstrap-popover.js" %}"></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static "css/bootstrap.css" %}"rel="stylesheet">
+    <!--link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet"/-->
+    
+    <link href="{% static "css/mycss.css" %}"rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{% static "css/plugins/metisMenu/metisMenu.min.css" %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static "css/sb-admin-2.css" %}" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="{% static "font-awesome-4.1.0/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+    
+    <!-- jQuery Version 1.11.0-->
+    <script src="{% static "js/jquery-1.11.0.js" %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{% static "js/metisMenu.min.js" %}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{% static "js/sb-admin-2.js" %}"></script>
+
+
+    {% block extrastyle %}{% endblock %}
+ 
+    {% block extrahead %}{% endblock %}
+
+	<style>
+		.page-header{
+			margin-top:110px;
+			}
+		@media(min-width:768px){
+		.page-header{
+			margin-top:60px;
+			}
+		}		
+	</style>
+	
+		<style>
+		.navbar-brand{
+			font-size:17px;
+			}
+		@media(min-width:768px){
+		.navbar-brand{
+			font-size:22px;
+			}
+		}		
+		
+		</style>
+
+<style>
+
+.radius { 
+/* Firefox */
+-moz-border-radius-topleft: 40px;
+-moz-border-radius-topright: 0px;
+-moz-border-radius-bottomright: 40px;
+-moz-border-radius-bottomleft: 0px;
+ 
+/* Google Chrome y Safari */
+-webkit-border-top-left-radius: 40px;
+-webkit-border-top-right-radius: 0px;
+-webkit-border-bottom-right-radius: 40px;
+-webkit-border-bottom-left-radius: 0px;
+ 
+/* CSS3 (Opera 10.5 e Internet Explorer 9) */
+border-top-left-radius: 40px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 40px;
+border-bottom-left-radius: 0px;
+}
+</style>
+
+
+
+</head>
+{% load i18n %}
+
+<body>
+
+<!-- Container -->
+<div id="wrapper">
+
+    {% if not is_popup %}
+    <!-- navbar -->
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+		<div class="navbar-header">
+		
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a class="navbar-brand" href="/home">
+				{% block navbar_title %}Sistema de Gestion de Proyectos{% endblock %}
+			</a>
+		</div>
+		<!-- /.navbar-header -->
+	{% if not user.is_anonymous %}
+		<ul class="nav navbar-top-links navbar-right">
+		{% block navbar_top_links %}
+		{% include 'menu/navbar_messages.html' %}
+		{% include 'menu/navbar_tasks.html' %}
+		{% include 'menu/navbar_user.html' %}
+		{% endblock %}
+		</ul>
+		<!-- /.navbar-top-links -->
+		
+		{% block left_menu %}
+		{% include 'menu/left_menu.html' %}
+		{% endblock %}
+		{% endif %}
+			
+		<!-- /. left-menu -->
+	</nav>
+    {% endif %}
+	<!-- /. navbar-->
+	<br>
+
+	<div id="page-wrapper">   
+	{% if not user.is_anonymous %}
+		<div class="row">
+			<div class="col-lg-12 col-xs-12">
+				<center>
+				<h4 class="page-header"><b>{% block header %} {% endblock %}</b></h4>
+				</center>
+			</div>
+		</div>
+		{% endif %}
+		{% if user.is_anonymous %} <br><br><br> {% endif %}
+		{% if messages %}
+		<ul class="messages">
+		    {% for message in messages %}
+		    <div{% if message.tags %} class="alert alert-dismissible alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{%endif %}"{% endif %}>
+		     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		    {{ message }}</div>
+		    {% endfor %}
+		</ul>
+{% endif %}
+		{% block content %}{{ content }}{% endblock %} 
+	
+        
+    <br><br>
+	</div> 
+	 
+</div>
+<!-- END Container -->
+<footer >
+<div class="span6" style="text-align:right;margin-right:5%">
+            <p>
+                &copy; <a href="#">Project X 2014</a> 
+
+
+            </p>
+        </div>
+     </footer>
+</body>
+</html>

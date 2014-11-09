@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+
+{% block extra_head %}
+ <center>
+ <br><br>
+        <h2>Lista de Atributos del Item: {{ item.nombre }}</h2>
+    </center>
+{% endblock %}
+{% block content %}
+<br>
+<table>
+
+<td><a class="btn btn-info" href=" {% url 'demo_app.AdminTipoItem.views.TipoItemToItem' item.tipo_item.id_tipo_item %}" > Volver</a></td>
+<td><a class="btn btn-info" href="{% url 'demo_app.AdminAtributosItem.views.add_atributo_item' item.id_item %}">Add Atributo</a></td>
+
+
+</table>
+
+  <table>
+   <td style="width: 70%;margin-right: 0px; margin-left: 100%; ">
+        {{ lines|pagination }}
+   </td>
+   <td>
+       <form id='formulario' method='post' action=''>{% csrf_token %}
+	     <table>
+              <td><input type="text" placeholder="Nombre del Item" name="buscar" width="200px"></td>
+              <td style="width: 20px"></td>
+
+	          <td><input class="btn btn-info btn-lrg" type='submit' value='Buscar'/></td>
+         </table>
+       </form>
+   </td>
+  </table>
+
+ <table class="table table-bordered table-condensed" >
+    <tr>
+        <th class="navbar-inner">Tipo</th>
+        <th class="navbar-inner">Nombre</th>
+        <th class="navbar-inner">Valor por Defecto</th>
+        <th class="navbar-inner">Item</th>
+        <th class="navbar-inner">Accion</th>
+    </tr>
+    {% for dato in objetos %}
+    <tr>
+	    <td >{{dato.tipo }}</td>
+        <td>{{ dato.nombre }}</td>
+        <td>{{ dato.valor_defecto }}</td>
+        <td>{{ dato.item.nombre }}</td>
+
+        <td> <a href="{% url 'demo_app.AdminAtributosItem.views.edit_atributo_item' dato.id_atributo_por_item %}">Editar</a>
+            -<a href="{% url 'demo_app.AdminAtributosItem.views.delete_atributo_item' dato.id_atributo_por_item %}">Eliminar</a>
+                -<a href="{% url 'demo_app.AdminAtributosItem.views.ver_atributo' dato.id_atributo_por_item %}">Ver Atributo</a>
+
+        </td>
+
+
+	</tr>
+	{% endfor %}
+ </table>
+
+
+<br><br><br>
+
+
+
+{% endblock %}

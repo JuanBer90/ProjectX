@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load bootstrap_toolkit %}
+{% block title %}Nuevo Proyecto{% endblock %}
+{% block header %}
+	NUEVO PROYECTO
+{% endblock %}
+
+{% block content %}
+
+
+
+   
+    <center>
+     
+      
+
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+		{{formulario.nombre.error}}
+		<table class="table-striped">{{formulario.as_table}}</table>
+	<br>
+	<a class="btn btn-default" href="/proyectos/"> <i class="fa fa-backward"></i> Volver</a>
+		<button class="btn btn-primary" type='submit' >Guardar <i class="fa fa-save"></i></button>
+	
+
+	</form>
+    </center>
+{% endblock %}

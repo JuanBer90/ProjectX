@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block titulo %}Eliminar Relacion{% endblock %}
+{% block encabezado %} 
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Eliminar Relacion</h1></center>
+    <br><br>
+    <center>
+    <p>Esta seguro que desea eliminar la Relacion {{ relacion.codigo }}<p>
+        </center>
+    <center>
+
+	<form  method='post' action=''>{% csrf_token %}
+
+
+		<input class="btn btn-info" type='submit' name="delete" value='si'/>
+        <input class="btn btn-info" type='submit' name="delete" value='no'/>
+	</form>
+    </center>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block title %}Nuevo Relacion{% endblock %}
+{% block extra_head %}
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Registrar Relacion</h1></center>
+    <br><br>
+    <center>
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+		<label>Tipo: </label>
+        <input type="text" maxlength="45" required="" name="tipo"/>
+        <label>Nombre: </label>
+        <input type="text" maxlength="50" required="" name="nombre"/>
+         <label>Anterior: </label>
+        <select name="anterior" required="required">
+            {% for item in items %}
+            <option value="{{ item.id_item }}">{{ item.nombre }}</option>
+            {% endfor %}
+
+        </select>
+         <label>Posterior: </label>
+        <select name="posterior" required="required">
+            {% for item in items %}
+            <option value="{{ item.id_item }}">{{ item.nombre }}</option>
+            {% endfor %}
+
+        </select>
+
+
+        <br>
+		<input class="btn btn-info" type='submit' value='Registrar'/>
+
+	</form>
+    </center>
+{% endblock %}

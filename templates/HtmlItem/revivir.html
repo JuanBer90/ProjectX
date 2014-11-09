@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block titulo %}Finalizar Item{% endblock %}
+{% block encabezado %} 
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Revivir Item</h1></center>
+    <br><br>
+    <center>
+    <p>Esta seguro que desea Revivir el  Item {{ item.nombre }}<p>
+        </center>
+    <center>
+
+	<form  method='post' action=''>{% csrf_token %}
+
+
+		<input class="btn btn-info" type='submit' name="revivir" value='si'/>
+        <input class="btn btn-info" type='submit' name="revivir" value='no'/>
+	</form>
+    </center>
+{% endblock %}

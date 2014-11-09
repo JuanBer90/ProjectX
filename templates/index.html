@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+ 
+  
+
+{% endblock %}
+{% block header %}
+<br><br><br>
+<div class="caption">
+        <h3>Bienvenido a Project X</h3>
+        <p>Sistema de Gestion de Proyectos</p>
+        <p><a href="https://github.com/JuanBer90/projectX/" 
+        class="btn btn-primary" role="button"target="_blank">Miranos en GitHub &raquo;</a> 
+        
+        <button type="button" id="myPopover" class="btn btn-default"  data-trigger="focus"
+data-toggle="popover" data-placement="right" 
+data-content="Este sistema ha sido desarrollado para facilitar el proceso de control de proyectos.
+Por los alumnos: Duarte, Juan; Riquelme,Carlos ; Riveros, Gerardo"
+ data-original-title="A cerca de Project X" title="">
+      Acerca de 
+</button>
+        
+	
+</p>
+      </div>
+{% endblock %}
+{% block content %}
+
+
+
+
+<script type="text/javascript">
+      $('#myButton').tooltip();
+      $('#myPopover').popover();
+</script> 
+ {% endblock %}

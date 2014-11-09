@@ -1,0 +1,20 @@
+<nav>
+  <ul class="pagination">
+  {% if objetos.has_previous %}
+          <li>  <a href="?page={{ objetos.previous_page_number }}&buscar={{ buscar }}">&laquo;</a></li>
+          {% else %}
+          <li class="disabled"><a href="#">&laquo;</a></li>
+        {% endif %}
+    	{% for p in page_range %}
+
+    <li class="{% if p == page %}active{% endif %}"><a href="?page={{p}}&buscar={{ buscar }}">{{ p }} 
+    </a></li>
+    {% endfor %}
+    {% if objetos.has_next %}
+          <li>  <a href="?page={{ objetos.next_page_number }}&buscar={{ buscar }}">&raquo;</a><li>
+          {% else %}
+          <li class="disabled"><a href="#"> &raquo;</a></li>
+        {% endif %}
+  </ul>
+ <li> {{ total }} Resultados</li>
+</nav>

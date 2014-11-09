@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% load bootstrap_toolkit %}
+
+{% block extra_head %}
+
+<script>
+function abrir(url) {
+open(url,'','top=300,left=300,width=300,height=300') ;
+}
+</script>
+
+{% endblock %}
+<body onload="abrir()">
+{% block content %}
+
+<ul class="nav nav-tabs">
+  <li ><a href="{% url 'demo_app.AdminProyectos.views.mi_proyecto' id_proyecto %}">Mi Proyecto</a></li>
+  <li><a href="{% url 'demo_app.AdminFases.views.fases_proyecto' id_proyecto %}">Fases</a></li>
+    <li ><a href="{% url 'demo_app.AdminProyectos.views.colaboradores' id_proyecto %}" >Colaboradores</a></li>
+   <li class="active"><a href="{% url 'demo_app.AdminRoles.views.roles' id_proyecto %}">Roles</a></li>
+<li><a href="{% url 'demo_app.AdminItem.views.item_proyecto' id_proyecto %}">Items</a></li>
+<li ><a href="{% url 'demo_app.AdminRelacion.views.relacion_proyecto' id_proyecto %}">Relaciones</a></li>
+<li ><a href="{% url 'demo_app.AdminComite.views.ver_comite' id_proyecto %}">Comite</a></li>
+</ul>
+    <td><a class="btn btn-info" href="{% url 'demo_app.AdminRoles.views.nuevo_rol' id_proyecto%}">Nuevo Rol</a></td>
+   <table>
+   <td style="width: 70%;margin-right: 0px; margin-left: 100%; ">
+        {{ lines|pagination }}
+   </td>
+
+   <td>
+       <form id='formulario' method='post' action=''>{% csrf_token %}
+	     <table>
+              <td><input type="text" placeholder="Nombre del Rol" name="buscar" width="200px"></td>
+              <td style="width: 20px"></td>
+
+	          <td><input class="btn btn-info btn-lrg" type='submit' value='Buscar'/></td>
+         </table>
+       </form>
+   </td>
+
+   </table>
+
+
+
+ <table class="table table-bordered table-condensed" >
+    <tr>
+        <th class="navbar-inner">Nombre</th>
+        <th class="navbar-inner">Descripcion</th>
+        <th class="navbar-inner">Accion</th>
+    </tr>
+    {% for dato in roles %}
+    <tr>
+	    <td><em>{{dato.nombre}}</em></td>
+        <td>{{ dato.descripcion }}</td>
+        <td> <a href="{% url 'demo_app.AdminRoles.views.nuevo_rol' dato.id_rol id_proyecto %}">Editar</a> -
+{#            <a href="{% url 'demo_app.AdminRoles.views.eliminar_rol' dato.id_rol %}">Eliminar</a> -#}
+            <a href="{% url 'demo_app.AdminRoles.views.ver_rol' dato.id_rol id_proyecto %}">Ver Permisos</a> </td>
+
+	</tr>
+	{% endfor %}
+ </table>
+
+
+<br><br><br>
+
+
+
+{% endblock %}
+</body>
+

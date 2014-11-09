@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block title %}Editar Atributo Item{% endblock %}
+{% block extra_head %}
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Editar Atributo Item</h1></center>
+    <br><br>
+    <center>
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+
+
+        	<label>Tipo: </label>
+        <input type="text" maxlength="45" required="" value="{{ atributo.tipo }}" name="tipo"/>
+        <label>Nombre: </label>
+        <input type="text" maxlength="50" required="" value="{{ atributo.nombre }}" name="nombre"/>
+        <label>Valor Defecto: </label>
+        <input type="text" maxlength="50" required="" value="{{ atributo.valor_defecto }}" name="valor_defecto"/>
+         <label>Item: </label>
+        <input type="text" maxlength="50" required="" disabled value="{{ item.nombre }}" />
+
+        <br>
+		<input class="btn btn-info" type='submit' value='Actualizar'/>
+
+	</form>
+    </center>
+{% endblock %}

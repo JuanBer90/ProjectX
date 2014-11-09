@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block title %}Editar Relacion{% endblock %}
+{% block extra_head %}
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Relacionar</h1></center>
+    <br><br>
+    <center>
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+
+
+        <label>Tipo: </label>
+        <select name="tipo"  >
+        {% for tp in tipos_relacion %}
+            <option value="{{ tp }}" >{{ tp }}</option>
+        {% endfor %}
+        </select>
+         <label>Asignar: </label>
+        <select name="a_o_d"  >
+
+            <option value="ANTES" >ANTES</option>
+          <option value="DESPUES" >DESPUES</option>
+
+        </select>
+
+        <br><br>
+        <input class="btn btn-info" type='submit' name="ok" value='Volver'/>
+        <input class="btn btn-info" type='submit' name="ok" value='Ok'/>
+
+	</form>
+    </center>
+{% endblock %}
