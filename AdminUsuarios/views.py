@@ -101,51 +101,6 @@ def cerrar(request):
 
 
 def usuarios(request):
-#===============================================================================
-#     """
-#     Lista de a 10 a los usuarios por pagina
-#     """
-#     user=request.user
-#     if not user.is_superuser:
-#           return HttpResponseRedirect('/sinpermiso/')
-#     nro_lineas=10
-#     lines = []
-# 
-#     page = request.GET.get('page')
-#     buscar=''
-#     if request.method == 'GET':
-#         buscar=request.GET.get('buscar','')
-#     usuarios_total = User.objects.filter(Q(username__icontains=buscar)|Q(first_name__icontains=buscar)).count()
-#     for i in range(usuarios_total):
-#         lines.append(u'Line %s' % (i + 1))
-# 
-#     paginator = Paginator(lines, nro_lineas)
-#     try:
-#         page=int(page)
-#     except:
-#         page=1
-# 
-#     if int(page)*nro_lineas>usuarios_total or int(page)>0:
-#         try:
-#             users = paginator.page(page)
-#             fin=int(page)*nro_lineas
-#             ini =fin-nro_lineas
-#         except PageNotAnInteger or EmptyPage:
-#             fin=nro_lineas
-#             ini=0
-#             users = paginator.page(1)
-#     else:
-#         fin=nro_lineas
-#         ini=0
-#         users = paginator.page(1)
-# 
-# 
-#     usuarios_list = User.objects.filter(Q(username__icontains=buscar)|Q(first_name__icontains=buscar)).order_by('username')[ini:fin]
-#    # roles=RolUser.objects.all()
-#     # for r in roles:
-#     #     print r.rol.descripcion
-#     #     print r.user.username
-#===============================================================================
     buscar=''
     if request.method == 'GET':
         buscar=request.GET.get('buscar','')

@@ -3,23 +3,26 @@ from AdminTipoItem.models import TipoItem
 from AdminFases.models import Fase
 from AdminLineaBase.models import LineaBase
 from django.contrib.auth.models import User
+from django.template.defaultfilters import default
 
 # Create your models here.
-ESTADOS_ITEM=(('DES','DESARROLLADO'),('APR','APROBADO'),('REV','REVISION'),('ELI','ELIMINADO'),('BLO','BLOQUEADO'))
+ESTADOS_ITEM=(('DES','DESARROLLO'),('APR','APROBADO'),('REV','REVISION'),('ELI','ELIMINADO'),('BLO','BLOQUEADO'))
 class Item(models.Model):
     class Meta:
         db_table='item'
-    nombre=models.CharField(max_length=50,null=True)
-    descripcion=models.CharField(max_length=200,null=True)
-    numero=models.IntegerField(null=True)
-    tipo_item=models.ForeignKey(TipoItem)
-    fase=models.ForeignKey(Fase)
-    estado=models.CharField(max_length=50,default='DES')
-    propiedad_item=models.IntegerField(null=True)
+    nombre=models.CharField(max_length=50,)#
+    descripcion=models.CharField(max_length=300)#
+    version = models.IntegerField(default=1)
+    padre=models.ForeignKey('Item',null=True)
+    tipo_item=models.ForeignKey(TipoItem)#
+    prioridad = models.IntegerField(null=True)#
+    estado=models.CharField(max_length=50,default='DES',choices=ESTADOS_ITEM)    
     linea_base=models.ForeignKey(LineaBase,null=True)
-    version = models.IntegerField(null=True)
-    complejidad = models.IntegerField(null=True)
-    prioridad = models.IntegerField(null=True)
+    costo=models.IntegerField(null=True)#
+    complejidad = models.IntegerField(null=True)#
+    
+    #archivo
+    
 
 TIPO_MODIFICACION=(('ADD','CREADO'),('EDIT','MODIFICADO'),('DEL','ELIMINADO'),('FIN','FINALIZADO'))
 class HistorialItem(models.Model):

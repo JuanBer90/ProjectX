@@ -18,6 +18,7 @@ $('#id_descripcion').attr('required','true')
  <li><a href="{% url 'AdminFases.views.fases_proyecto' id_proyecto %}">Fases</a></li>
   
   <li ><a href="{% url 'AdminTipoItem.views.tipoitem_proyecto' proyecto.id %}">Tipos Item</a></li>
+  <li ><a href="{% url 'AdminItems.views.items_proyecto' proyecto.id %}">Items</a></li>
    {% comment %}
    <li ><a href="{% url 'AdminProyectos.views.colaboradores' id_proyecto %}" >Colaboradores</a></li>  
    <li><a href="{% url 'AdminRoles.views.roles' id_proyecto %}">Roles</a></li>

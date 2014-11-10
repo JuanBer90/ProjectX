@@ -61,6 +61,7 @@ var cont=1
   <li ><a href="{% url 'AdminProyectos.views.mi_proyecto' proyecto.id %}">Mi Proyecto</a></li>
   <li class="active"><a href="{% url 'AdminFases.views.fases_proyecto' proyecto.id %}">Fases</a></li>
   <li ><a href="{% url 'AdminTipoItem.views.tipoitem_proyecto' proyecto.id %}">Tipos Item</a></li>
+  <li><a href="{% url 'AdminItems.views.items_proyecto' proyecto.id %}">Items</a></li>
     {% comment %}  
     <li ><a href="{% url 'AdminProyectos.views.colaboradores' proyecto.id %}" >Colaboradores</a></li>
    <li ><a href="{% url 'AdminRoles.views.roles' proyecto.id %}">Roles</a></li>
@@ -106,7 +107,7 @@ var cont=1
         <a href="#editFase" data-target="#editFase" data-toggle="modal" class="btn btn-primary"
          onclick="$('#id_fase').val({{ fase.id }})">Crear <i class="fa fa-arrow-right"></i></a>
          
-        {% elif fase.estado == 'NOI'%} 
+        {% elif fase.estado == 'INI'%} 
          <a href="#editFase" data-target="#editFase" data-toggle="modal" class="btn btn-warning"
          onclick="editar_fase({{ fase.id }})">Editar <i class="fa fa-edit"></i></a>
 
