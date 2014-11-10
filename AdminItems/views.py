@@ -29,9 +29,9 @@ def items_proyecto(request,id_proyecto):
          id_item=request.POST.get('id_item','')
          id_tipo=request.POST.get('tipo','')
          id_delete=request.POST.get('id_delete','')
-         print "item"
-         print id_item
-         
+         id_revive=request.POST.get('id_revive','')
+         print "reviveeeee:"
+         print id_revive
          if id_tipo != '':
              if id_item != "":
                  item=Item.objects.get(pk=id_tipo)
@@ -57,7 +57,13 @@ def items_proyecto(request,id_proyecto):
              messages.error(request,"Item Eliminado "+aux.nombre+" con exito!")
              aux.estado='ELI'
              aux.save()
-             save_historial("ELIMINACION",request.user.id,item.id)
+             save_historial("ELIMINACION",request.user.id,aux.id)
+         if id_revive !="":
+             aux=Item.objects.get(pk=id_revive)
+             messages.success(request,"Item Revivido "+aux.nombre+" con exito!")
+             aux.estado='DES'
+             aux.save()
+             save_historial("REVIVIR",request.user.id,aux.id)
          
      buscar=''
      filtro_tipo_id=""

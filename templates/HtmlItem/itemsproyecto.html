@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+{% load dajaxice_templatetags %}
+{% block extrahead %}
+
+<script src="/static/dajaxice/dajaxice.core.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript"     src="/static/dajax/jquery.dajax.core.js"></script>
+{% endblock %}
+{% block header %}
+{{ proyecto.nombre }}
+{% endblock %}
+
+{% block content %}
+<script>
+function crear_item(){ 
+$('#id_nombre').removeAttr('readonly')
+	$('#id_descripcion').removeAttr('readonly')
+	$('#id_costo').removeAttr('readonly')
+	$('#id_complejidad').removeAttr('readonly')
+	$('#id_prioridad').removeAttr('readonly')
+	$('#tipo-select').removeAttr('readonly')
+	$('#id_nombre').val('')
+	$('#id_descripcion').val('')
+	$('#id_costo').val('0')
+	$('#id_complejidad').val('0')
+	$('#id_prioridad').val('0')
+
+}
+function editar_item(id_item){
+	$('#id_item').val(id_item)
+	$('#id_nombre').removeAttr('readonly')
+	$('#id_descripcion').removeAttr('readonly')
+	$('#id_costo').removeAttr('readonly')
+	$('#id_complejidad').removeAttr('readonly')
+	$('#id_prioridad').removeAttr('readonly')
+	$('#tipo-select').removeAttr('readonly')
+	{% for item in items %}
+	var item_id="{{ item.id }}"
+		if (id_item == item_id){ 
+			$('#id_nombre').val('{{item.nombre}}')
+			$('#id_descripcion').val('{{item.descripcion}}')
+			$('#id_costo').val('{{item.costo}}')
+			$('#id_complejidad').val('{{item.complejidad}}')
+			$('#id_prioridad').val('{{item.prioridad}}')
+			
+			var tipo_id={{ item.tipo_item_id }}
+		}
+	{% endfor %}
+	
+	var select=document.getElementById('tipo-select')
+	var index=0
+	
+	for(var i=0; i<select.options.length;i++){ 
+ 		if(select.options[i].value == tipo_id){ 
+ 			select.options[i].selected="selected"
+ 		}
+	}
+}
+
+function ver_item(id_item){
+	{% for item in items %}
+	var item_id="{{ item.id }}"
+		if (id_item == item_id){ 
+			$('#id_nombre').val('{{item.nombre}}')
+			$('#id_nombre').attr('readonly','readonly')
+			$('#id_descripcion').val('{{item.descripcion}}')
+			$('#id_descripcion').attr('readonly','readonly')
+			$('#id_costo').val('{{item.costo}}')
+			$('#id_costo').attr('readonly','readonly')
+			$('#id_complejidad').val('{{item.complejidad}}')
+			$('#id_complejidad').attr('readonly','readonly')
+			$('#id_prioridad').val('{{item.prioridad}}')
+			$('#id_prioridad').attr('readonly','readonly')
+			
+			var tipo_id={{ item.tipo_item_id }}
+		}
+	{% endfor %}
+	
+	var select=document.getElementById('tipo-select')
+	$('#tipo-select').attr('readonly','readonly')
+	var index=0
+	
+	for(var i=0; i<select.options.length;i++){ 
+ 		if(select.options[i].value == tipo_id){ 
+ 			select.options[i].selected="selected"
+ 		}
+	}
+}
+function eliminar_item(id_item){
+
+	{% for item in items %}
+	var item_id="{{ item.id }}"
+	
+	if (id_item == item_id){ 
+		
+	$('#confirm-delete').html('Esta seguro/a que desea eliminar el Tipo Item <strong>"{{item.nombre}}"</strong>?')
+	document.getElementById('id_delete').value=id_item
+	}
+	{% endfor %}
+}
+function revivir_item(id_item){
+
+	{% for item in items %}
+	var item_id="{{ item.id }}"
+	
+	if (id_item == item_id){ 
+		
+	$('#confirm-revive').html('Esta seguro/a que desea revivir el Item <strong>"{{item.nombre}}"</strong>?')
+	document.getElementById('id_revive').value=id_item
+	}
+	{% endfor %}
+}
+
+function final(id){ 
+$('#id_import').val(id)
+$('#formulario').submit()
+
+}
+
+</script>
+
+
+
+<ul class="nav nav-tabs">
+  <li ><a href="{% url 'AdminProyectos.views.mi_proyecto' proyecto.id %}">Mi Proyecto</a></li>
+  <li ><a href="{% url 'AdminFases.views.fases_proyecto' proyecto.id %}">Fases</a></li>
+  <li ><a href="{% url 'AdminTipoItem.views.tipoitem_proyecto' proyecto.id %}">Tipos Item</a></li>
+  <li class="active"><a href="{% url 'AdminItems.views.items_proyecto' proyecto.id %}">Items</a></li>
+    {% comment %}  
+    <li ><a href="{% url 'AdminProyectos.views.colaboradores' proyecto.id %}" >Colaboradores</a></li>
+   <li ><a href="{% url 'AdminRoles.views.roles' proyecto.id %}">Roles</a></li>
+<li><a href="{% url 'AdminItem.views.item_proyecto' proyecto.id %}">Items</a></li>
+<li ><a href="{% url 'AdminRelacion.views.relacion_proyecto' proyecto.id %}">Relaciones</a></li>
+<li ><a href="{% url 'AdminComite.views.ver_comite' proyecto.id %}">Comite</a></li>
+{% endcomment %}
+</ul>
+<center>
+<form class="navbar-form " role="search">
+<br>
+ <table style="width: 100%" >
+ <td>
+ {% include 'menu/pagination.html' %}
+ </td>
+<td>
+        <div class="form-group">
+          <input type="text" maxlength="30" class="form-control" 
+          placeholder="{{ placeholder }}"  style="width: 65%" name="buscar">
+         <button type="submit" class="btn btn-primary">Buscar&nbsp;<i class="fa fa-search"></i></button>
+        </div>
+</td>
+<td>
+
+ <div class="form-group">
+         <select name="filtro-tipo" class="form-control" style="width: 200px" >
+		<option value="">Todos...</option>
+		{% for tipo in tipo_items %}
+	    	  <option value="{{ tipo.id }}">{{tipo.nombre}}</option>
+	      {% endfor %}
+	</select>
+        <button type="submit"  class="btn btn-primary">Filtrar <i class="fa fa-filter"></i></button>
+        </div>
+
+
+</td>
+
+<td>
+<a class="btn btn-success" data-toggle="modal" data-target="#crearItem" onclick="crear_item()"  href="#crearItem" >
+       Crear Item&nbsp;<i class="fa fa-plus"></i></a>
+</td>
+</table>
+
+</form>
+</center>
+
+
+<form method='post' name="form1" id="formulario">{% csrf_token %}
+ <table class="table table-bordered table-condensed" style="width: 100%">
+    <thead>
+
+        <th >Nombre</th>
+        <th>Descripcion</th>
+           <th>Tipo Item</th>
+           <th>Estado</th>
+        <th style="width: 300px" >Accion</th>
+        
+    </thead>
+    {% for item in items %}
+    
+    <tr>
+    	<td>{{ item.nombre }}   </td>
+     	<td>{{ item.descripcion }}   </td>
+    	<td>{{ item.tipo_item.nombre }}   </td>
+    	<td>{{ item.get_estado_display }}   </td>
+    	<td>
+    	<a class="btn btn-info" data-toggle="modal" onclick="ver_item({{ item.id }})"data-target="#crearItem"  href="#crearItem" >
+      Ver&nbsp;<i class="fa fa-eye"></i></a>
+    	
+    	
+    	<a class="btn btn-warning" data-toggle="modal" onclick="editar_item({{ item.id }})"data-target="#crearItem"  href="#crearItem" >
+      Editar&nbsp;<i class="fa fa-edit"></i></a>
+      
+     {% if item.estado != 'ELI' %} 
+      <a class="btn btn-danger" data-toggle="modal" onclick="eliminar_item({{ item.id }})"data-target="#deleteItem"  href="#deleteItem" >
+      Eliminar&nbsp;<i class="fa fa-trash-o"></i></a>
+      {% else %}
+       <a class="btn btn-success" data-toggle="modal" onclick="revivir_item({{ item.id }})"data-target="#revivirItem"  href="#revivirItem" >
+      Revivir&nbsp;<i class="fa fa-magic"></i></a>
+      {% endif %}
+      
+      </td>	
+    
+	</tr>
+	{% endfor %}
+ </table>
+
+
+ 
+ 
+<input type="hidden" name="id_item" id="id_item" value="">
+
+<input type="hidden" name="id_import" id="id_import" value="">
+
+
+ <!-- Modal -->
+	<div class="modal fade" id="crearItem" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="crearItemLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close"  data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="crearItemLabel"><b>Item</b></h4>
+	      </div>
+	      <div class="modal-body">
+	      <table class="table table-striped">
+	      <tr>
+	      <th>Tipo Item:</th>
+	      <td>
+	      <select class="form-control" id="tipo-select" name="tipo" required>
+	      {% for tipo in tipo_items %}
+	      <option value="{{ tipo.id }}">{{tipo.nombre}}</option>
+	      {% endfor %}
+	      </select>
+	      
+	      </tr>
+	      {{ form.as_table }}
+	      </table>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default"  data-dismiss="modal"> <i class="fa fa-times"></i> Cancelar</button>
+	        <button type="submit" class="btn btn-default btn-primary" >  Aceptar <i class="fa fa-check"></i></button>
+	        
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+
+</form>
+
+<form method="post">{% csrf_token %}
+<input type="hidden" name="id_delete" id="id_delete" value="">
+<input type="hidden" name="id_revive" id="id_revive" value="">
+ <!-- Modal -->
+	<div class="modal fade" id="deleteItem" data-backdrop="static" data-keyboard="false"   style="top: 10%" role="dialog" aria-labelledby="deleteTipoLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close"  onclick="$('#id_delete').val('')"  data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="deleteTipoLabel"><b>Eliminar Item</b></h4>
+	      </div>
+	      <div class="modal-body">
+	      	<p id="confirm-delete"></p>
+	      </div>
+	      <div class="modal-footer">
+	      
+	        <button type="button" class="btn btn-default" onclick="$('#id_delete').val('')" data-dismiss="modal"> <i class="fa fa-times"></i> Cancelar</button>
+	        <button type="submit" class="btn btn-default btn-primary" >  Aceptar <i class="fa fa-check"></i></button>
+	        
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="revivirItem" data-backdrop="static" data-keyboard="false"   style="top: 10%" role="dialog" aria-labelledby="reviveLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close"  onclick="$('#id_revive').val('')"  data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="reviveTipoLabel"><b>Revivir Item</b></h4>
+	      </div>
+	      <div class="modal-body">
+	      	<p id="confirm-revive"></p>
+	      </div>
+	      <div class="modal-footer">
+	      
+	        <button type="button" class="btn btn-default" onclick="$('#id_revive').val('')" data-dismiss="modal"> <i class="fa fa-times"></i> Cancelar</button>
+	        <button type="submit" class="btn btn-default btn-primary" >  Aceptar <i class="fa fa-check"></i></button>
+	        
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+</form>
+<br><br>
+
+{% endblock %}
