@@ -10,24 +10,57 @@
 {% endblock %}
 <body onload="abrir()">
 {% block content %}
-
 <script>
-function buscar(){
-alert("asdf")
-Dajaxice.AdminFases.search_fases(fases,{'buscar':"ASDF"}) 
+function editar_fase(id_fase){
+$('#id_fase').val(id_fase)
+{% for fase in fases %}
+var fase_id="{{ fase.id }}"
+	if (id_fase == fase_id){ 
+	$('#id_nombre').val('{{fase.nombre}}')
+	$('#id_descripcion').val('{{fase.descripcion}}')
+	}
+
+{% endfor %}
+
 }
-function fases(fases){ 
-alert("hola mundo")
+function final(id){ 
+$('#id_import').val(id)
+$('#formulario').submit()
+
 }
-function my_js_callback(data){
-    alert(data.message);
+function buscar(string){
+
+var table=document.getElementById("table-importar")
+while(table.rows.length > 1){ 
+		table.rows[1].remove()
+	}
+var cont=1
+
+{% for fase in lista_fases %}
+	var nombre="{{fase.nombre }}"
+	
+	
+	if (nombre.indexOf(string)!=-1 && cont <= 10){ 
+		var onclick="$('#id_import).val('{{fase.id}}')"
+		var tr='<td>{{fase.nombre}}</td><td>{{ fase.descripcion }}</td>'
+		tr+='<td><a onclick="'+onclick+'" class="btn btn-success btn-sm">Seleccionar <i class="fa fa-check"></i></a> </td>'
+		var row=table.insertRow(cont)
+		row.innerHTML=tr
+		cont++;
+		
+	}
+
+{% endfor %}
 }
 
 </script>
 
+
+
 <ul class="nav nav-tabs">
   <li ><a href="{% url 'AdminProyectos.views.mi_proyecto' proyecto.id %}">Mi Proyecto</a></li>
   <li class="active"><a href="{% url 'AdminFases.views.fases_proyecto' proyecto.id %}">Fases</a></li>
+  <li ><a href="{% url 'AdminTipoItem.views.tipoitem_proyecto' proyecto.id %}">Tipos Item</a></li>
     {% comment %}  
     <li ><a href="{% url 'AdminProyectos.views.colaboradores' proyecto.id %}" >Colaboradores</a></li>
    <li ><a href="{% url 'AdminRoles.views.roles' proyecto.id %}">Roles</a></li>
@@ -37,82 +70,130 @@ function my_js_callback(data){
 {% endcomment %}
 </ul>
 
-<button onclick="Dajaxice.AdminFases.sayhello('my_js_callback');" class="btn btn-lg btn-primary" >BUSCAR</button>
-<form method='post'>{% csrf_token %}
+
+<form method='post' id="formulario">{% csrf_token %}
 <br>
 <div class="span6" style="text-align:right;margin-right:5%">
 
 </div>	
 
- <table class=" table-bordered table-condensed" >
+ <table class="table table-bordered table-condensed" >
     <thead>
-        <th style="width: 300px" >Nombre</th>
+    	<th>Nro.</th>
+        <th >Nombre</th>
+        <th  >Descripcion</th>
         <th style="width: 300px" >Estado</th>
         <th >Accion</th>
     </thead>
     {% for fase in fases %}
     
     <tr>
+    	<td>{{fase.numero}}</td>
 	    <td>{% if fase.nombre != None %} <a href="#">
-	    <p >{{ fase.nombre }}</a> {% else %}  Fase{{ fase.numero_items}} {% endif %}</p></td>
+	    <p >{{ fase.nombre }}</a> {% else %}<p > <em><< Sin Nombre >></em> {% endif %}</p></td>
+	    <td>{% if fase.nombre != None %}
+	    <p >{{ fase.descripcion }}{% else %}<p ><em> << Sin Descripcion >> </em>{% endif %}</p></td>
+        
         <td>
-            {% if fase.estado != None %} {{ fase.estado }} {% else %} Ninguno {% endif %}
+            {% if fase.estado != None %} {{ fase.get_estado_display }} {% else %} Ninguno {% endif %}
         </td>
 		<td> 
-        {% if fase.nombre == None %}<a href="{% url 'AdminFases.views.importar' fase.id %}" class="btn btn-success	">Importar <i class="fa fa-external-link"></i></a> 
-        <a href="{% url 'AdminFases.views.fase' fase.id proyecto.id %}" class="btn btn-primary">Crear <i class="fa fa-arrow-right"></i></a>
-        {% else %} <a href="{% url 'AdminFases.views.fase' fase.id proyecto.id %}">Modificar</a>
-
+        {% if fase.nombre == None and fase.estado == 'NOI' %}
+        
+        <a data-toggle="modal" onclick="$('#id_fase').val({{ fase.id }})" data-target="#importarFase" 
+         href="#importarFase" class="btn btn-success	">Importar <i class="fa fa-external-link"></i></a>
+          
+        <a href="#editFase" data-target="#editFase" data-toggle="modal" class="btn btn-primary"
+         onclick="$('#id_fase').val({{ fase.id }})">Crear <i class="fa fa-arrow-right"></i></a>
+         
+        {% elif fase.estado == 'NOI'%} 
+         <a href="#editFase" data-target="#editFase" data-toggle="modal" class="btn btn-warning"
+         onclick="editar_fase({{ fase.id }})">Editar <i class="fa fa-edit"></i></a>
 
         {% endif %}
+        {% comment %}  
         {% if fase.estado != 'FINALIZADO' %}
          <a href="{% url 'AdminFases.views.cerrar' fase.id %}" class="btn btn-danger" >Cerrar <i class="fa fa-times"></i></a></td>
         {% endif %}
+        {% endcomment %}
         </td>
 	</tr>
 	{% endfor %}
  </table>
 
 
- <a class="btn btn-success"   data-toggle="modal" data-target="#importarFase"  href="#importarFase">
-       Iniciar&nbsp;<i class="fa fa-retweet"></i></a>
+ 
    
   <!-- Modal -->
-	<div class="modal fade" id="importarFase" tabindex="-1"  style="top: 30%" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="importarFase" data-backdrop="static" data-keyboard="false"  style="top: 5%" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <button type="button" class="close"  onclick="$('#id_fase').val('')" data-dismiss="modal" aria-hidden="true">&times;</button>
 	        <h4 class="modal-title" id="myModalLabel"><b>Importar Fase</b></h4>
 	      </div>
 	      <div class="modal-body">
 	      <p>Primeros 10 resultados:</p>
-	         	<input type="text" placeholder="Buscar" class="form-control" maxlength="20">
+	         	<input type="text" placeholder="Buscar"  onkeyup="buscar(this.value)" class="form-control" maxlength="20">
 	      </div>
-	      <table class="table table-striped">
+	      <table class="table table-striped" id="table-importar">
 	      <thead>
 	      <th> Nombre</th>
 	      <th> Descripcion</th>
-		<th></th>
+		<th style="width: 20%"></th>
 	      </thead>
 	      {% for fase in lista_fases %}
+	      {% if forloop.counter > 11 %}
 	      <tr>
 	      <td>{{ fase.nombre }}</td>
 	      <td>{{ fase.descripcion }}</td>
-	      <td><a>Importar</a> </td>
+	      <td><a onclick="final('{{ fase.id }}')" class="btn btn-success btn-sm">Seleccionar <i class="fa fa-check"></i></a> </td>
 	      </tr>
+	      {% endif %}
 	      {% endfor %}
 	      </table>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="fa fa-times"></i> Close</button>
-	        <a href="/proyecto/iniciar/{{proyecto.id}}" class="btn btn-primary">Iniciar <i class="fa fa-check"></i></a>
+	        <button type="button" class="btn btn-default" onclick="$('#id_fase').val('')" data-dismiss="modal"> <i class="fa fa-times"></i> Cancelar</button>
+	        
 	      </div>
 	    </div>
 	  </div>
 	</div>
+<input type="hidden" name="id_fase" id="id_fase" value="">
+<input type="hidden" name="id_import" id="id_import" value="">
 
 
-
+ <!-- Modal -->
+	<div class="modal fade" id="editFase" data-backdrop="static" data-keyboard="false"  style="top: 5%" role="dialog" aria-labelledby="editFaseLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close"  onclick="$('#id_fase').val('')" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="editFaseLabel"><b>Fase</b></h4>
+	      </div>
+	      <div class="modal-body">
+	      <table class="table table-striped">
+	      <tr>
+	      <th>Nombre:</th>
+	      <td><label><li>Este campo es requerido</li></label>
+	      <input class="form-control" required type="text" id="id_nombre" maxlength="30" name="nombre">
+	      <span class="helptext">Maximo 30 caracteres</span></td>
+	      </tr>
+	      <tr>
+	      <th>Descripcion:</th>
+	      <td><label><li>Este campo es requerido</li></label>
+	      <textarea class="form-control" required type="text" id="id_descripcion" name="descripcion" maxlength="100" rows="3"></textarea>
+	      <span class="helptext">Maximo 100 caracteres</span>
+	      </tr>
+	      </table>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default"  data-dismiss="modal"> <i class="fa fa-times"></i> Cancelar</button>
+	        <button type="submit" class="btn btn-default btn-primary" >  Aceptar <i class="fa fa-check"></i></button>
+	        
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 </form>
 {% endblock %}

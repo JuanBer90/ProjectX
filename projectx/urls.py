@@ -57,6 +57,9 @@ urlpatterns = patterns('',
      url(r'^proyecto/misproyectos/$','AdminProyectos.views.mis_proyectos'),
      url(r'^proyecto/miproyecto/(?P<id_proyecto>\d+)/$','AdminProyectos.views.mi_proyecto'),
      url(r'^proyecto/colaboradores/(?P<id_proyecto>\d+)/$','AdminProyectos.views.colaboradores'),
+     
+     url(r'^proyecto/tipoitem/(?P<id_proyecto>\d+)/$','AdminTipoItem.views.tipoitem_proyecto'),
+     
      #url(r'^proyecto/items/(?P<id>\d+)/$', 'AdminItem.views.item_proyecto'),
      #url(r'^proyecto/relaciones/(?P<id>\d+)/$', 'AdminRelacion.views.relacion_proyecto'),
      #url(r'^proyecto/relacion_delete/(?P<id>\d+)/(?P<id_proyecto>\d+)/$', 'AdminRelacion.views.eliminarrelacion'),
@@ -79,19 +82,23 @@ urlpatterns = patterns('',
 
      #FASES
      url(r'^proyecto/fases/(?P<id_proyecto>\d+)$', 'AdminFases.views.fases_proyecto'),
+     
      url(r'^fases/crear/(?P<id_fase>\d+)/(?P<id_proyecto>\d+)$', 'AdminFases.views.fase'),
      url(r'^fases/cerrar/(?P<id>\d+)/$', 'AdminFases.views.cerrar'),
      url(r'^fases/edit/(?P<id_fase>\d+)/(?P<id_proyecto>\d+)$', 'AdminFases.views.fase'),
      url(r'^fases/import/(?P<id_fase>\d+)/$', 'AdminFases.views.importar'),
      #url(r'^fases/import/(?P<id_fase>\d+)/(?P<id_import>\d+)$', 'AdminFases.views.procesar_import'),
-     #url(r'^fases/tipoitems/(?P<id>\d+)$', 'AdminFases.views.fase_tipo_item'),
+     #==========================================================================
+     # url(r'^fases/tipoitems/(?P<id>\d+)$', 'AdminFases.views.fase_tipo_item'),
+     #==========================================================================
      #url(r'^fases/tipoitems/add/(?P<id>\d+)$', 'AdminTipoItem.views.TipoItemToFase'),
 
 
 
-#===============================================================================
-# 
-#      #TIPO ITEM
+      #TIPO ITEM
+      #=========================================================================
+      # url(r'^proyecto/tipoitem/(?P<id_proyecto>\d+)$', 'AdminFases.views.fases_proyecto'),
+      #=========================================================================
 #      url(r'^tipoitem/nuevo/$','AdminTipoItem.views.nuevoTipoItem'),
 #      url(r'^tipoitem/listar/$','AdminTipoItem.views.tipoitem'),
 #      url(r'^tipoitem/editar/(?P<id_tipoitem>\d+)/$','AdminTipoItem.views.editartipoitem'),

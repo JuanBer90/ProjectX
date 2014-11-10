@@ -24,12 +24,18 @@ def nuevo_proyecto(request):
     if request.method=='POST':
         formulario= ProyectoForm(request.POST)
         if formulario.is_valid():
-            proyecto= formulario.save()
+            proyecto= formulario.save(commit=False)
             proyecto.leader = request.user
             proyecto.estado='NOI'
             proyecto.coste_total=0
             proyecto.fecha_creacion = today()
             proyecto.save()
+            for i in range(proyecto.nro_fases):
+                fase=Fase()
+                fase.proyecto=proyecto
+                fase.numero=i+1
+                fase.estado="NOI"
+                fase.save()
             messages.success(request, 'PROYECTO CREADO CON EXITO!')
         
                         
@@ -74,11 +80,6 @@ def iniciar_proyecto(request, id_proyecto):
     proyecto.estado='INI'
     proyecto.save()
     messages.success(request,'Proyecto "'+proyecto.nombre+'" iniciado')
-    for i in range(0,proyecto.nro_fases):
-        fase=Fase()
-        fase.numero=i+1
-        fase.proyecto = proyecto
-        fase.save() 
     return HttpResponseRedirect('/proyecto/miproyecto/'+str(id_proyecto))
 
 def editar_proyecto(request, id_proyecto):
@@ -180,13 +181,13 @@ def mi_proyecto(request, id_proyecto):
     #         return HttpResponseRedirect('/sinpermiso')
     #===========================================================================
     if request.method=='POST':
-        formulario= ProyectoForm(request.POST,instance=proyecto)
+        formulario= ProyectoFormEdit(request.POST,instance=proyecto)
         if formulario.is_valid():
             proyecto= formulario.save()
             proyecto.save()
             return HttpResponseRedirect('/proyecto/miproyecto/'+str(id_proyecto))
     else:
-        formulario= ProyectoForm(instance=proyecto)
+        formulario= ProyectoFormEdit(instance=proyecto)
 
     return render_to_response('HtmlProyecto/miproyecto.html',
                 {'formulario':formulario,'proyecto':proyecto,

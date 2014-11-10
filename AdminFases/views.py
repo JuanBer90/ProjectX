@@ -14,10 +14,35 @@ from django.contrib import messages
 def fases_proyecto(request, id_proyecto):
     proyecto=Proyecto.objects.get(pk=id_proyecto)
     fases=Fase.objects.filter(proyecto_id=id_proyecto).order_by('numero')
-    lista_fases=Fase.objects.exclude(proyecto_id=id_proyecto).order_by('nombre')
+    lista_fases=Fase.objects.filter(estado='INI').exclude(proyecto_id=id_proyecto).order_by('nombre')
+    if request.method == 'POST':
+        id_import=request.POST.get('id_import','')
+        id_fase=request.POST.get('id_fase','')
+        if id_fase != "":
+            fase=Fase.objects.get(pk=id_fase)
+            if id_import != "":
+                fase_import=Fase.objects.get(pk=id_import)
+                fase.nombre=fase_import.nombre
+                fase.descripcion=fase_import.descripcion
+                fase.estado="INI"
+                messages.success(request,"Fase importada con exito!")
+            nombre=request.POST.get('nombre','')
+            descripcion=request.POST.get('descripcion','')
+            if nombre !="":
+                
+                fase.nombre=nombre
+                fase.descripcion=descripcion
+                fase.estado="INI"
+                if fase.nombre == "":
+                    messages.success(request,"Fase creada con exito!")
+                else:
+                    messages.success(request,"Fase editada con exito!")
+            fase.save()
+            
     
+        
     return render_to_response('HtmlFases/fasesproyecto.html',
-    {'fases':fases,'proyecto':proyecto,'lista_fases':lista_fases}, context_instance=RequestContext(request))
+    {'fases':fases,'proyecto':proyecto,'lista_fases':lista_fases,'ESTADOS_FASE':ESTADOS_FASE}, context_instance=RequestContext(request))
 
 def fase(request, id_fase,id_proyecto):
     fase=Fase.objects.get(pk=id_fase)
@@ -48,7 +73,7 @@ def fase(request, id_fase,id_proyecto):
 
     estados=ESTADOS_FASE
 
-    return render_to_response('HtmlFases/editfase.html',{'fase':fase,'modo':modo,'msg':msg,'estados':estados.FASE_NI,'id_proyecto':id_proyecto},context_instance=RequestContext(request))
+    return render_to_response('HtmlFases/editfase.html',{'fase':fase,'modo':modo,'msg':msg,'estados':['asdf','adsf'],'id_proyecto':id_proyecto},context_instance=RequestContext(request))
 
  
  
