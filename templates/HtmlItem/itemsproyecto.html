@@ -116,6 +116,43 @@ $('#formulario').submit()
 
 }
 
+function file(value){
+  document.getElementById('id_item_file').value=value
+  
+  {% for item in items %}
+	var item_id="{{ item.id }}";
+	
+	if (value == item_id){ 
+		
+	 $('#item-name').html('{{ item.nombre }}')
+	
+	}
+	{% endfor %}
+ 
+}
+
+function archivos(id){
+ var table=document.getElementById('archivos-list')
+ var cont=1
+ while(table.rows.length >1){ 
+ 	table.rows[1].remove() 
+ }
+ {% for item in items %}
+    var id_item="{{ item.id }}"
+	if (id_item == id){
+		var string="" 
+ 		{% for archivo in item.archivos %}
+ 			string="<td>{{archivo.nombre}}</td><td><a class='btn btn-success' target='blank_'href='/media/{{ archivo.docfile }}' >Descargar <i class='fa fa-cloud-download'></i></a></td>"
+ 			var row=table.insertRow(cont)
+ 			row.innerHTML=string
+ 			cont++;
+ 		{% endfor %}
+ 	}
+ {% endfor %}
+ 
+
+}
+ 
 </script>
 
 
@@ -133,6 +170,46 @@ $('#formulario').submit()
 <li ><a href="{% url 'AdminComite.views.ver_comite' proyecto.id %}">Comite</a></li>
 {% endcomment %}
 </ul>
+
+
+
+<form action="/proyecto/items/{{ proyecto.id }}/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="id_item_file" id="id_item_file" value="">
+            <!-- Modal -->
+	<div class="modal fade" id="fileItem" data-backdrop="static" data-keyboard="false"   style="top: 10%" role="dialog" aria-labelledby="fileLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close"  onclick="$('#id_item_file').val('')"  data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="fileLabel">Adjuntar Archivo al Item	<strong id="item-name"></strong></h4>
+	      </div>
+	      <div class="modal-body">
+	      	<table class="table table-bordered table-hover">
+	      	 <tr>
+	      	 <th>{{ file_form.nombre.label}}</th>
+	      	 <td> {{ file_form.nombre }}</td>
+	      	 </tr>
+	      	 <tr>
+	      	 <th>{{ file_form.docfile.label}}</th>
+	      	 <td> {{ file_form.docfile }}</td>
+	      	 </tr>
+               
+            </p>
+            </table>
+	      </div>
+	      <div class="modal-footer">
+	      
+	        <button type="button" class="btn btn-default" onclick="$('#id_item_file').val('')" data-dismiss="modal"> <i class="fa fa-times"></i> Cancelar</button>
+	        <button type="submit" class="btn btn-default btn-primary" >  Aceptar <i class="fa fa-check"></i></button>
+	        
+	      </div>
+	    </div>
+	  </div>
+	</div>
+           
+        </form>
+
 <center>
 <form class="navbar-form " role="search">
 <br>
@@ -173,14 +250,14 @@ $('#formulario').submit()
 
 
 <form method='post' name="form1" id="formulario">{% csrf_token %}
- <table class="table table-bordered table-condensed" style="width: 100%">
+ <table class="table table-bordered table-condensed table-striped table-hover" style="width: 100%">
     <thead>
 
         <th >Nombre</th>
         <th>Descripcion</th>
            <th>Tipo Item</th>
            <th>Estado</th>
-        <th style="width: 300px" >Accion</th>
+        <th style="width: 400px" >Accion</th>
         
     </thead>
     {% for item in items %}
@@ -191,33 +268,37 @@ $('#formulario').submit()
     	<td>{{ item.tipo_item.nombre }}   </td>
     	<td>{{ item.get_estado_display }}   </td>
     	<td>
-    	<a class="btn btn-info" data-toggle="modal" onclick="ver_item({{ item.id }})"data-target="#crearItem"  href="#crearItem" >
+    	<a class="btn btn-info btn-sm" data-toggle="modal" onclick="ver_item({{ item.id }})"data-target="#crearItem"  href="#crearItem" >
       Ver&nbsp;<i class="fa fa-eye"></i></a>
     	
     	
-    	<a class="btn btn-warning" data-toggle="modal" onclick="editar_item({{ item.id }})"data-target="#crearItem"  href="#crearItem" >
+    	<a class="btn btn-warning btn-sm" data-toggle="modal" onclick="editar_item({{ item.id }})"data-target="#crearItem"  href="#crearItem" >
       Editar&nbsp;<i class="fa fa-edit"></i></a>
       
      {% if item.estado != 'ELI' %} 
-      <a class="btn btn-danger" data-toggle="modal" onclick="eliminar_item({{ item.id }})"data-target="#deleteItem"  href="#deleteItem" >
+      <a class="btn btn-danger btn-sm" data-toggle="modal" onclick="eliminar_item({{ item.id }})"data-target="#deleteItem"  href="#deleteItem" >
       Eliminar&nbsp;<i class="fa fa-trash-o"></i></a>
       {% else %}
-       <a class="btn btn-success" data-toggle="modal" onclick="revivir_item({{ item.id }})"data-target="#revivirItem"  href="#revivirItem" >
+       <a class="btn btn-success btn-sm" data-toggle="modal" onclick="revivir_item({{ item.id }})"data-target="#revivirItem"  href="#revivirItem" >
       Revivir&nbsp;<i class="fa fa-magic"></i></a>
       {% endif %}
+       <a class="btn btn-primary btn-sm" data-toggle="modal" onclick="file('{{ item.id }}')" data-target="#fileItem"  href="#fileItem" >
+      Archivo&nbsp;<i class="fa fa-cloud-upload"></i></a>
       
-      </td>	
     
+     <a class="btn btn-success btn-sm" data-toggle="modal" onclick="archivos('{{ item.id }}')" data-target="#filesItem"  href="#filesItem" >
+      Archivos&nbsp;<i class="fa fa-file"></i></a>
+      </td>
 	</tr>
 	{% endfor %}
  </table>
 
 
  
- 
 <input type="hidden" name="id_item" id="id_item" value="">
 
 <input type="hidden" name="id_import" id="id_import" value="">
+
 
 
  <!-- Modal -->
@@ -259,6 +340,7 @@ $('#formulario').submit()
 <form method="post">{% csrf_token %}
 <input type="hidden" name="id_delete" id="id_delete" value="">
 <input type="hidden" name="id_revive" id="id_revive" value="">
+<input type="hidden"  id="id_lista_archivos" value="">
  <!-- Modal -->
 	<div class="modal fade" id="deleteItem" data-backdrop="static" data-keyboard="false"   style="top: 10%" role="dialog" aria-labelledby="deleteTipoLabel" aria-hidden="true">
 	  <div class="modal-dialog">
@@ -300,8 +382,41 @@ $('#formulario').submit()
 	    </div>
 	  </div>
 	</div>
+	
+	
+	<!-- Modal -->
+	<div class="modal fade" id="filesItem" data-backdrop="static" data-keyboard="false"   style="top: 10%" role="dialog" aria-labelledby="filesLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close"  onclick="$('#id_lista_archivos').val('')"  data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="filesLabel"><b>Archivos Item <strong id="item-name-files"></strong></b></h4>
+	      </div>
+	      <div class="modal-body">
+	      	<table class="table table-bordered table-hover table-striped" id="archivos-list">
+	      	<thead>
+	      	<th>Nombre</th><th style="width: 200px">Accion</th>
+	      	</thead>
+	      	
+	      	</table>
+	      </div>
+	      <div class="modal-footer">
+	      
+	        
+	        <button type="button" class="btn btn-default  btn-primary" onclick="$('#id_lista_archivos').val('')" data-dismiss="modal" >  Salir <i class="fa fa-check"></i></button>
+	        
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	
 
 </form>
 <br><br>
+
+
+
 
 {% endblock %}

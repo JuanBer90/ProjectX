@@ -1,6 +1,6 @@
 from django import forms
-from django.forms.widgets import TextInput,NumberInput
-from AdminItems.models import Item
+from django.forms.widgets import TextInput,NumberInput,FileInput
+from AdminItems.models import Item, Document
 
 
 
@@ -30,3 +30,17 @@ class ItemForm(forms.ModelForm):
             objeto.save()
         return objeto
 
+
+class UploadFileForm(forms.Form):
+    nombre = forms.CharField(widget=TextInput(attrs={'class': 'form-control'}),max_length=50)
+    docfile = forms.FileField(widget=FileInput(attrs={'class':'form-control'}))
+    
+class DocumentForm(forms.Form):
+    class Meta:
+        model = Document
+    docfile = forms.FileField(widget=FileInput(attrs={'class': 'form-control'}),
+        label='Select a file',
+        help_text='max. 42 megabytes'
+    )
+    nombre = forms.CharField(widget=TextInput(attrs={'class': 'form-control'}),max_length=50)
+    
