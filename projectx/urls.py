@@ -10,13 +10,11 @@ from django.views.generic import TemplateView
 from dajaxice.core.Dajaxice import dajaxice_autodiscover
 from dajaxice.core import dajaxice_config
 
-from django.conf.urls.static import static
-from django.conf import settings    
 dajaxice_autodiscover()
 urlpatterns = patterns('',
     # Examples:
     #url(r'^$', 'demo_project.views.home', name='home'),
-    url(r'^list/$', 'AdminItems.views.list', name='list'),
+    
     url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     url(r'^$', 'AdminUsuarios.views.ingresar', name='home'),
     url(r'^admin$', include(admin.admin.site.urls)),
@@ -169,8 +167,7 @@ urlpatterns = patterns('',
 
 
 
-)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+)
 
 
 

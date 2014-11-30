@@ -102,13 +102,13 @@ var cont=1
         {% if fase.nombre == None and fase.estado == 'NOI' %}
         
         <a data-toggle="modal" onclick="$('#id_fase').val({{ fase.id }})" data-target="#importarFase" 
-         href="#importarFase" class="btn btn-success btn-sm	">Importar <i class="fa fa-external-link"></i></a>
+         href="#importarFase" class="btn btn-success	">Importar <i class="fa fa-external-link"></i></a>
           
-        <a href="#editFase" data-target="#editFase" data-toggle="modal" class="btn btn-primary btn-sm"
+        <a href="#editFase" data-target="#editFase" data-toggle="modal" class="btn btn-primary"
          onclick="$('#id_fase').val({{ fase.id }})">Crear <i class="fa fa-arrow-right"></i></a>
          
         {% elif fase.estado == 'INI'%} 
-         <a href="#editFase" data-target="#editFase" data-toggle="modal" class="btn btn-warning btn-sm"
+         <a href="#editFase" data-target="#editFase" data-toggle="modal" class="btn btn-warning"
          onclick="editar_fase({{ fase.id }})">Editar <i class="fa fa-edit"></i></a>
 
         {% endif %}

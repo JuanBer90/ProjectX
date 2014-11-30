@@ -6,12 +6,10 @@ from AdminProyectos.models import Proyecto
 from AdminTipoItem.forms import TipoItemForm
 from django.contrib import messages
 from string import upper
-from AdminItems.models import Item, HistorialItem, Document
-from AdminItems.forms import ItemForm, UploadFileForm, DocumentForm
+from AdminItems.models import Item, HistorialItem
+from AdminItems.forms import ItemForm
 from django.views.generic.dates import timezone_today
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http.response import HttpResponseRedirect
-from django.core.urlresolvers import reverse
 
 # Create your views here.
 #===============================================================================
@@ -21,24 +19,7 @@ def items_proyecto(request,id_proyecto):
      
      proyecto=Proyecto.objects.get(pk=id_proyecto)
      form=ItemForm()
-     file_form = DocumentForm() # A empty, unbound form
      if request.method == 'POST':
-         print request.POST.get('file','')
-         for a in request.POST:
-             print a
-     if request.method == 'POST':
-         item_file=request.POST.get('id_item_file','')
-         
-         form = DocumentForm(request.POST, request.FILES)
-         if form.is_valid():
-            newdoc = Document(docfile = request.FILES['docfile'])
-            print item_file,"   item file"
-            if item_file != "":
-               newdoc.item_id=item_file
-               newdoc.nombre=request.POST.get('nombre','')
-               newdoc.save()
-               messages.success(request,"Archivo Adjuntado Exitosamente!")
-
          nombre=request.POST.get('nombre','')
          descripcion=request.POST.get('descripcion','')
          prioridad=request.POST.get('prioridad','')
@@ -124,11 +105,10 @@ def items_proyecto(request,id_proyecto):
      except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         items = paginator.page(paginator.num_pages)
-     for item in items:
-         item.archivos=Document.objects.filter(item_id=item.pk)
+
      return render_to_response('HtmlItem/itemsproyecto.html',
-    {'tipo_items':tipoitems,'proyecto':proyecto,'fases':fases,'items':items,'total':items_list.count(),
-        'file_form':file_form,'form':form,'page_range':paginator.page_range,'page':int(page),'buscar':buscar,'placeholder':'Nombre'},
+                               {'tipo_items':tipoitems,'proyecto':proyecto,'fases':fases,'items':items,'total':items_list.count(),
+                                'form':form,'page_range':paginator.page_range,'page':int(page),'buscar':buscar,'placeholder':'Nombre'},
                               context_instance=RequestContext(request))
 
 def save_historial(tipo,id_usuario,id_item):
@@ -138,27 +118,3 @@ def save_historial(tipo,id_usuario,id_item):
     h.user_id=id_usuario
     h.item_id=id_item
     h.save()
-    
-
-def list(request):
-    # Handle file upload
-    if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            newdoc = Document(docfile = request.FILES['docfile'])
-            newdoc.save()
-
-            # Redirect to the document list after POST
-            
-    else:
-        form = DocumentForm() # A empty, unbound form
-
-    # Load documents for the list page
-    documents = Document.objects.all()
-
-    # Render list page with the documents and the form
-    return render_to_response(
-        'HtmlItem/list.html',
-        {'documents': documents, 'form': form},
-        context_instance=RequestContext(request)
-    )

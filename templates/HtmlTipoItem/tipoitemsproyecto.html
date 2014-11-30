@@ -4,7 +4,6 @@
 
 <script src="/static/dajaxice/dajaxice.core.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript"     src="/static/dajax/jquery.dajax.core.js"></script>
-
 {% endblock %}
 {% block header %}
 {{ proyecto.nombre }}
@@ -104,7 +103,7 @@ var cont=1
 <td style="width: 25%">
 <select name="filtro-fase" class="form-control" style="width: 200px" >
 <option value="">Todos...</option>
-{% for fase in fases_filtro %}
+{% for fase in fases %}
 	      <option value="{{ fase.id }}">{{fase.nombre}}</option>
 	      {% endfor %}
 </select>
@@ -118,7 +117,7 @@ var cont=1
  </form>
 </table>
 <form method='post' name="form1" id="formulario">{% csrf_token %}
- <table class="table table-bordered table-condensed table-striped table-hover" >
+ <table class="table table-bordered table-condensed" >
     <thead>
 
         <th >Nombre</th>
@@ -134,10 +133,10 @@ var cont=1
     	<td>{{ tipo.descripcion }}   </td>
     	<td>{{ tipo.fase.nombre }}   </td>
     	<td>
-    	<a class="btn btn-warning btn-sm" data-toggle="modal" onclick="editar_tipo({{ tipo.id }})"data-target="#crearTipo"  href="#crearTipo" >
+    	<a class="btn btn-warning" data-toggle="modal" onclick="editar_tipo({{ tipo.id }})"data-target="#crearTipo"  href="#crearTipo" >
       Editar&nbsp;<i class="fa fa-edit"></i></a>
       
-      <a class="btn btn-danger btn-sm" data-toggle="modal" onclick="eliminar_tipo({{ tipo.id }})"data-target="#deleteTipo"  href="#deleteTipo" >
+      <a class="btn btn-danger" data-toggle="modal" onclick="eliminar_tipo({{ tipo.id }})"data-target="#deleteTipo"  href="#deleteTipo" >
       Eliminar&nbsp;<i class="fa fa-trash-o"></i></a>
       
       </td>	

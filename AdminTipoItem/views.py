@@ -12,7 +12,6 @@ from string import upper
 def tipoitem_proyecto(request,id_proyecto):
      tipoitems=TipoItem.objects.filter(fase__proyecto_id=id_proyecto)
      fases=Fase.objects.filter(proyecto_id=id_proyecto,estado='INI')
-     fases_filtro=Fase.objects.filter(proyecto_id=id_proyecto).exclude(nombre=None)
      proyecto=Proyecto.objects.get(pk=id_proyecto)
      form=TipoItemForm()
      if request.method == 'POST':
@@ -47,5 +46,5 @@ def tipoitem_proyecto(request,id_proyecto):
          
      
      return render_to_response('HtmlTipoItem/tipoitemsproyecto.html',
-                               {'tipo_items':tipoitems,'proyecto':proyecto,'fases_filtro':fases_filtro,'fases':fases,'form':form},
+                               {'tipo_items':tipoitems,'proyecto':proyecto,'fases':fases,'form':form},
                               context_instance=RequestContext(request))
