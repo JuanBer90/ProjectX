@@ -10,11 +10,13 @@ from django.views.generic import TemplateView
 from dajaxice.core.Dajaxice import dajaxice_autodiscover
 from dajaxice.core import dajaxice_config
 
+from django.conf.urls.static import static
+from django.conf import settings    
 dajaxice_autodiscover()
 urlpatterns = patterns('',
     # Examples:
     #url(r'^$', 'demo_project.views.home', name='home'),
-    
+    url(r'^list/$', 'AdminItems.views.list', name='list'),
     url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     url(r'^$', 'AdminUsuarios.views.ingresar', name='home'),
     url(r'^admin$', include(admin.admin.site.urls)),
@@ -88,6 +90,9 @@ urlpatterns = patterns('',
      url(r'^fases/cerrar/(?P<id>\d+)/$', 'AdminFases.views.cerrar'),
      url(r'^fases/edit/(?P<id_fase>\d+)/(?P<id_proyecto>\d+)$', 'AdminFases.views.fase'),
      url(r'^fases/import/(?P<id_fase>\d+)/$', 'AdminFases.views.importar'),
+     
+     
+     url(r'^proyecto/atributos/(?P<id_proyecto>\d+)/$', 'AdminAtributos.views.atributo_admin'),
      #url(r'^fases/import/(?P<id_fase>\d+)/(?P<id_import>\d+)$', 'AdminFases.views.procesar_import'),
      #==========================================================================
      # url(r'^fases/tipoitems/(?P<id>\d+)$', 'AdminFases.views.fase_tipo_item'),
@@ -167,7 +172,8 @@ urlpatterns = patterns('',
 
 
 
-)
+)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 
 

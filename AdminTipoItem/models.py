@@ -8,3 +8,6 @@ class TipoItem(models.Model):
     nombre = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=300)
     fase=models.ForeignKey(Fase)
+    
+    def __unicode__(self):
+        return self.nombre

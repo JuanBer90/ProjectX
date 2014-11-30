@@ -21,6 +21,8 @@ class Item(models.Model):
     costo=models.IntegerField(null=True)#
     complejidad = models.IntegerField(null=True)#
     
+    archivos=[]
+    
     #archivo
     
 
@@ -32,4 +34,10 @@ class HistorialItem(models.Model):
     fecha_modificacion=models.DateField()
     user=models.ForeignKey(User)
     item=models.ForeignKey(Item)
-
+    
+class Document(models.Model):
+    class Meta:
+        db_table="file"
+    item=models.ForeignKey(Item)
+    nombre=models.CharField(max_length=50,)
+    docfile = models.FileField(upload_to='documents')

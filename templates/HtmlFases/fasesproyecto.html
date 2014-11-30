@@ -62,6 +62,7 @@ var cont=1
   <li class="active"><a href="{% url 'AdminFases.views.fases_proyecto' proyecto.id %}">Fases</a></li>
   <li ><a href="{% url 'AdminTipoItem.views.tipoitem_proyecto' proyecto.id %}">Tipos Item</a></li>
   <li><a href="{% url 'AdminItems.views.items_proyecto' proyecto.id %}">Items</a></li>
+  <li ><a href="{% url 'AdminAtributos.views.atributo_admin' proyecto.id %}">Atributos</a></li>
     {% comment %}  
     <li ><a href="{% url 'AdminProyectos.views.colaboradores' proyecto.id %}" >Colaboradores</a></li>
    <li ><a href="{% url 'AdminRoles.views.roles' proyecto.id %}">Roles</a></li>
@@ -102,13 +103,13 @@ var cont=1
         {% if fase.nombre == None and fase.estado == 'NOI' %}
         
         <a data-toggle="modal" onclick="$('#id_fase').val({{ fase.id }})" data-target="#importarFase" 
-         href="#importarFase" class="btn btn-success	">Importar <i class="fa fa-external-link"></i></a>
+         href="#importarFase" class="btn btn-success btn-sm	">Importar <i class="fa fa-external-link"></i></a>
           
-        <a href="#editFase" data-target="#editFase" data-toggle="modal" class="btn btn-primary"
+        <a href="#editFase" data-target="#editFase" data-toggle="modal" class="btn btn-primary btn-sm"
          onclick="$('#id_fase').val({{ fase.id }})">Crear <i class="fa fa-arrow-right"></i></a>
          
         {% elif fase.estado == 'INI'%} 
-         <a href="#editFase" data-target="#editFase" data-toggle="modal" class="btn btn-warning"
+         <a href="#editFase" data-target="#editFase" data-toggle="modal" class="btn btn-warning btn-sm"
          onclick="editar_fase({{ fase.id }})">Editar <i class="fa fa-edit"></i></a>
 
         {% endif %}

@@ -12,3 +12,8 @@ register=template.Library()
 @register.filter
 def mis_proyectos(id_user):
     return Proyecto.objects.filter(leader_id=id_user)
+
+@register.filter
+def to_str(valor):
+    print str(valor)
+    return str(valor) 
