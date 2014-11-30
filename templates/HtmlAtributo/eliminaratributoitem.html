@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block titulo %}Eliminar Atributo Item{% endblock %}
+{% block encabezado %} 
+
+{% endblock %}
+{% block content %}
+    <br>
+    <center><h1>Eliminar Atributo Item</h1></center>
+    <br><br>
+    <center>
+    <p>Esta seguro que desea eliminar el atributo {{ atributos_por_item.codigo }}<p>
+        </center>
+    <center>
+
+	<form  method='post' action=''>{% csrf_token %}
+
+
+		<input class="btn btn-info" type='submit' name="delete" value='si'/>
+        <input class="btn btn-info" type='submit' name="delete" value='no'/>
+	</form>
+    </center>
+{% endblock %}
