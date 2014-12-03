@@ -63,6 +63,10 @@ urlpatterns = patterns('',
      url(r'^proyecto/tipoitem/(?P<id_proyecto>\d+)/$','AdminTipoItem.views.tipoitem_proyecto'),
      url(r'^proyecto/items/(?P<id_proyecto>\d+)/$','AdminItems.views.items_proyecto'),
      
+     url(r'^proyecto/miembros/(?P<id_proyecto>\d+)/$','AdminUsuarios.views.miembros'),
+     
+     
+     url(r'^proyecto/relacion/(?P<id_proyecto>\d+)/$','AdminItems.views.relaciones_item'),
      #url(r'^proyecto/items/(?P<id>\d+)/$', 'AdminItem.views.item_proyecto'),
      #url(r'^proyecto/relaciones/(?P<id>\d+)/$', 'AdminRelacion.views.relacion_proyecto'),
      #url(r'^proyecto/relacion_delete/(?P<id>\d+)/(?P<id_proyecto>\d+)/$', 'AdminRelacion.views.eliminarrelacion'),

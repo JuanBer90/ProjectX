@@ -6,12 +6,15 @@ from AdminProyectos.models import Proyecto
 from AdminTipoItem.forms import TipoItemForm
 from django.contrib import messages
 from string import upper
-from AdminItems.models import Item, HistorialItem, Document
+from AdminItems.models import *
 from AdminItems.forms import ItemForm, UploadFileForm, DocumentForm
 from django.views.generic.dates import timezone_today
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http.response import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.db.models import Q
+from projectx.grafo import Grafo
+from projectx.globales import *
 
 # Create your views here.
 #===============================================================================
@@ -164,3 +167,94 @@ def list(request):
         {'documents': documents, 'form': form},
         context_instance=RequestContext(request)
     )
+ 
+ 
+ 
+ 
+ # Create your views here.
+#===============================================================================
+def relaciones_item(request,id_proyecto):
+     tipoitems=TipoItem.objects.filter(fase__proyecto_id=id_proyecto)
+     items=Item.objects.filter(tipo_item__fase__proyecto_id=id_proyecto)
+     proyecto=Proyecto.objects.get(pk=id_proyecto)
+     buscar=''
+     filtro_tipo_id=""
+     
+     lista_relaciones=Relacion.objects.all()
+     items_relaciones=Item.objects.raw('''select distinct i.* from item i
+        join relacion r on r.item1_id=i.id or r.item2_id=i.id
+        join tipo_item ti on ti.id=i.tipo_item_id
+        join fase f on f.id=ti.fase_id
+        join proyecto p on p.id=f.proyecto_id
+        where p.id='''+str(id_proyecto))
+     
+     aristas=execute_query('''select distinct r.item1_id,r.item2_id from relacion r 
+        join item i on r.item1_id=i.id or r.item2_id=i.id
+        join tipo_item ti on ti.id=i.tipo_item_id
+        join fase f on f.id=ti.fase_id
+        join proyecto p on p.id=f.proyecto_id
+        where p.id='''+str(id_proyecto))
+     
+     
+     if request.method == 'GET':
+        buscar=request.GET.get('buscar','')
+        filtro_tipo_id=request.GET.get('filtro-tipo','')
+        
+     if request.method == 'POST':
+        
+        item1=request.POST.get('item1','')
+        item2=request.POST.get('item2','')
+        descripcion=request.POST.get('descripcion','')
+        id_relacion=request.POST.get('id_relacion','')
+        print id_relacion, '   ID RELACION    '
+        if item1 == '' or item2 == '' or descripcion == '' :
+            messages.error(request, "Error al recuperar datos")
+            print item1,item2,descripcion
+        else:
+            if id_relacion == '':
+                relacion=Relacion()
+                messages.success(request, "Relacion Creada con exito!")
+            else:
+                relacion=Relacion.objects.get(pk=id_relacion)
+                messages.success(request, "Relacion Modificada con exito!")
+            relacion.item1_id=item1
+            relacion.item2_id=item2
+            relacion.tipo=request.POST.get('tipo','')
+            relacion.descripcion=descripcion
+            relacion.save()
+        id_delete=request.POST.get('id_relacion_delete','')
+        if id_delete != "":
+            Relacion.objects.get(pk=id_delete).delete()
+            messages.success(request,"Relacion eliminada correctamente!")
+            
+            
+        
+        filtro_tipo_id=request.GET.get('filtro-tipo','')
+     
+     if filtro_tipo_id != "":
+         
+         #object_list = Relacion.objects.filter(descripcion__icontains=buscar,Q(item2__tipo_item__fase__proyecto_id=id_proyecto)|Q(item2__tipo_item__fase__proyecto_id=id_proyecto))
+         object_list=Relacion.objects.filter(Q(item1__nombre__icontains=buscar)|Q(item2__nombre__icontains=buscar),tipo=filtro_tipo_id)
+     else:
+         object_list=Relacion.objects.filter(Q(item1__nombre__icontains=buscar)|Q(item2__nombre__icontains=buscar))
+         #object_list = Relacion.objects.filter(descripcion__icontains=buscar,Q(item2__tipo_item__fase__proyecto_id=id_proyecto)|Q(item2__tipo_item__fase__proyecto_id=id_proyecto))
+     paginator = Paginator(object_list, 10) # Show 25 contacts per page
+
+     page = request.GET.get('page','')
+     try:
+        page=int(page)
+     except:
+         page=1    
+     try:
+         relaciones = paginator.page(page)
+     except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+         relaciones = paginator.page(1)
+     except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        relaciones = paginator.page(paginator.num_pages)
+
+     return render_to_response('HtmlItem/relaciones.html',
+    {'tipo_items':tipoitems,'proyecto':proyecto,'items':items,'relaciones':relaciones,'total':object_list.count(),
+        'page_range':paginator.page_range,'page':int(page),'buscar':buscar,'placeholder':'Nombre del Item','tipo_relacion':TIPO_RELACION},
+                              context_instance=RequestContext(request))

@@ -15,6 +15,7 @@ from django.core.urlresolvers import reverse
 from AdminAtributos.models import Atributo, TIPO_CHOICES
 from AdminAtributos.forms import AtributoForm
 
+
 # Create your views here.
 #===============================================================================
 def atributo_admin(request,id_proyecto):
@@ -65,7 +66,7 @@ def atributo_admin(request,id_proyecto):
                  #   newdoc.nombre=request.POST.get('nombre_archivo','')
                  #   newdoc.save()
                  #==============================================================
-                 atributo.archivo=request.FILES['archivo']
+                 atributo.archivo=request.FILES.get('archivo','')
                      
              atributo.tipo=tipo
              atributo.nombre=request.POST.get('nombre','')

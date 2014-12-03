@@ -23,7 +23,17 @@ class Item(models.Model):
     
     archivos=[]
     
-    #archivo
+    def __unicode__(self):
+        return self.nombre
+    
+TIPO_RELACION=(('A/S','ANTECESOR/SUCESOR'),('P/H','PADRE/HIJO'))
+class Relacion(models.Model):
+    class Meta:
+        db_table="relacion"
+    item1=models.ForeignKey(Item,related_name="item_1")
+    item2=models.ForeignKey(Item)
+    tipo=models.CharField(max_length=5,choices=TIPO_RELACION)
+    descripcion=models.CharField(max_length=200,null=True)
     
 
 TIPO_MODIFICACION=(('ADD','CREADO'),('EDIT','MODIFICADO'),('DEL','ELIMINADO'),('FIN','FINALIZADO'))

@@ -8,7 +8,7 @@
 {% block header %}
 {{ proyecto.nombre }}
 {% endblock %}
-<body onload="abrir()">
+
 {% block content %}
 <script>
 function editar_fase(id_fase){
@@ -24,7 +24,7 @@ var fase_id="{{ fase.id }}"
 
 }
 function final(id){ 
-$('#id_import').val(id)
+$('#id_import').val(id.toString())
 $('#formulario').submit()
 
 }
@@ -63,6 +63,8 @@ var cont=1
   <li ><a href="{% url 'AdminTipoItem.views.tipoitem_proyecto' proyecto.id %}">Tipos Item</a></li>
   <li><a href="{% url 'AdminItems.views.items_proyecto' proyecto.id %}">Items</a></li>
   <li ><a href="{% url 'AdminAtributos.views.atributo_admin' proyecto.id %}">Atributos</a></li>
+  <li ><a href="{% url 'AdminItems.views.relaciones_item' proyecto.id %}">Relaciones</a></li>
+  <li  ><a href="{% url 'AdminUsuarios.views.miembros' proyecto.id %}">Miembros</a></li>
     {% comment %}  
     <li ><a href="{% url 'AdminProyectos.views.colaboradores' proyecto.id %}" >Colaboradores</a></li>
    <li ><a href="{% url 'AdminRoles.views.roles' proyecto.id %}">Roles</a></li>

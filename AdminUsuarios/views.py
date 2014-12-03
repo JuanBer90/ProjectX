@@ -9,7 +9,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
 from AdminUsuarios.forms import RegistrationForm, EditUserForm, SinginForm
 from django.contrib import messages
-
+from AdminProyectos.models import Proyecto
+from AdminUsuarios.models import Miembro
 
 
 def nuevo_usuario(request):
@@ -66,7 +67,7 @@ def ingresar(request):
     Login al Sistema
     """
     if not request.user.is_anonymous():
-        return HttpResponseRedirect('/ingresar')
+        return HttpResponseRedirect('/home')
     msg=''
     if request.method == 'POST':
         formulario = SinginForm(request.POST)
@@ -137,3 +138,46 @@ def desactivar_usuario(request,id_user):
     usuario.save()
     return HttpResponseRedirect('/usuarios')
 
+
+def miembros(request,id_proyecto):
+    proyecto=Proyecto.objects.get(pk=id_proyecto)
+    buscar=''
+    if request.method == 'GET':
+        buscar=request.GET.get('buscar','')
+    usuarios_list = Miembro.objects.filter(Q(usuario__username__icontains=buscar)|Q(usuario__first_name__icontains=buscar),proyecto_id=id_proyecto)
+    paginator = Paginator(usuarios_list, 10) # Show 25 contacts per page
+    no_miembros=Miembro.objects.raw('''select * from auth_user EXCEPT select u.* from miembros m 
+        join auth_user u on u.id=m.usuario_id where m.proyecto_id='''+str(id_proyecto))
+    
+    if request.method == 'POST':
+        id_usuario= request.POST.get('id_miembro','')
+        id_user_delete=request.POST.get('id_miembro_delete','')
+        if id_usuario != '':
+            miembro=Miembro()
+            miembro.usuario_id=id_usuario
+            miembro.proyecto_id=id_proyecto
+            miembro.save()
+            messages.success(request,"Usuario agregado satisfactoriamente!")
+        if id_user_delete != '':
+            Miembro.objects.get(pk=id_user_delete).delete()
+            messages.success(request,"Usuario Eliminado satisfactoriamente!")
+    
+    page = request.GET.get('page','')
+    try:
+        page=int(page)
+    except:
+        page=1    
+    try:
+        usuarios = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        usuarios = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        usuarios = paginator.page(paginator.num_pages)
+
+    return render_to_response('HtmlUsuarios/miembrosproyecto.html',
+                {'objetos':usuarios,'page_range':paginator.page_range,'total':usuarios_list.count(),
+                 'page':int(page),'no_miembros':no_miembros,'proyecto':proyecto,'buscar':buscar,'placeholder':'Username o Nombre'
+                                                                #'roles':roles
+                                                                }, RequestContext(request))

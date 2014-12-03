@@ -83,13 +83,10 @@ var cont=1
   <li class="active"><a href="{% url 'AdminTipoItem.views.tipoitem_proyecto' proyecto.id %}">Tipos Item</a></li>
   <li ><a href="{% url 'AdminItems.views.items_proyecto' proyecto.id %}">Items</a></li>
   <li ><a href="{% url 'AdminAtributos.views.atributo_admin' proyecto.id %}">Atributos</a></li>
-    {% comment %}  
-    <li ><a href="{% url 'AdminProyectos.views.colaboradores' proyecto.id %}" >Colaboradores</a></li>
-   <li ><a href="{% url 'AdminRoles.views.roles' proyecto.id %}">Roles</a></li>
-<li><a href="{% url 'AdminItem.views.item_proyecto' proyecto.id %}">Items</a></li>
-<li ><a href="{% url 'AdminRelacion.views.relacion_proyecto' proyecto.id %}">Relaciones</a></li>
-<li ><a href="{% url 'AdminComite.views.ver_comite' proyecto.id %}">Comite</a></li>
-{% endcomment %}
+  <li ><a href="{% url 'AdminItems.views.relaciones_item' proyecto.id %}">Relaciones</a></li>
+    <li ><a href="{% url 'AdminUsuarios.views.miembros' proyecto.id %}">Miembros <i class="fa fa-users"></i></a></li>
+    
+   
 </ul>
 
 

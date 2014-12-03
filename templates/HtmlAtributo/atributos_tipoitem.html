@@ -22,6 +22,15 @@
 }
 </style>
 <script>
+
+
+
+$( document ).ready(function() {
+    $("#id_fecha").val("")
+    
+    
+    
+});
 fecha_var='{{ form.fecha|to_str }}'
 function select_tipo(element){ 
     var tipo=element.options[element.selectedIndex].text
@@ -32,23 +41,14 @@ function select_tipo(element){
     			trs[i].style.display="block"
     		}else{ 
     			trs[i].style.display="none"
-    		}
-    
+    		}   
     }
-    
 }
+
 function crear_atributo(){ 
 $('#id_accion').val('add')
-remove_readonly()
-clear_all()
 }
-function del_requires(){ 
-	var elements=document.getElementsByClassName("form-control")
-	for(var i=0;i<elements.length;i++){  
-		elements[i].required=false	
-	}
 
-}
 function cancel_delete(){ 
 $("#id_delete").val("")
 $("#id_accion").val("")
@@ -80,7 +80,9 @@ function editar_atributo(id_atributo){
  		}
 	}
 	var select2=document.getElementById('id_tipo_atributo')
+	
 	for(var i=0;i<select2.options.length;i++){
+		
 		if(select2.options[i].value==tipo_attr)
 			select2.options[i].selected="selected"
 	
@@ -95,48 +97,19 @@ function editar_atributo(id_atributo){
 	
 	}
 }
-function salir_ver(){ 
-	$("#id_ver").val("")
-	$('#btn-controls').attr("style","display: block")
-	$('#btn-ver').attr("style","display: none")
-	$('#btn-times').attr("style","display: block")
-	$('#btn-times-ver').attr("style","display: none")	
 
-}
 function getTipoValue(id_atributo){
-var ver=$('#id_ver').val()
-	
-if(ver!=""){ 
-	$('#tipo-select').attr("readOnly","readOnly")
-	$('#id_nombre').attr("readOnly","readOnly")
-	$('#id_tipo_atributo').attr("readOnly","readOnly")
-	$('#id_descripcion').attr("readOnly","readOnly")
-	$('#btn-controls').attr("style","display: none")
-	$('#btn-ver').attr("style","display: block")
-	$('#btn-times').attr("style","display: none")
-	$('#btn-times-ver').attr("style","display: block")
-	$('#id_archivo').attr("readOnly","readOnly")
-	$('#id_cadena').attr("readOnly","readOnly")
-	$('#id_fecha').attr("readOnly","readOnly")
-	$('#id_numerico').attr("readOnly","readOnly")
-	$('#id_cadena').attr("readOnly","readOnly")
-	$('#id_hora').attr("readOnly","readOnly")
-	$('#id_logico').attr("readOnly","readOnly")
-}else{ 
-	remove_readonly()
-}
-	
-	
-
 	 
 {% for atributo in atributos %}
 	var atributo_id={{atributo.id}}
 	
 	if (atributo_id == id_atributo){  
+		
 		switch("{{atributo.tipo}}") {
 		    case "A":
-		        $('#id_archivo').val("{{ atributo.archivo }}")
-		        alert("{{ atributo.archivo }}")
+		    	
+		    	$("#link").html('<a href="/media/{{ atributo.archivo}}">/{{ atributo.archivo }}</a>')
+		        //$('#id_archivo').val("{{ atributo.archivo }}")
 		        break;
 		    case "C":
 		        $('#id_cadena').val("{{ atributo.cadena }}")
@@ -154,48 +127,62 @@ if(ver!=""){
 		    case "H":
 		        $('#id_hora').val("{{ atributo.hora }}")		         
 		        break;
-		    
+			  
 		}
+		
+		return "{{atributo.tipo}}"  
 	}
 
 {% endfor %}
 }
-function remove_readonly(){ 
-	$('#id_archivo').removeAttr("readOnly")
-	$('#id_cadena').removeAttr("readOnly")
-	$('#id_fecha').removeAttr("readOnly")
-	$('#id_numerico').removeAttr("readOnly")
-	$('#id_cadena').removeAttr("readOnly")
-	$('#id_hora').removeAttr("readOnly")
-	$('#id_logico').removeAttr("readOnly")
-	$('#id_tipo_atributo').removeAttr("readOnly")
-	$('#id_nombre').removeAttr('readonly')
-	$('#id_descripcion').removeAttr('readonly')
-	$('#tipo-select').removeAttr('readonly')
-
-
-}
-function clear_all(){ 
-	$('#id_archivo').val("")
-	$('#id_cadena').val("")
-	$('#id_fecha').val("")
-	$('#id_numerico').val("")
-	$('#id_cadena').val("")
-	$('#id_hora').val("")
-	$('#id_logico').val("")
-	$('#id_tipo_atributo')[0].selectedIndex = -1;
-	$('#id_nombre').val("")
-	$('#id_descripcion').val("")
-	$('#tipo-select').val("")
-}
 
 function ver_atributo(id_atributo){
-	$('#id_ver').val(id_atributo)
-	editar_atributo(id_atributo)
-	
+	{% for atributo in atributos %}
+	var atributo_id="{{ atributo.id }}"
+		if (atributo_id == id_atributo){ 
+			$('#ver_nombre').val('{{atributo.nombre}}')
+			$('#ver_descripcion').val('{{atributo.descripcion}}')
+			$('#ver_tipo_item').val('{{atributo.tipo_item.nombre}}')
+			$('#ver_tipo_atributo').val('{{atributo.get_tipo_display}}')
+			$('#ver_descripcion').val('{{atributo.descripcion}}')
+			
+			var tipo=getTipoValue({{ atributo.id }})
+
+			switch(tipo) {
+		    case "A":
+		    	$("#ver_valor").val("{{ atributo.archivo }}")
+		    	
+		        break;
+		    case "C":
+		        $('#ver_valor').val("{{ atributo.cadena }}")
+		        break;
+		    case "F":
+		        $('#ver_valor').val("{{ atributo.fecha }}")	   
+		        break;
+		    case "N":
+		        $('#ver_valor').val("{{ atributo.numerico }}")
+		        break;
+		    case "L":
+		        $('#ver_valor').val("{{ atributo.logico }}")
+		        break;
+		    case "H":
+		        $('#ver_valor').val("{{ atributo.hora }}")
+		        break;
+			
+		}
+			
+			
+			
+		}
+	{% endfor %}
+
+
+
+
+
 }
 function eliminar_atributo(id_atributo){
-
+   
 	{% for atributo in atributos %}
 	var atributo_id="{{ atributo.id }}"
 	
@@ -207,10 +194,14 @@ function eliminar_atributo(id_atributo){
 	}
 	{% endfor %}
 }
+function final(){ 
+	$("#id_nombre").removeAttr("required")
+	$("#id_descripcion").removeAttr("required")
+	
+}
 
  
 </script>
-
 
 
 <ul class="nav nav-tabs">
@@ -219,7 +210,8 @@ function eliminar_atributo(id_atributo){
   <li ><a href="{% url 'AdminTipoItem.views.tipoitem_proyecto' proyecto.id %}">Tipos Item</a></li>
   <li ><a href="{% url 'AdminItems.views.items_proyecto' proyecto.id %}">Items</a></li>
   <li class="active"><a href="{% url 'AdminAtributos.views.atributo_admin' proyecto.id %}">Atributos</a></li>
-  
+  <li ><a href="{% url 'AdminItems.views.relaciones_item' proyecto.id %}">Relaciones</a></li>
+  <li ><a href="{% url 'AdminUsuarios.views.miembros' proyecto.id %}">Miembros</a></li>
    
 </ul>
 
@@ -271,7 +263,7 @@ function eliminar_atributo(id_atributo){
         <th >Nombre</th>
         <th>Tipo Atributo</th>
         <th>Descripcion</th>
-           <th>Tipo Item</th>
+         <th>Tipo Item</th>
        
         <th style="width: 400px" >Accion</th>
         
@@ -285,7 +277,7 @@ function eliminar_atributo(id_atributo){
     	<td>{{ atributo.tipo_item.nombre }}   </td>
     	
     	<td>
-    	<a class="btn btn-info btn-sm" data-toggle="modal" onclick="ver_atributo({{ atributo.id }})"data-target="#crearAtributo"  href="#crearAtributo	" >
+    	<a class="btn btn-info btn-sm" data-toggle="modal" onclick="ver_atributo({{ atributo.id }})"data-target="#verAtributo"  href="#verAtributo" >
       Ver&nbsp;<i class="fa fa-eye"></i></a>
     	
     	
@@ -293,7 +285,7 @@ function eliminar_atributo(id_atributo){
       Editar&nbsp;<i class="fa fa-edit"></i></a>
       
       
-      <a class="btn btn-danger btn-sm" data-toggle="modal" onclick="eliminar_atributo({{ atributo.id }})"data-target="#deleteAtributo"  href="#deleteAtributo" >
+      <a class="btn btn-danger btn-sm" data-toggle="modal" onclick="eliminar_atributo({{ atributo.id }})"data-target="#eliminarAtributo"  href="#eliminarAtributo" >
       Eliminar&nbsp;<i class="fa fa-trash-o"></i></a>
       
       </td>
@@ -370,6 +362,7 @@ function eliminar_atributo(id_atributo){
 	      
 	        <div id="tr-Archivo" style="display: none" class="tr-tipo">
 	     		 <label><b>{{ form.archivo.label }}</b> </label>
+	     		 <p id="link" ></p>
 	      		{{ form.archivo }}
 	      </div>
 	     
@@ -387,6 +380,11 @@ function eliminar_atributo(id_atributo){
 	    </div>
 	  </div>
 	</div>
+	
+	
+	
+	
+	
 
 <input type="hidden" name="accion" id="id_accion" value="">
 <input type="hidden" name="id_delete" id="id_delete" value="">
@@ -395,6 +393,29 @@ function eliminar_atributo(id_atributo){
 <input type="hidden"  id="id_ver" value="">
 	
 	
+
+	<div class="modal fade" id="eliminarAtributo" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="eliminarAtributoLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      <button type="button" id="btn-times-ver" style="display:none" class="close" onclick="cancel_delete()"   data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <button type="button" class="close"  id="btn-times" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="eliminarAtributoLabel"><b>Atributo</b></h4>
+	      </div>
+	      <div class="modal-body" >
+	      <div id="confirm-delete">
+	      </div>
+	  		
+	        <div class="modal-footer" id="btn-controls">
+	        <button type="button" class="btn btn-default" onclick="cancel_delete()"  data-dismiss="modal"> <i class="fa fa-times"></i> Cancelar</button>
+	        <button type="submit" class="btn btn-default btn-primary" onclick="final()">  Aceptar <i class="fa fa-check"></i></button>
+	        
+	      </div>
+	     
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 </form>
 <br><br>
@@ -411,4 +432,58 @@ function eliminar_atributo(id_atributo){
 	</script>
 
 
+
+	<div class="modal fade" id="verAtributo" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="verAtributoLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      <button type="button" id="btn-times-ver" style="display:none" class="close"    data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <button type="button" class="close"  id="btn-times" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="verAtributoLabel"><b>Atributo</b></h4>
+	      </div>
+	      <div class="modal-body">
+	      <table class="table table-striped">
+	      <tbody><tr>
+	      <th>Tipo Item:</th>
+	      <td>
+	      <input type="text" class="form-control" id="ver_tipo_item" readonly="readonly">
+	      </td></tr>
+	      <tr>
+	      		<th>Nombre </th>
+	      		<td><input class="form-control" id="ver_nombre" maxlength="40" name="nombre" required="required" type="text" readonly="readonly"></td>
+	      </tr>
+	      <tr>
+	      		<th>Tipo Atributo: </th>
+	      		<td><input type="text" class="form-control" readonly="readonly" id="ver_tipo_atributo"></td>
+	      </tr>
+	       <tr>
+	      		<th>Descripcion </th>
+	      		<td><textarea class="form-control" cols="40" id="ver_descripcion" rows="3" readonly="readonly"></textarea></td>
+	      </tr>
+	  
+	     
+	      </tbody>
+	      </table>
+	      <label for="ver_valor" >Valor</label>
+	      <input type="text" class="form-control" id="ver_valor" readonly="readonly" >
+	      
+	       </div>
+	       
+	       <div class="modal-footer" >
+	      
+	        <button type="button" class="btn btn-default"  data-dismiss="modal"> <i class="fa fa-times"></i> Salir</button>
+	        
+	      </div>
+	     
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
 {% endblock %}

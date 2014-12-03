@@ -144,6 +144,7 @@ INSTALLED_APPS = (
     'bootstrap_toolkit',
     'AdminFases',
     'AdminProyectos',
+    'AdminUsuarios',
     'AdminTipoItem',
     'AdminItems',
     'AdminLineaBase',
