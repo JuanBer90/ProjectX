@@ -19,5 +19,5 @@ class Miembro(models.Model):
         db_table='miembros'
     proyecto=models.ForeignKey(Proyecto)
     usuario=models.ForeignKey(User)
-    
+    comite=models.BooleanField(default=False)
     

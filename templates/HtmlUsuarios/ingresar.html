@@ -19,9 +19,15 @@ INGRESAR
     </a>
     <form id='formulario' method='post' action=''>{% csrf_token %}
 
-		<table class="table " >{{formulario.as_table}}</table>
+		<table class="table " >{{formulario.as_table}}
+		<tr>
+		
+		</tr>
+		</table>
          
 			<button class="btn btn-primary" type='submit'/>Aceptar <i class="fa fa-sign-in"></i></button>
+			<br><br>
+			<center><a href="/recuperar/">No recuerdo mi password!</a> </center>
 	</form>
   </div>
 </div>

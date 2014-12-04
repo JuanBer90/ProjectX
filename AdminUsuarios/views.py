@@ -1,4 +1,5 @@
 from django.db.models import Q 
+from django.contrib.auth.hashers  import make_password
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
@@ -11,6 +12,7 @@ from AdminUsuarios.forms import RegistrationForm, EditUserForm, SinginForm
 from django.contrib import messages
 from AdminProyectos.models import Proyecto
 from AdminUsuarios.models import Miembro
+from AdminUsuarios.send_email import  *
 
 
 def nuevo_usuario(request):
@@ -25,7 +27,11 @@ def nuevo_usuario(request):
     if request.method=='POST':
         formulario= RegistrationForm(request.POST)
         if formulario.is_valid():
-            formulario.save()
+            usuario=formulario.save(commit=False)
+            password=request.POST.get("password1",'')
+            SendMail(password=password,username=usuario.username,correo=usuario.email)
+            messages.success(request,"Usuario creado satisfactoriamente!")
+            messages.info(request,"Mensaje de Bienvenida enviado al usuario!")
             return HttpResponseRedirect('/usuarios')
     else:
         formulario= RegistrationForm(request.POST)
@@ -180,4 +186,41 @@ def miembros(request,id_proyecto):
                 {'objetos':usuarios,'page_range':paginator.page_range,'total':usuarios_list.count(),
                  'page':int(page),'no_miembros':no_miembros,'proyecto':proyecto,'buscar':buscar,'placeholder':'Username o Nombre'
                                                                 #'roles':roles
-                                                                }, RequestContext(request))
+                                                             }, RequestContext(request))
+
+def recuperar(request):
+    if request.method=="POST":
+        username=request.POST.get("username","")
+        if User.objects.filter(username=username).exists():
+            user=User.objects.get(username=username)
+            email=user.email
+            id_usuario=user.id
+            return HttpResponseRedirect('/reestablecer/'+str(id_usuario)+'/?correo='+email)
+            
+        else:
+            messages.warning(request,"Usuario "+username+" no existe!")
+    
+    return render_to_response('HtmlUsuarios/recuperar.html', {}, context_instance=RequestContext(request))
+
+
+def reestablecer_pass(request,id_user):
+    nuevo_pass= GenPasswd(5).upper()
+    usuario=User.objects.get(pk=id_user)
+    usuario.password=make_password(nuevo_pass)
+    usuario.save()
+    correo=request.GET.get("correo",'')
+    if correo !="":
+        SendPassword(password=nuevo_pass,username=request.user.username,correo=correo)
+        messages.success(request,"Password restablecido correctamente! Verifique su correo!")
+        return HttpResponseRedirect("/")
+    else:
+        messages.error(request,"Ha ocurrido un error, ingrese de vuelta su usuario!")
+        return HttpResponseRedirect('/recuperar/')
+
+import string
+from random import choice
+
+def GenPasswd(n):
+    return ''.join([choice(string.letters + string.digits) for i in range(n)])
+
+
