@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap_toolkit %}
+{% block title %}Recuperar Password{% endblock %}
+{% block header %}
+RECUPERAR PASSWORD
+{% endblock %}
+{% block content %}
+    <br>
+    
+    <center>
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+		<h2>Ingrese su nombre de usuario.</h2>
+		<input type="text" maxlength="30" name="username" style="width: 30%" class="form-control" required >
+		<br>
+		<a class="btn btn-default" href="/"> <i class="fa fa-backward"></i> Volver</a>
+		<button class="btn btn-primary" type='submit' >Enviar <i class="fa fa-envelope"></i></button>
+	
+
+	</form>
+    </center>
+{% endblock %}

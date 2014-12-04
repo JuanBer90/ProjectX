@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+
+{% block header %}
+ {{proyecto.nombre}}
+ 
+{% endblock %}
+{% block content %}
+<script>
+no_miembros=[]
+$(document).ready(function(){ 
+	
+	
+	{% for nm in no_miembros %}
+		var aux=[]
+		aux.push("{{ nm.id }}")
+		aux.push("{{ nm.username }}")
+		no_miembros.push(aux)
+	{% endfor %}
+	
+
+});
+
+function addMiembro(value){ 
+	
+	var table=document.getElementById('table-search')
+	while(table.rows.length >1){ 
+		table.deleteRow(1)
+	}
+	var string=""
+	var count=0
+	
+	 for (var i=0;i< no_miembros.length;i++){
+			if(i < 10 && no_miembros[i][1].indexOf(value) != -1){ 
+			var onclick="guardar("+no_miembros[i][0]+")"
+			string="<td style='width: 80%'>"+no_miembros[i][1]+"</td><td><button onclick='"+onclick+"' class='btn btn-primary btn-sm' >Agregar <i class='fa fa-check' ></i></button></td>"
+			 count++;
+			 var row=table.insertRow(count)
+			 row.innerHTML=string
+			}
+				
+	 	}
+  
+ $("#id_li").text(count.toString()+" de "+no_miembros.length.toString()+" Usuarios.")
+
+}
+function guardar(id_user){ 
+ $('#id_miembro').val(id_user)
+ $('#id_formulario').submit()
+
+}
+
+function confirm_delete(id_miembro){ 
+   $("#id_miembro_delete").val(id_miembro)
+	{% for dato in objetos %}
+		var miembro_id={{dato.id}}
+		if(id_miembro == miembro_id){
+			var texto="Esta seguro que desea eliminar al miembro <b>{{ dato.usuario.username }}</b> ?" 
+			$("#confirm-delete").html(texto)
+		
+		}
+	
+		{% endfor %}
+
+}
+</script>
+
+<ul class="nav nav-tabs">
+  <li ><a href="{% url 'AdminProyectos.views.mi_proyecto' proyecto.id %}">Mi Proyecto</a></li>
+  <li ><a href="{% url 'AdminFases.views.fases_proyecto' proyecto.id %}">Fases</a></li>
+  <li ><a href="{% url 'AdminTipoItem.views.tipoitem_proyecto' proyecto.id %}">Tipos Item</a></li>
+  <li ><a href="{% url 'AdminItems.views.items_proyecto' proyecto.id %}">Items</a></li>
+  <li ><a href="{% url 'AdminAtributos.views.atributo_admin' proyecto.id %}">Atributos</a></li>
+  <li ><a href="{% url 'AdminItems.views.relaciones_item' proyecto.id %}">Relaciones</a></li>
+  <li class="active" ><a href="{% url 'AdminUsuarios.views.miembros' proyecto.id %}">Miembros <i class="fa fa-users"></i></a></li>
+ 
+</ul>
+
+    <table style="width: 100%" >
+<td style="width: 50%">
+
+{% include 'menu/pagination.html' %}
+</td>
+    <td >
+{% include 'menu/search.html' %}
+
+</td>
+<td>
+
+  <a class="btn btn-success" onclick="addMiembro('')"  data-toggle="modal" data-target="#addMiembro"  href="#addMiembro" >
+      Nuevo Miembro <i class="fa fa-plus"></i></a>
+
+</td>
+
+</table>
+
+ <table id="table" class="table table-bordered table-condensed table-striped" >
+    <thead>
+        <th >USERNAME</th>
+        <th >EMAIL</th>
+        <th >NOMBRE</th>
+        <th >APELLIDO</th>
+
+
+        <th >ACCIÓN</th>
+    </thead>
+    {% for dato in objetos %}
+    <tr>
+	    <td >{{dato.usuario.username|capfirst}}</td>
+        <td><em>{{dato.usuario.email}}</em></td>
+        <td>{{ dato.usuario.first_name }}</td>
+        <td>{{ dato.usuario.last_name }}</td>
+
+
+        
+        <td>
+          <a  class="btn btn-danger  btn-sm"  onclick="confirm_delete({{ dato.id }})" data-toggle="modal" data-target="#deleteMiembro"  href="#deleteMiembro">Eliminar <i class="fa fa-trash-o"></i></a>
+              
+        </td>
+
+	</tr>
+	{% endfor %}
+ </table>
+
+
+<form method="post" id="id_formulario">{% csrf_token %}
+<input type="hidden" name="id_miembro_delete" id="id_miembro_delete" value="">
+<input type="hidden" name="id_miembro" id="id_miembro" value="">
+
+ <!-- Modal -->
+	<div class="modal fade" id="addMiembro" data-backdrop="static" data-keyboard="false"   style="top: 10%" role="dialog" aria-labelledby="addMiembroLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close"  onclick="$('#id_miembro_delete').val('')"  data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="addMiembroLabel"><b>Buscar Usuarios:</b></h4>
+	        <input type="text" id="id_search" onkeyup="addMiembro(this.value)" class="search form-control" placeholder="Username" >
+	        
+	      </div>
+	      <div class="modal-body">
+	        <li id="id_li" ></li>
+	      	
+	      	<table id="table-search" class="table table-hover table-bordered table-striped">
+	      	<thead>
+	      	<th>Username</th><th></th>
+	      	</thead>
+	      	</table>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal"> <i class="fa fa-times"></i> Salir	</button>
+	        
+	        
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+
+ <!-- Modal -->
+	<div class="modal fade" id="deleteMiembro" data-backdrop="static" data-keyboard="false"   style="top: 10%" role="dialog" aria-labelledby="deleteMiembroLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close"  onclick="$('#id_miembro_delete').val('')"  data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="deleteMiembroLabel"><b>Eliminar Miembro</b></h4>
+	      </div>
+	      <div class="modal-body">
+	      	<p id="confirm-delete"></p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" onclick="$('#id_miembro_delete').val('')" data-dismiss="modal"> <i class="fa fa-times"></i> Cancelar</button>
+	        <button type="submit" class="btn btn-default btn-primary" >  Aceptar <i class="fa fa-check"></i></button>
+	        
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+</form>
+
+<br><br><br>
+
+{% endblock %}

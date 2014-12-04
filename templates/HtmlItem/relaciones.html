@@ -1,0 +1,321 @@
+{% extends "base.html" %}
+{% load my_tags %}
+{% load dajaxice_templatetags %}
+{% block extrahead %}
+
+<script src="/static/dajaxice/dajaxice.core.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript"     src="/static/dajax/jquery.dajax.core.js"></script>
+{% endblock %}
+{% block header %}
+{{ proyecto.nombre }}
+{% endblock %}
+
+{% block content %}
+<script>
+function reset_values(){ 
+	var item1=document.getElementById("id_item1")
+	item1.options[0].selected="selected"
+	$("#id_item2").html("<option value=''>Seleccionar...</option>")
+
+}
+function set_values(select1){ 
+	var id_item=select1.options[select1.selectedIndex].value
+	var aux=document.getElementById("id_tipo")
+	var tipo=aux.options[aux.selectedIndex].value
+	var nro_fase=getFase(id_item)
+	if(tipo == "A/S"){ 
+		var options=getSucesores(nro_fase,id_item)
+	}else{ 
+		var options=getHijos(nro_fase,id_item)
+	}
+	var string="<option value=''>Seleccionar...</option>"
+	for (var i=0;i<options.length;i++){
+		string+="<option value='"+options[i][0]+"'>"+options[i][1]+"</option>" 
+	
+	}
+	$("#id_item2").html(string)
+	
+}
+function getFase(id_item){ 
+	
+	{% for item in items %}
+		var item_id={{item.id}}
+		if(item_id == id_item){ 
+			return {{ item.tipo_item.fase.numero }}
+		
+		} 
+	
+	{% endfor %}
+	
+}
+function getSucesores(nro_fase,id_item){
+	options=[] 
+	{% for item in items %}
+		var fase_nro={{ item.tipo_item.fase.numero}}
+		var item_id={{ item.id }}
+		if(nro_fase < fase_nro && item_id != id_item){ 
+			option=['{{item.id}}','{{ item.nombre }}']
+			options.push(option)
+		}	
+	{% endfor %}
+	return options
+}
+function getHijos(nro_fase,id_item){ 
+    
+	options=[] 
+	{% for item in items %}
+		var item_id={{ item.id }}
+		var fase_nro={{ item.tipo_item.fase.numero}}
+		if(nro_fase == fase_nro && item_id != id_item){ 
+			option=['{{item.id}}','{{ item.nombre }}']
+			options.push(option)
+		}	
+	{% endfor %}
+	return options
+}
+
+function editar_relacion(id_relacion){ 
+	$("#id_relacion").val(id_relacion)
+	{% for relacion in relaciones %}
+		var relacion_id={{ relacion.id }}
+		if(relacion_id == id_relacion){ 
+		
+			var tipo=document.getElementById("id_tipo")
+			
+			var relacion_tipo="{{ relacion.tipo }}"
+			
+			for(var i=0;i<tipo.options.length;i++){
+				if(tipo.options[i].value == relacion_tipo)
+					tipo.options[i].selected="selected"	
+			}
+			
+			$("#id_descripcion").val("{{ relacion.descripcion }}")
+			var string="<option value=''>Seleccionar...</option>"
+			{% for item in items %}
+				{% if item.id == relacion.item1_id %}
+					string+="<option value='{{ item.id }}' selected >{{ item.nombre }}</option>"
+				{% else %}
+					string+="<option value='{{ item.id }}'  >{{ item.nombre }}</option>"
+				{% endif %}
+			{% endfor %}
+			
+			$('#id_item1').html(string)
+			set_values(document.getElementById('id_item1'))
+			
+			var select2=document.getElementById('id_item2')
+			{% for item in items %}
+				{% if item.id == relacion.item2_id %}
+					var item2_id={{ item.id }}
+					for(var i=0;i<select2.options.length;i++){ 
+						if(item2_id == select2.options[i].value)
+							select2.options[i].selected="selected" 					
+					}
+					
+				{% endif %}
+			{% endfor %}
+			
+			
+		
+		}
+	{% endfor %}
+	
+}
+function confirm_delete(id_relacion){ 
+$("#id_relacion_delete").val(id_relacion)
+$("#id_item1").removeAttr("required")
+$("#id_item2").removeAttr("required")
+ {% for relacion in relaciones %}
+ 	var relacion_id={{relacion.id}} 
+ 	if( relacion_id == id_relacion){  
+ 		var string='Esta seguro que desea eliminar la relacion "{{relacion.get_tipo_display}}" entre <b>{{ relacion.item1.nombre }}</b> y <b>{{ relacion.item2.nombre }}</b>'
+		$("#confirm-delete").html(string)	 	
+ 	}
+ {% endfor %} 
+	
+
+
+
+}
+
+</script>
+
+
+
+<ul class="nav nav-tabs">
+  <li ><a href="{% url 'AdminProyectos.views.mi_proyecto' proyecto.id %}">Mi Proyecto</a></li>
+  <li ><a href="{% url 'AdminFases.views.fases_proyecto' proyecto.id %}">Fases</a></li>
+  <li ><a href="{% url 'AdminTipoItem.views.tipoitem_proyecto' proyecto.id %}">Tipos Item</a></li>
+  <li><a href="{% url 'AdminItems.views.items_proyecto' proyecto.id %}">Items</a></li>
+  <li ><a href="{% url 'AdminAtributos.views.atributo_admin' proyecto.id %}">Atributos</a></li>
+    <li  class="active" ><a href="{% url 'AdminItems.views.relaciones_item' proyecto.id %}">Relaciones</a></li>
+	<li  ><a href="{% url 'AdminUsuarios.views.miembros' proyecto.id %}">Miembros</a></li>
+</ul>
+
+
+
+<center>
+<form class="navbar-form " role="search">
+<br>
+ <table style="width: 100%" >
+ <td>
+ {% include 'menu/pagination.html' %}
+ </td>
+<td>
+        <div class="form-group">
+          <input type="text" maxlength="30" class="form-control" 
+          placeholder="{{ placeholder }}"  style="width: 65%" name="buscar">
+         <button type="submit" class="btn btn-primary">Buscar&nbsp;<i class="fa fa-search"></i></button>
+        </div>
+</td>
+<td>
+
+ <div class="form-group">
+         <select name="filtro-tipo" class="form-control" style="width: 210px" >
+		<option value="">Todos...</option>
+		{% for value,tipo in tipo_relacion %}
+	    	  <option value="{{ value }}">{{tipo}}</option>
+	      {% endfor %}
+	</select>
+        <button type="submit"  class="btn btn-primary">Filtrar <i class="fa fa-filter"></i></button>
+        </div>
+
+
+</td>
+
+<td>
+<a class="btn btn-success" data-toggle="modal" data-target="#addRelacion" href="#addRelacion" >
+       Crear Relacion&nbsp;<i class="fa fa-plus"></i></a>
+</td>
+</table>
+
+</form>
+</center>
+
+<form method='post' name="form1" id="formulario">{% csrf_token %}
+ <table class="table table-bordered table-condensed table-striped table-hover" style="width: 100%">
+    <thead>
+
+        <th style="width: 15%">Item 1</th>
+        <th style="width: 15%">Item 2</th>
+           <th style="width: 15%">Tipo Relacion</th>
+           <th>Descripcion</th>
+        <th style="width: 20%"  >Accion</th>
+        
+    </thead>
+    {% for relacion in relaciones %}
+    
+    <tr>
+    	<td>{{ relacion.item1 }}   </td>
+     	<td>{{ relacion.item2 }}   </td>
+    	<td>{{ relacion.get_tipo_display }}   </td>
+    	<td>{{ relacion.descripcion }}   </td>
+    	<td>
+    
+    	
+    	
+    	<a class="btn btn-warning btn-sm" data-toggle="modal" onclick="editar_relacion({{ relacion.id }})"data-target="#addRelacion"  href="#addRelacion" >
+      Editar&nbsp;<i class="fa fa-edit"></i></a>
+      	
+    	<a class="btn btn-danger btn-sm" data-toggle="modal" onclick="confirm_delete({{ relacion.id }})"data-target="#deleteRelacion"  href="#addRelacion" >
+      Eliminar&nbsp;<i class="fa fa-trash-o"></i></a>
+     
+      </td>
+	</tr>
+	{% endfor %}
+ </table>
+
+
+ 
+<input type="hidden" name="id_relacion" id="id_relacion" value="">
+
+ <!-- Modal -->
+	<div class="modal fade" id="addRelacion" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="addRelacionLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close"  data-dismiss="modal" onclick="$('id_relacion').val('')" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="addRelacionLabel"><b>Item</b></h4>
+	      </div>
+	      <div class="modal-body">
+	      <table class="table table-striped">
+	      <tr>
+		      <th>Relacion:</th>
+		      <td>
+				 <select  class="form-control" onchange="reset_values()" id="id_tipo" name="tipo" style="width: 210px" >
+				 		
+						{% for value,tipo in tipo_relacion %}
+					    	  <option value="{{ value }}">{{tipo}}</option>
+					      {% endfor %}
+					</select>	      
+		      </td>
+	      </tr>
+	      <tr>
+		      <th>Item 1:</th>
+		      <td>
+		      
+		      <select class="form-control" onchange="set_values(this)" id="id_item1" name="item1" required >
+		      <option value="" selected >Seleccionar..</option> 
+		      {% for item in items %}
+		      <option value="{{ item.id }}" >{{ item.nombre }}</option>
+		      {% endfor %}
+		       </select>
+		       </td>
+	      </tr>
+	       <tr>
+		      <th>Item 2:</th>
+		      <td>
+		      <select class="form-control" id="id_item2" name="item2" required>  
+		      <option value="" selected >Seleccionar..</option>
+		      
+		         </select>
+	      </tr>
+	      
+	      <tr>
+	      <th>Descripcion: </th>
+	      <td>
+	      	<textarea class="form-control" maxlength="200" name="descripcion" id="id_descripcion"></textarea>
+	      	
+	      </td>
+	      </tr>
+	      
+	      </table>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" onclick="$('id_relacion').val('')" data-dismiss="modal"> <i class="fa fa-times"></i> Cancelar</button>
+	        <button type="submit" class="btn btn-default btn-primary" >  Aceptar <i class="fa fa-check"></i></button>
+	        
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<input type="hidden" id="id_relacion_delete" name="id_relacion_delete" vale="">
+	 <!-- Modal -->
+	<div class="modal fade" id="deleteRelacion" data-backdrop="static" data-keyboard="false"   style="top: 10%" role="dialog" aria-labelledby="deleteRelacionLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close"  onclick="$('#id_relacion_delete').val('')"  data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="deleteRelacionLabel"><b>Eliminar Relacion</b></h4>
+	      </div>
+	      <div class="modal-body">
+	      	<p id="confirm-delete"></p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" onclick="$('#id_relacion_delete').val('')" data-dismiss="modal"> <i class="fa fa-times"></i> Cancelar</button>
+	        <button type="submit" class="btn btn-default btn-primary" >  Aceptar <i class="fa fa-check"></i></button>
+	        
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+
+</form>
+
+<br><br>
+
+
+
+
+{% endblock %}
